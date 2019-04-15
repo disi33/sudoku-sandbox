@@ -1,0 +1,83 @@
+.cell {
+    width: 13mm;
+    height: 13mm;
+    border: 1px solid black;
+    box-sizing: border-box;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell__value {
+    font-size: 29pt;
+}
+
+.cell__candidates, .cell__pm {
+    font-size: 9pt;
+}
+
+.cell--border-u {
+    border-top: 3px solid black;
+}
+
+.cell--border-r {
+    border-right: 3px solid black;
+}
+
+.cell--border-d {
+    border-bottom: 3px solid black;
+}
+
+.cell--border-l {
+    border-left: 3px solid black;
+}
+
+.cell__pm {
+    position: absolute;
+}
+
+.cell__pm--ul {
+    left: 5%;
+    top: 0%;
+}
+
+.cell__pm--ur {
+    right: 5%;
+    top: 0%;
+}
+
+.cell__pm--dl {
+    left: 5%;
+    bottom: 0%;
+}
+
+.cell__pm--dr {
+    right: 5%;
+    bottom: 0%;
+}
+
+.cell__pm--uu {
+    left: 50%;
+    top: 0%;
+    transform: translateX(-50%);
+}
+
+.cell__pm--dd {
+    left: 50%;
+    bottom: 0%;
+    transform: translateX(-50%);
+}
+
+.cell__pm--ll {
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.cell__pm--rr {
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
