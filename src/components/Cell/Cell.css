@@ -1,7 +1,6 @@
 .cell {
     width: 13mm;
     height: 13mm;
-    border: 1px solid black;
     box-sizing: border-box;
     position: relative;
 
@@ -19,18 +18,34 @@
 }
 
 .cell--border-u {
-    border-top: 3px solid black;
+    border-top: 1px solid black;
 }
 
 .cell--border-r {
-    border-right: 3px solid black;
+    border-right: 1px solid black;
 }
 
 .cell--border-d {
-    border-bottom: 3px solid black;
+    border-bottom: 1px solid black;
 }
 
 .cell--border-l {
+    border-left: 1px solid black;
+}
+
+.cell--border-U {
+    border-top: 3px solid black;
+}
+
+.cell--border-R {
+    border-right: 3px solid black;
+}
+
+.cell--border-D {
+    border-bottom: 3px solid black;
+}
+
+.cell--border-L {
     border-left: 3px solid black;
 }
 

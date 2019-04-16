@@ -14,7 +14,7 @@ export default function Cell({ coords: { row, col }, value, borders, candidates,
 }
 
 const borderClasses = borders => 
-    borders.map(side => `cell--border-${side}`).join(' ');
+    borders.map(b => `cell--border-${b}`).join(' ');
 
 const pencilMarkModifiers = [
     'ul', 'ur', 'dl', 'dr', 'uu', 'dd', 'll', 'rr',

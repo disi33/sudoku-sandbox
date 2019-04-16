@@ -10,9 +10,13 @@ export default function Grid({ grid: { cells, regions, decorations }, grid }) {
     console.log(borders);
     return (
         <div className="grid">
-            {cells.map((row, idx) => row.map((cell, jdx) =>
-                <Cell {...cell} coords={{ row: idx, col: jdx }} borders={borders[idx][jdx]}></Cell>
-            ))}
+            {cells.map((row, idx) => 
+                <div class="grid__row">
+                    {row.map((cell, jdx) =>
+                        <Cell {...cell} coords={{ row: idx, col: jdx }} borders={borders[idx][jdx]}></Cell>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
@@ -26,30 +30,31 @@ const reverseRegionsSelector = createSelector(
         regions.forEach((region, idx) =>
             region.forEach(([row, col]) => reverseRegions[row][col] = idx)
         );
+        console.log(reverseRegions);
         return reverseRegions;
     }
 )
 
-const shouldHaveTopBorder = (row, col, reverseRegions) =>
-    row === 0 && reverseRegions[row][col] !== reverseRegions[reverseRegions.length - 1][col];
+const topBorder = (row, col, reverseRegions) =>
+    row === 0 ? reverseRegions[row][col] !== reverseRegions[reverseRegions.length - 1][col] ? 'U' : 'u' : '';
 
-const shouldHaveLeftBorder = (row, col, reverseRegions) =>
-    col === 0 && reverseRegions[row][col] !== reverseRegions[row][reverseRegions[row].length - 1];
+const leftBorder = (row, col, reverseRegions) =>
+    col === 0 ? reverseRegions[row][col] !== reverseRegions[row][reverseRegions[row].length - 1] ? 'L' : 'l' : '';
 
-const shouldHaveBottomBorder = (row, col, reverseRegions) =>
-    row < reverseRegions.length - 1 && reverseRegions[row][col] !== reverseRegions[row + 1][col];
+const bottomBorder = (row, col, reverseRegions) =>
+    reverseRegions[row][col] !== reverseRegions[(row + 1) % reverseRegions.length][col] ? 'D' : 'd';
 
-const shouldHaveRightBorder = (row, col, reverseRegions) =>
-    row < reverseRegions[row].length - 1 && reverseRegions[row][col] !== reverseRegions[row][col + 1];
+const rightBorder = (row, col, reverseRegions) =>
+    reverseRegions[row][col] !== reverseRegions[row][(col + 1) % reverseRegions[row].length] ? 'R' : 'r';
 
 const bordersFor = (row, col, reverseRegions) => {
-    let borders = [
-        shouldHaveTopBorder(row, col, reverseRegions) && 'u',
-        shouldHaveLeftBorder(row, col, reverseRegions) && 'l',
-        shouldHaveBottomBorder(row, col, reverseRegions) && 'r',
-        shouldHaveBottomBorder(row, col, reverseRegions) && 'd',
+    const borders = [
+        topBorder(row, col, reverseRegions),
+        leftBorder(row, col, reverseRegions),
+        bottomBorder(row, col, reverseRegions),
+        rightBorder(row, col, reverseRegions),
     ];
-    return borders.filter(b => b !== false);
+    return borders.filter(b => b !== '');
 }
 
 export const bordersSelector = createSelector(
