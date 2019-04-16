@@ -54,6 +54,6 @@ const toroidalGrid = {
 }
 
 storiesOf('Grid', module)
-    .add('classic', () => <Grid grid={emptyGrid}></Grid>)
-    .add('irregular', () => <Grid grid={irregularGrid}></Grid>)
-    .add('toroidal', () => <Grid grid={toroidalGrid}></Grid>);
+    .add('classic', () => <Grid grid={emptyGrid} cellSize={50}></Grid>)
+    .add('irregular', () => <Grid grid={irregularGrid} cellSize={50}></Grid>)
+    .add('toroidal', () => <Grid grid={toroidalGrid} cellSize={50}></Grid>);

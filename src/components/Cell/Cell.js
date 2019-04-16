@@ -1,9 +1,9 @@
 import React from 'react';
 import './Cell.css';
 
-export default function Cell({ coords: { row, col }, value, borders, candidates, pencilMarks }) {
+export default function Cell({ size, value, borders, candidates, pencilMarks }) {
     return (
-        <div className={"cell " + borderClasses(borders)}>
+        <div className={"cell " + borderClasses(borders)} style={{width: size, height: size}}>
             {value && <span className="cell__value">{value}</span>}
             {!value && pencilMarks.map((pm, idx) =>
                 <span key={idx} className={"cell__pm cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>

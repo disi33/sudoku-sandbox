@@ -2,24 +2,33 @@ import React from 'react';
 import { createSelector } from 'reselect';
 
 import Cell from '../Cell/Cell';
+import Line from '../Line/Line';
 
 import './Grid.css';
 
-export default function Grid({ grid: { cells, regions, decorations }, grid }) {
+export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     const borders = bordersSelector(grid);
-    console.log(borders);
     return (
-        <div className="grid">
+        <div className="grid" style={{margin: cellSize * 1.5}}>
             {cells.map((row, idx) => 
                 <div class="grid__row">
                     {row.map((cell, jdx) =>
-                        <Cell {...cell} coords={{ row: idx, col: jdx }} borders={borders[idx][jdx]}></Cell>
+                        <Cell {...cell} size={cellSize} borders={borders[idx][jdx]}></Cell>
                     )}
                 </div>
+            )}
+            {decorations.map(decoration =>
+                renderDecoration(cellSize)(decoration)
             )}
         </div>
     );
 }
+
+const renderDecoration = cellSize => decoration => {
+    switch (decoration.type) {
+        case 'LINE': return <Line {...decoration} cellSize={cellSize}></Line>
+    }
+};
 
 const sizeSelector = grid => grid.cells.length;
 const regionsSelector = grid => grid.regions;
@@ -30,10 +39,9 @@ const reverseRegionsSelector = createSelector(
         regions.forEach((region, idx) =>
             region.forEach(([row, col]) => reverseRegions[row][col] = idx)
         );
-        console.log(reverseRegions);
         return reverseRegions;
     }
-)
+);
 
 const topBorder = (row, col, reverseRegions) =>
     row === 0 ? reverseRegions[row][col] !== reverseRegions[reverseRegions.length - 1][col] ? 'U' : 'u' : '';
@@ -55,7 +63,7 @@ const bordersFor = (row, col, reverseRegions) => {
         rightBorder(row, col, reverseRegions),
     ];
     return borders.filter(b => b !== '');
-}
+};
 
 export const bordersSelector = createSelector(
     sizeSelector, reverseRegionsSelector, (size, reverseRegions) =>

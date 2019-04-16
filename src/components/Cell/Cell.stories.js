@@ -5,7 +5,7 @@ import Cell from './Cell';
 import './Cell.css';
 
 const defaultCellProps = {
-    coords: {row: 0, col: 0},
+    size: 50,
     value: undefined,
     borders: ['u', 'r', 'd', 'l'],
     candidates: [],
