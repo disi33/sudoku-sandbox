@@ -66,8 +66,33 @@ const wonkyRenbanGroup = [
     },
 ];
 
+const stainedGlassWindow = [
+    {
+        ...shadeDefaults,
+        origin: [2, 1],
+        width: 5,
+        height: 1,
+        color: '#C3447A',
+    },
+    {
+        ...shadeDefaults,
+        origin: [2, 1],
+        width: 1,
+        height: 7,
+        color: '#C3447A',
+    },
+    {
+        ...shadeDefaults,
+        origin: [2, 4],
+        width: 4,
+        height: 1,
+        color: '#C3447A',
+    },
+];
+
 storiesOf('Shade', module)
     .add('single cell', () => <Grid grid={{...emptyGrid, decorations: [singleCellShade]}} cellSize={cellSize}></Grid>)
     .add('window', () => <Grid grid={{...emptyGrid, decorations: [windowShade]}} cellSize={cellSize}></Grid>)
     .add('inset duo', () => <Grid grid={{...emptyGrid, decorations: [insetDuoShade]}} cellSize={cellSize}></Grid>)
-    .add('bent renban group', () => <Grid grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>);
+    .add('bent renban group', () => <Grid grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>)
+    .add('stained glass window', () => <Grid grid={{...emptyGrid, decorations: [...stainedGlassWindow]}} cellSize={cellSize}></Grid>);

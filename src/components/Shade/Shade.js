@@ -8,8 +8,8 @@ export default function Shade(props) {
 }
 
 const shadeStyling = ({ cellSize, origin: [x, y], width, height, color }) => ({
-    top: cellSize * x,
-    left: cellSize * y,
+    left: cellSize * x,
+    top: cellSize * y,
     width: cellSize * width,
     height: cellSize * height,
     backgroundColor: color,
