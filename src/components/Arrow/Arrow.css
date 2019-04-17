@@ -1,0 +1,4 @@
+.arrow-body, .arrow-head {
+    position: absolute;
+    z-index: 0;
+}

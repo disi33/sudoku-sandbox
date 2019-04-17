@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 
 import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
+import Arrow from '../Arrow/Arrow';
 
 import './Grid.css';
 
@@ -27,6 +28,7 @@ export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
 const renderDecoration = cellSize => decoration => {
     switch (decoration.type) {
         case 'LINE': return <Line {...decoration} cellSize={cellSize}></Line>
+        case 'ARROW': return <Arrow {...decoration} cellSize={cellSize}></Arrow>
     }
 };
 

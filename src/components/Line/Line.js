@@ -23,7 +23,6 @@ const positionStyleAttributes = ([start_x, start_y], [end_x, end_y], thickness) 
         height: thickness,
         transform: `rotate(${angle}deg)`,
         WebkitTransform: `rotate(${angle}deg)`,
-        msTransform: `rotate(${angle}deg)`,
     };
 };
 
