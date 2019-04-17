@@ -27,7 +27,6 @@ const emptyGrid = {
 
 const arrowDefaults = {
     type: 'ARROW',
-    cellSize: cellSize,
     color: '#CFCFCF',
     thickness: 5,
     headLength: 15,

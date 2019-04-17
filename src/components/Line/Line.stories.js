@@ -27,7 +27,6 @@ const emptyGrid = {
 
 const lineDefaults = {
     type: 'LINE',
-    cellSize: cellSize,
     color: '#CFCFCF',
     thickness: 5,
 };
