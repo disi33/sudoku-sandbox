@@ -8,7 +8,7 @@ export default function Line({ cellSize, wayPoints, color, thickness }) {
             {scaledUpWayPoints.slice(1).map((wayPoint, idx) => {
                 const isStart = idx === 0;
                 const isEnd = idx === wayPoints.length - 2;
-                const [start, end] = calculateCoordinates(scaledUpWayPoints[idx], wayPoint, thickness, isStart, isEnd);
+                const [start, end] = calculateCoordinates(scaledUpWayPoints[idx], wayPoint, thickness, isStart || isEnd);
                 console.log(wayPoints[idx], wayPoint, isStart, isEnd, start, end);
                 return <div class="line" key={idx} style={styleAttributes({ start, end, color, thickness})}></div>;
             })}
@@ -16,13 +16,14 @@ export default function Line({ cellSize, wayPoints, color, thickness }) {
     );
 }
 
-const calculateCoordinates = ([start_x, start_y], [end_x, end_y], thickness, isStart, isEnd) => {
+const calculateCoordinates = ([start_x, start_y], [end_x, end_y], thickness, isBoundary) => {
+    
     const length = Math.sqrt((end_x - start_x) * (end_x - start_x) + (end_y - start_y) * (end_y - start_y));
 
-    const start_dx = isStart ? 0 : (start_x - end_x) * thickness / length / 2;
-    const start_dy = isStart ? 0 : (start_y - end_y) * thickness / length / 2;
-    const end_dx = isEnd ? 0 : (end_x - start_x) * thickness / length / 2;
-    const end_dy = isEnd ? 0 : (end_y - start_y) * thickness / length / 2;
+    const start_dx = isBoundary ? 0 : (start_x - end_x) * thickness / length / 2.4;
+    const start_dy = isBoundary ? 0 : (start_y - end_y) * thickness / length / 2.4;
+    const end_dx = isBoundary ? 0 : (end_x - start_x) * thickness / length / 2.4;
+    const end_dy = isBoundary ? 0 : (end_y - start_y) * thickness / length / 2.4;
 
     return [
         [start_x + start_dx, start_y + start_dy],
