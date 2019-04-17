@@ -1,9 +1,13 @@
 import React from 'react';
 import './Line.css';
 
-export default function Line(props) {
+export default function Line({ cellSize, wayPoints, color, thickness }) {
     return (
-        <div class="line" style={styleAttributes(props)}></div>
+        <div>
+            {wayPoints.slice(1).map((wayPoint, idx) => 
+                <div class="line" key={idx} style={styleAttributes({ cellSize, start: wayPoints[idx], end: wayPoint, color, thickness})}></div>
+            )}
+        </div>
     );
 }
 
