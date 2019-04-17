@@ -9,7 +9,7 @@ export default function Line(props) {
 
 const positionStyleAttributes = ([start_x, start_y], [end_x, end_y], thickness) => {
     const [centre_x, centre_y] = [(start_x + end_x) / 2, (start_y + end_y) / 2];
-    const length = Math.sqrt((end_x - start_x) * (end_x - start_x) + (end_y - start_y) * (end_y - start_y));
+    const length = Math.sqrt((end_x - start_x) * (end_x - start_x) + (end_y - start_y) * (end_y - start_y)) + thickness;
     const angle = Math.atan2(end_y - start_y, end_x - start_x) * 180 / Math.PI;
 
     return {
@@ -23,10 +23,10 @@ const positionStyleAttributes = ([start_x, start_y], [end_x, end_y], thickness) 
     };
 };
 
-const styleAttributes = ({ cellSize, start, end, color, opacity, thickness }) => (
+const styleAttributes = ({ cellSize, start, end, color, thickness }) => (
     {
         ... positionStyleAttributes(start.map(x => x * cellSize), end.map(x => x * cellSize), thickness),
         backgroundColor: color,
-        opacity: opacity,
+        borderRadius: thickness,
     }
 );

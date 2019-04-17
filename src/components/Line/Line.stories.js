@@ -25,26 +25,71 @@ const emptyGrid = {
     decorations: []
 };
 
-const horizontalLine = {
+const lineDefaults = {
     type: 'LINE',
     cellSize: cellSize,
+    color: '#BFBFBF',
+    thickness: 5,
+};
+
+const horizontalLine = {
+    ...lineDefaults,
     start: [0.5, 4.5],
     end: [8.5, 4.5],
-    color: '#000000',
-    opacity: 0.25,
-    thickness: 3,
 };
 
 const verticalLine = {
-    type: 'LINE',
-    cellSize: cellSize,
+    ...lineDefaults,
     start: [4.5, 0.5],
     end: [4.5, 8.5],
-    color: '#000000',
-    opacity: 0.25,
-    thickness: 3,
 };
 
+const diagonalLine = {
+    ...lineDefaults,
+    start: [0.5, 0.5],
+    end: [8.5, 8.5],
+};
+
+const zigZagLines = [
+    {
+        ...lineDefaults,
+        start: [4.5, 2.5],
+        end: [2.5, 0.5],
+    },
+    {
+        ...lineDefaults,
+        start: [2.5, 0.5],
+        end: [2.5, 1.5],
+    },
+    {
+        ...lineDefaults,
+        start: [2.5, 1.5],
+        end: [1.5, 2.5],
+    },
+    {
+        ...lineDefaults,
+        start: [1.5, 2.5],
+        end: [1.5, 3.5],
+    },
+    {
+        ...lineDefaults,
+        start: [1.5, 3.5],
+        end: [0.5, 4.5],
+    },
+    {
+        ...lineDefaults,
+        start: [0.5, 4.5],
+        end: [1.5, 5.5],
+    },
+    {
+        ...lineDefaults,
+        start: [1.5, 5.5],
+        end: [3.5, 3.5],
+    },
+];
+
 storiesOf('Line', module)
-    .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalLine]}} cellSize={50}></Grid>)
-    .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalLine]}} cellSize={50}></Grid>);
+    .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalLine]}} cellSize={cellSize}></Grid>)
+    .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalLine]}} cellSize={cellSize}></Grid>)
+    .add('diagonal', () => <Grid grid={{...emptyGrid, decorations: [diagonalLine]}} cellSize={cellSize}></Grid>)
+    .add('zigzag', () => <Grid grid={{...emptyGrid, decorations: zigZagLines}} cellSize={cellSize}></Grid>);
