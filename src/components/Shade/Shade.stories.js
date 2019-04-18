@@ -48,7 +48,7 @@ const insetDuoShade = {
     ...shadeDefaults,
     origin: [3.1, 2.1],
     width: 1.8,
-    height: 0.8,
+    height: 0.76,
 };
 
 const wonkyRenbanGroup = [
