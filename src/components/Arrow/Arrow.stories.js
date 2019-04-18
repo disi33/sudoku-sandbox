@@ -52,14 +52,24 @@ const zigZagArrow = {
     wayPoints: [[4.5, 2.5], [2.5, 0.5], [2.5, 1.5], [1.5, 2.5], [1.5, 3.5], [0.5, 4.5], [1.5, 5.5], [3.5, 3.5]],
 };
 
-const rossiniArrow = {
-    ...arrowDefaults,
-    wayPoints: [[-1, 0.5], [0, 0.5]],
-};
+const rossiniArrows = [
+    {
+        ...arrowDefaults,
+        wayPoints: [[-1, 0.5], [0, 0.5]],
+    },
+    {
+        ...arrowDefaults,
+        wayPoints: [[0, 1.5], [-1, 1.5]],
+    },
+    {
+        ...arrowDefaults,
+        wayPoints: [[-1, 2.5], [0, 2.5]],
+    },
+];
 
 storiesOf('Arrow', module)
     .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalArrow]}} cellSize={cellSize}></Grid>)
     .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalArrow]}} cellSize={cellSize}></Grid>)
     .add('diagonal', () => <Grid grid={{...emptyGrid, decorations: [diagonalArrow]}} cellSize={cellSize}></Grid>)
     .add('zigzag', () => <Grid grid={{...emptyGrid, decorations: [zigZagArrow]}} cellSize={cellSize}></Grid>)
-    .add('rossini', () => <Grid grid={{...emptyGrid, decorations: [rossiniArrow]}} cellSize={cellSize}></Grid>);
+    .add('rossini', () => <Grid grid={{...emptyGrid, decorations: [...rossiniArrows]}} cellSize={cellSize}></Grid>);
