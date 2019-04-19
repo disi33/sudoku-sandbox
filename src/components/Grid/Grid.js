@@ -4,7 +4,8 @@ import { createSelector } from 'reselect';
 import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
 import Arrow from '../Arrow/Arrow';
-import Rectangle from '../Rectangle/Rectangle';
+import Underlay from '../Underlay/Underlay';
+import Circle from '../Circle/Circle';
 
 import './Grid.css';
 
@@ -30,9 +31,9 @@ export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
 
 const renderDecoration = cellSize => (decoration, key) => {
     switch (decoration.type) {
-        case 'LINE': return <Line key={key} {...decoration} cellSize={cellSize}></Line>
-        case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>
-        case 'RECTANGLE': return <Rectangle key={key} {...decoration} cellSize={cellSize}></Rectangle>
+        case 'LINE': return <Line key={key} {...decoration} cellSize={cellSize}></Line>;
+        case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>;
+        case 'UNDERLAY': return <Underlay key={key} {...decoration} cellSize={cellSize}></Underlay>;
     }
 };
 

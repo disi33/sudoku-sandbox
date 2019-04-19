@@ -26,28 +26,29 @@ const emptyGrid = {
     decorations: []
 };
 
-const rectangleDefaults = {
-    type: 'RECTANGLE',
+const underlayDefaults = {
+    type: 'UNDERLAY',
     color: '#CFCFCF',
     filled: true,
+    rounded: false,
 };
 
 const singleCell = {
-    ...rectangleDefaults,
+    ...underlayDefaults,
     origin: [4, 4],
     width: 1,
     height: 1,
 };
 
 const window = {
-    ...rectangleDefaults,
+    ...underlayDefaults,
     origin: [1, 1],
     width: 3,
     height: 3,
 };
 
 const insetDuo = {
-    ...rectangleDefaults,
+    ...underlayDefaults,
     origin: [3.1, 2.1],
     width: 1.8,
     height: 0.76,
@@ -55,13 +56,13 @@ const insetDuo = {
 
 const wonkyRenbanGroup = [
     {
-        ...rectangleDefaults,
+        ...underlayDefaults,
         origin: [0.12, 0.12],
         width: 2.76,
         height: 0.78,
     },
     {
-        ...rectangleDefaults,
+        ...underlayDefaults,
         origin: [0.12, 0.12],
         width: 0.78,
         height: 2.76,
@@ -70,21 +71,21 @@ const wonkyRenbanGroup = [
 
 const stainedGlassWindow = [
     {
-        ...rectangleDefaults,
+        ...underlayDefaults,
         origin: [2, 1],
         width: 5,
         height: 1,
         color: '#C3447A',
     },
     {
-        ...rectangleDefaults,
+        ...underlayDefaults,
         origin: [2, 1],
         width: 1,
         height: 7,
         color: '#C3447A',
     },
     {
-        ...rectangleDefaults,
+        ...underlayDefaults,
         origin: [2, 4],
         width: 4,
         height: 1,
@@ -92,10 +93,13 @@ const stainedGlassWindow = [
     },
 ];
 
-storiesOf('Rectangle', module)
+storiesOf('Underlay', module)
     .add('single cell', () => <Grid grid={{...emptyGrid, decorations: [singleCell]}} cellSize={cellSize}></Grid>)
     .add('window', () => <Grid grid={{...emptyGrid, decorations: [window]}} cellSize={cellSize}></Grid>)
     .add('inset duo', () => <Grid grid={{...emptyGrid, decorations: [insetDuo]}} cellSize={cellSize}></Grid>)
     .add('bent renban group', () => <Grid grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>)
     .add('stained glass window', () => <Grid grid={{...emptyGrid, decorations: [...stainedGlassWindow]}} cellSize={cellSize}></Grid>)
-    .add('unfilled', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, filled: false}]}} cellSize={cellSize}></Grid>);
+    .add('unfilled', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, filled: false}]}} cellSize={cellSize}></Grid>)
+    .add('single cell rounded', () => <Grid grid={{...emptyGrid, decorations: [{...singleCell, rounded: true}]}} cellSize={cellSize}></Grid>)
+    .add('inset duo rounded', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, rounded: true}]}} cellSize={cellSize}></Grid>)
+    .add('unfilled rounded', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, filled: false, rounded: true}]}} cellSize={cellSize}></Grid>);

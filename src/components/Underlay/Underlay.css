@@ -1,11 +1,7 @@
-.rectangle {
+.underlay {
     position: absolute;
     z-index: 0;
 
     box-sizing: border-box;
     border: 2px solid;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
