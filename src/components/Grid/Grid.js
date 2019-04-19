@@ -5,7 +5,6 @@ import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
 import Arrow from '../Arrow/Arrow';
 import Underlay from '../Underlay/Underlay';
-import Circle from '../Circle/Circle';
 
 import './Grid.css';
 
