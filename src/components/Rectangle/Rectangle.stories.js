@@ -22,30 +22,32 @@ const emptyGrid = {
         [[3, 6], [3, 7], [3, 8], [4, 6], [4, 7], [4, 8], [5, 6], [5, 7], [5, 8]],
         [[6, 6], [6, 7], [6, 8], [7, 6], [7, 7], [7, 8], [8, 6], [8, 7], [8, 8]],
     ],
+    cages: [],
     decorations: []
 };
 
-const shadeDefaults = {
-    type: 'SHADE',
+const rectangleDefaults = {
+    type: 'RECTANGLE',
     color: '#CFCFCF',
+    filled: true,
 };
 
-const singleCellShade = {
-    ...shadeDefaults,
+const singleCell = {
+    ...rectangleDefaults,
     origin: [4, 4],
     width: 1,
     height: 1,
 };
 
-const windowShade = {
-    ...shadeDefaults,
+const window = {
+    ...rectangleDefaults,
     origin: [1, 1],
     width: 3,
     height: 3,
 };
 
-const insetDuoShade = {
-    ...shadeDefaults,
+const insetDuo = {
+    ...rectangleDefaults,
     origin: [3.1, 2.1],
     width: 1.8,
     height: 0.76,
@@ -53,13 +55,13 @@ const insetDuoShade = {
 
 const wonkyRenbanGroup = [
     {
-        ...shadeDefaults,
+        ...rectangleDefaults,
         origin: [0.12, 0.12],
         width: 2.76,
         height: 0.78,
     },
     {
-        ...shadeDefaults,
+        ...rectangleDefaults,
         origin: [0.12, 0.12],
         width: 0.78,
         height: 2.76,
@@ -68,21 +70,21 @@ const wonkyRenbanGroup = [
 
 const stainedGlassWindow = [
     {
-        ...shadeDefaults,
+        ...rectangleDefaults,
         origin: [2, 1],
         width: 5,
         height: 1,
         color: '#C3447A',
     },
     {
-        ...shadeDefaults,
+        ...rectangleDefaults,
         origin: [2, 1],
         width: 1,
         height: 7,
         color: '#C3447A',
     },
     {
-        ...shadeDefaults,
+        ...rectangleDefaults,
         origin: [2, 4],
         width: 4,
         height: 1,
@@ -90,9 +92,10 @@ const stainedGlassWindow = [
     },
 ];
 
-storiesOf('Shade', module)
-    .add('single cell', () => <Grid grid={{...emptyGrid, decorations: [singleCellShade]}} cellSize={cellSize}></Grid>)
-    .add('window', () => <Grid grid={{...emptyGrid, decorations: [windowShade]}} cellSize={cellSize}></Grid>)
-    .add('inset duo', () => <Grid grid={{...emptyGrid, decorations: [insetDuoShade]}} cellSize={cellSize}></Grid>)
+storiesOf('Rectangle', module)
+    .add('single cell', () => <Grid grid={{...emptyGrid, decorations: [singleCell]}} cellSize={cellSize}></Grid>)
+    .add('window', () => <Grid grid={{...emptyGrid, decorations: [window]}} cellSize={cellSize}></Grid>)
+    .add('inset duo', () => <Grid grid={{...emptyGrid, decorations: [insetDuo]}} cellSize={cellSize}></Grid>)
     .add('bent renban group', () => <Grid grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>)
-    .add('stained glass window', () => <Grid grid={{...emptyGrid, decorations: [...stainedGlassWindow]}} cellSize={cellSize}></Grid>);
+    .add('stained glass window', () => <Grid grid={{...emptyGrid, decorations: [...stainedGlassWindow]}} cellSize={cellSize}></Grid>)
+    .add('unfilled', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, filled: false}]}} cellSize={cellSize}></Grid>);

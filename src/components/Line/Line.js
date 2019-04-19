@@ -9,8 +9,7 @@ export default function Line({ cellSize, wayPoints, color, thickness }) {
                 const isStart = idx === 0;
                 const isEnd = idx === wayPoints.length - 2;
                 const [start, end] = calculateCoordinates(scaledUpWayPoints[idx], wayPoint, thickness, isStart || isEnd);
-                console.log(wayPoints[idx], wayPoint, isStart, isEnd, start, end);
-                return <div class="line" key={idx} style={styleAttributes({ start, end, color, thickness})}></div>;
+                return <div className="line" key={idx} style={styleAttributes({ start, end, color, thickness})}></div>;
             })}
         </div>
     );

@@ -1,6 +1,12 @@
 .cell {
-    box-sizing: border-box;
     position: relative;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.cell__inner {
+    position: relative;
+    box-sizing: border-box;
     z-index: 2;
 
     display: flex;
@@ -8,8 +14,35 @@
     justify-content: center;
 }
 
+.cell__inner--border-U {
+    border-top: 1px dashed black;
+}
+
+.cell__inner--border-R {
+    border-right: 1px dashed black;
+}
+
+.cell__inner--border-D {
+    border-bottom: 1px dashed black;
+}
+
+.cell__inner--border-L {
+    border-left: 1px dashed black;
+}
+
 .cell__value {
     font-size: 29pt;
+}
+
+.cell__cage-value {
+    position: absolute;
+    z-index: 3;
+
+    top: 0;
+    left: 0;
+
+    padding: 0 1px;
+    background-color: white;
 }
 
 .cell__candidates, .cell__pm {
@@ -53,45 +86,45 @@
 }
 
 .cell__pm--ul {
-    left: 5%;
-    top: 0%;
+    left: 10%;
+    top: 5%;
 }
 
 .cell__pm--ur {
-    right: 5%;
-    top: 0%;
+    right: 10%;
+    top: 5%;
 }
 
 .cell__pm--dl {
-    left: 5%;
-    bottom: 0%;
+    left: 10%;
+    bottom: 5%;
 }
 
 .cell__pm--dr {
-    right: 5%;
-    bottom: 0%;
+    right: 10%;
+    bottom: 5%;
 }
 
 .cell__pm--uu {
     left: 50%;
-    top: 0%;
+    top: 5%;
     transform: translateX(-50%);
 }
 
 .cell__pm--dd {
     left: 50%;
-    bottom: 0%;
+    bottom: 5%;
     transform: translateX(-50%);
 }
 
 .cell__pm--ll {
-    left: 5%;
+    left: 10%;
     top: 50%;
     transform: translateY(-50%);
 }
 
 .cell__pm--rr {
-    right: 5%;
+    right: 10%;
     top: 50%;
     transform: translateY(-50%);
 }

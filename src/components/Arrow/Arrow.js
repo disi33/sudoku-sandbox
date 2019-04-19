@@ -7,7 +7,7 @@ export default function Arrow({ cellSize, wayPoints, color, thickness, headLengt
     return (
         <div>
             <Line cellSize={cellSize} wayPoints={wayPoints} color={color} thickness={thickness}></Line>
-            <div class="arrow-head" style={headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength })}></div>
+            <div className="arrow-head" style={headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength })}></div>
         </div>
     );
 }

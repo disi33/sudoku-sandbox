@@ -4,38 +4,43 @@ import { createSelector } from 'reselect';
 import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
 import Arrow from '../Arrow/Arrow';
-import Shade from '../Shade/Shade';
+import Rectangle from '../Rectangle/Rectangle';
 
 import './Grid.css';
 
 export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     const borders = bordersSelector(grid);
+    const cageBorders = cageBordersSelector(grid);
+    const cageValues = cageValuesSelector(grid);
     return (
         <div className="grid" style={{margin: cellSize * 1.5}}>
             {cells.map((row, idx) => 
-                <div class="grid__row">
+                <div key={idx} class="grid__row">
                     {row.map((cell, jdx) =>
-                        <Cell {...cell} size={cellSize} borders={borders[idx][jdx]}></Cell>
+                        <Cell key={jdx} {...cell} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
                     )}
                 </div>
             )}
-            {decorations.map(decoration =>
-                renderDecoration(cellSize)(decoration)
+            {decorations.map((decoration, idx) =>
+                renderDecoration(cellSize)(decoration, idx)
             )}
         </div>
     );
 }
 
-const renderDecoration = cellSize => decoration => {
+const renderDecoration = cellSize => (decoration, key) => {
     switch (decoration.type) {
-        case 'LINE': return <Line {...decoration} cellSize={cellSize}></Line>
-        case 'ARROW': return <Arrow {...decoration} cellSize={cellSize}></Arrow>
-        case 'SHADE': return <Shade {...decoration} cellSize={cellSize}></Shade>
+        case 'LINE': return <Line key={key} {...decoration} cellSize={cellSize}></Line>
+        case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>
+        case 'RECTANGLE': return <Rectangle key={key} {...decoration} cellSize={cellSize}></Rectangle>
     }
 };
 
 const sizeSelector = grid => grid.cells.length;
 const regionsSelector = grid => grid.regions;
+const cagesSelector = grid => grid.cages;
+
+// Region border selectors
 
 const reverseRegionsSelector = createSelector(
     sizeSelector, regionsSelector, (size, regions) => {
@@ -69,11 +74,72 @@ const bordersFor = (row, col, reverseRegions) => {
     return borders.filter(b => b !== '');
 };
 
-export const bordersSelector = createSelector(
+const bordersSelector = createSelector(
     sizeSelector, reverseRegionsSelector, (size, reverseRegions) =>
         [...Array(size).keys()].map(row =>
             [...Array(size).keys()].map(col =>
                 bordersFor(row, col, reverseRegions)
         )
     )
-)
+);
+
+// Cage border selectors
+
+const cageRegionsSelector = createSelector(
+    cagesSelector, cages => cages.map(c => c.cells)
+);
+
+const topLeftCell = cage => 
+    cage.cells.reduce((acc, val) => acc[0] < val[0] ? acc : acc[1] < val[1] ? acc : val, cage.cells[0]);
+
+const cageValuesSelector = createSelector(
+    sizeSelector, cagesSelector, (size, cages) => {
+        let cageValues = [...Array(size)].map(e => Array(size));
+        cages.forEach(cage => {
+            const [min_x, min_y] = topLeftCell(cage);
+            cageValues[min_x][min_y] = cage.value;
+        });
+        return cageValues;
+    }
+);
+
+const reverseCagesSelector = createSelector(
+    sizeSelector, cageRegionsSelector, (size, cages) => {
+        let reverseCages = [...Array(size)].map(e => Array(size));
+        cages.forEach((cage, idx) =>
+            cage.forEach(([row, col]) => reverseCages[row][col] = idx)
+        );
+        return reverseCages;
+    }
+);
+
+const topCageBorder = (row, col, reverseCages) =>
+    row === 0 || reverseCages[row][col] !== reverseCages[row - 1][col] ? 'U' : '';
+
+const leftCageBorder = (row, col, reverseCages) =>
+    col === 0 || reverseCages[row][col] !== reverseCages[row][col - 1] ? 'L' : '';
+
+const bottomCageBorder = (row, col, reverseCages) =>
+    row === reverseCages.length - 1 || reverseCages[row][col] !== reverseCages[row + 1][col] ? 'D' : '';
+
+const rightCageBorder = (row, col, reverseCages) =>
+    col === reverseCages[row].length - 1 || reverseCages[row][col] !== reverseCages[row][col + 1] ? 'R' : '';
+
+const cageBordersFor = (row, col, reverseCages) => {
+    const cageBorders = reverseCages[row][col] === undefined ? [] : [
+        topCageBorder(row, col, reverseCages),
+        leftCageBorder(row, col, reverseCages),
+        bottomCageBorder(row, col, reverseCages),
+        rightCageBorder(row, col, reverseCages),
+    ];
+    return cageBorders.filter(b => b !== '');
+};
+
+const cageBordersSelector = createSelector(
+    sizeSelector, reverseCagesSelector, (size, reverseCages) =>
+        [...Array(size).keys()].map(row =>
+            [...Array(size).keys()].map(col =>
+                cageBordersFor(row, col, reverseCages)
+        )
+    )
+);
