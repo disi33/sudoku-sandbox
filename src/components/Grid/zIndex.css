@@ -1,0 +1,15 @@
+.underlay {
+    z-index: 0;
+}
+
+.line, .arrow-head {
+    z-index: 1;
+}
+
+.cell__inner-border {
+    z-index: 2;
+}
+
+.cell__cage-value, .cell__border {
+    z-index: 3;
+}

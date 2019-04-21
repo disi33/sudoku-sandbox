@@ -1,32 +1,70 @@
 .cell {
     position: relative;
     box-sizing: border-box;
-    z-index: 3;
+}
+
+.cell--u {
+    padding-top: 1px;
+}
+
+.cell--r {
+    padding-right: 1px;
+}
+
+.cell--d {
+    padding-bottom: 1px;
+}
+
+.cell--l {
+    padding-left: 1px;
+}
+
+.cell--U {
+    padding-top: 3px;
+}
+
+.cell--R {
+    padding-right: 3px;
+}
+
+.cell--D {
+    padding-bottom: 3px;
+}
+
+.cell--L {
+    padding-left: 3px;
 }
 
 .cell__inner {
     position: relative;
     box-sizing: border-box;
-    z-index: 2;
 
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.cell__inner--border-U {
+.cell__inner-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cell__inner-border--U {
     border-top: 1px dashed black;
 }
 
-.cell__inner--border-R {
+.cell__inner-border--R {
     border-right: 1px dashed black;
 }
 
-.cell__inner--border-D {
+.cell__inner-border--D {
     border-bottom: 1px dashed black;
 }
 
-.cell__inner--border-L {
+.cell__inner-border--L {
     border-left: 1px dashed black;
 }
 
@@ -36,8 +74,6 @@
 
 .cell__cage-value {
     position: absolute;
-    z-index: 3;
-
     top: 0;
     left: 0;
 
@@ -49,35 +85,43 @@
     font-size: 9pt;
 }
 
-.cell--border-u {
+.cell__border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.cell__border--u {
     border-top: 1px solid black;
 }
 
-.cell--border-r {
+.cell__border--r {
     border-right: 1px solid black;
 }
 
-.cell--border-d {
+.cell__border--d {
     border-bottom: 1px solid black;
 }
 
-.cell--border-l {
+.cell__border--l {
     border-left: 1px solid black;
 }
 
-.cell--border-U {
+.cell__border--U {
     border-top: 3px solid black;
 }
 
-.cell--border-R {
+.cell__border--R {
     border-right: 3px solid black;
 }
 
-.cell--border-D {
+.cell__border--D {
     border-bottom: 3px solid black;
 }
 
-.cell--border-L {
+.cell__border--L {
     border-left: 3px solid black;
 }
 

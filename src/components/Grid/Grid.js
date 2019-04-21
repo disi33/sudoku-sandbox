@@ -7,6 +7,7 @@ import Arrow from '../Arrow/Arrow';
 import Underlay from '../Underlay/Underlay';
 
 import './Grid.css';
+import './zIndex.css';
 
 export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     const borders = bordersSelector(grid);
