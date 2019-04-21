@@ -3,38 +3,6 @@
     box-sizing: border-box;
 }
 
-.cell--u {
-    padding-top: 1px;
-}
-
-.cell--r {
-    padding-right: 1px;
-}
-
-.cell--d {
-    padding-bottom: 1px;
-}
-
-.cell--l {
-    padding-left: 1px;
-}
-
-.cell--U {
-    padding-top: 3px;
-}
-
-.cell--R {
-    padding-right: 3px;
-}
-
-.cell--D {
-    padding-bottom: 3px;
-}
-
-.cell--L {
-    padding-left: 3px;
-}
-
 .cell__inner {
     position: relative;
     box-sizing: border-box;
