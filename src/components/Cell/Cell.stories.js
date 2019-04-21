@@ -18,7 +18,7 @@ const allBorders = ['U', 'R', 'D', 'L'];
 const someCandidates = [1, 2, 3];
 const somePencilMarks = [1, 2, 3, 4, 5, 6, 7, 8];
 
-storiesOf('Cell', module)
+storiesOf('Grid/Cell', module)
     .addDecorator(story => <div style={{padding: '24px'}}>{story()}</div>)
     .add('empty', () => <Cell {...defaultCellProps}></Cell>)
     .add('with value', () => <Cell {...defaultCellProps} value={3}></Cell>)

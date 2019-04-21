@@ -177,7 +177,7 @@ const arrowWithCircle = [
     }
 ];
 
-storiesOf('ShapeText', module)
+storiesOf('Grid/ShapeText', module)
     .add('single cell underlay', () => <Grid grid={{...emptyGrid, decorations: [singleCell]}} cellSize={cellSize}></Grid>)
     .add('window underlay', () => <Grid grid={{...emptyGrid, decorations: [window]}} cellSize={cellSize}></Grid>)
     .add('inset duo underlay', () => <Grid grid={{...emptyGrid, decorations: [insetDuo]}} cellSize={cellSize}></Grid>)

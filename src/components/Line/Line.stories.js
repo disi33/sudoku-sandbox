@@ -52,7 +52,7 @@ const zigZagLine = {
     wayPoints: [[2.5, 4.5], [0.5, 2.5], [1.5, 2.5], [2.5, 1.5], [3.5, 1.5], [4.5, 0.5], [5.5, 1.5], [3.5, 3.5]],
 };
 
-storiesOf('Line', module)
+storiesOf('Grid/Line', module)
     .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalLine]}} cellSize={cellSize}></Grid>)
     .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalLine]}} cellSize={cellSize}></Grid>)
     .add('diagonal', () => <Grid grid={{...emptyGrid, decorations: [diagonalLine]}} cellSize={cellSize}></Grid>)

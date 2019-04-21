@@ -203,7 +203,7 @@ const partialKillerGrid = {
     ]
 };
 
-storiesOf('Grid', module)
+storiesOf('Grid/Grid', module)
     .add('classic', () => <Grid grid={emptyGrid} cellSize={50}></Grid>)
     .add('irregular', () => <Grid grid={irregularGrid} cellSize={50}></Grid>)
     .add('toroidal', () => <Grid grid={toroidalGrid} cellSize={50}></Grid>)

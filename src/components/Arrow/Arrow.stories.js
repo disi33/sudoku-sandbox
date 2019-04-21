@@ -68,7 +68,7 @@ const rossiniArrows = [
     },
 ];
 
-storiesOf('Arrow', module)
+storiesOf('Grid/Arrow', module)
     .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalArrow]}} cellSize={cellSize}></Grid>)
     .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalArrow]}} cellSize={cellSize}></Grid>)
     .add('diagonal', () => <Grid grid={{...emptyGrid, decorations: [diagonalArrow]}} cellSize={cellSize}></Grid>)
