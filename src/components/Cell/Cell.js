@@ -3,17 +3,17 @@ import './Cell.css';
 
 export default function Cell({ size, value, borders, cageBorders, cageValue, candidates, pencilMarks }) {
     return (
-        <div className="cell" style={{width: size, height: size}}>
+        <div className={"cell " + cellClasses(borders)} style={{width: size, height: size}}>
             <div className={"cell__border " + borderClasses(borders)}>
                 {cageValue && <span className="cell__cage-value" style={{fontSize: size / 4.5}}>{cageValue}</span>}
-                <div className={"cell__inner"} style={innerCellPositioning(cageBorders, borders, size)}>
-                    <div className={"cell__inner-border " + cageBorderClasses(cageBorders)}></div>
-                    {value && <span className="cell__value" style={{fontSize: size / 1.5}}>{value}</span>}
-                    {!value && pencilMarks.map((pm, idx) =>
-                        <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>
-                    )}
-                    {!value && candidates.length > 0 && <span className="cell__candidates" style={{fontSize: size / 4}}>{candidates.join('')}</span>}
-                </div>
+            </div>
+            <div className={"cell__inner"} style={innerCellPositioning(cageBorders, borders, size)}>
+                <div className={"cell__inner-border " + cageBorderClasses(cageBorders)}></div>
+                {value && <span className="cell__value" style={{fontSize: size / 1.5}}>{value}</span>}
+                {!value && pencilMarks.map((pm, idx) =>
+                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>
+                )}
+                {!value && candidates.length > 0 && <span className="cell__candidates" style={{fontSize: size / 4}}>{candidates.join('')}</span>}
             </div>
         </div>
     );
@@ -34,11 +34,14 @@ const innerCellPositioning = (cageBorders, borders, size) => {
     };
 };
 
-const cageBorderClasses = cageBorders =>
-    cageBorders.map(b => `cell__inner-border--${b}`).join(' ');
-
+const cellClasses = borders => 
+    borders.map(b => `cell--${b}`).join(' ');
+    
 const borderClasses = borders => 
     borders.map(b => `cell__border--${b}`).join(' ');
+
+const cageBorderClasses = cageBorders =>
+    cageBorders.map(b => `cell__inner-border--${b}`).join(' ');
 
 const pencilMarkModifiers = [
     'ul', 'ur', 'dl', 'dr', 'uu', 'dd', 'll', 'rr',

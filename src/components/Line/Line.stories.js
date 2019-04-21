@@ -34,12 +34,12 @@ const lineDefaults = {
 
 const horizontalLine = {
     ...lineDefaults,
-    wayPoints: [[0.5, 4.5], [8.5, 4.5]],
+    wayPoints: [[4.5, 0.5], [4.5, 8.5]],
 };
 
 const verticalLine = {
     ...lineDefaults,
-    wayPoints: [[4.5, 0.5], [4.5, 8.5]],
+    wayPoints: [[0.5, 4.5], [8.5, 4.5]],
 };
 
 const diagonalLine = {
@@ -49,7 +49,7 @@ const diagonalLine = {
 
 const zigZagLine = {
     ...lineDefaults,
-    wayPoints: [[4.5, 2.5], [2.5, 0.5], [2.5, 1.5], [1.5, 2.5], [1.5, 3.5], [0.5, 4.5], [1.5, 5.5], [3.5, 3.5]],
+    wayPoints: [[2.5, 4.5], [0.5, 2.5], [1.5, 2.5], [2.5, 1.5], [3.5, 1.5], [4.5, 0.5], [5.5, 1.5], [3.5, 3.5]],
 };
 
 storiesOf('Line', module)

@@ -30,17 +30,17 @@ const arrowDefaults = {
     type: 'ARROW',
     color: '#CFCFCF',
     thickness: 5,
-    headLength: 15,
+    headLength: 0.3,
 };
 
 const horizontalArrow = {
     ...arrowDefaults,
-    wayPoints: [[0.5, 4.5], [8.5, 4.5]],
+    wayPoints: [[4.5, 0.5], [4.5, 8.5]],
 };
 
 const verticalArrow = {
     ...arrowDefaults,
-    wayPoints: [[4.5, 0.5], [4.5, 8.5]],
+    wayPoints: [[0.5, 4.5], [8.5, 4.5]],
 };
 
 const diagonalArrow = {
@@ -50,21 +50,21 @@ const diagonalArrow = {
 
 const zigZagArrow = {
     ...arrowDefaults,
-    wayPoints: [[4.5, 2.5], [2.5, 0.5], [2.5, 1.5], [1.5, 2.5], [1.5, 3.5], [0.5, 4.5], [1.5, 5.5], [3.5, 3.5]],
+    wayPoints: [[2.5, 4.5], [0.5, 2.5], [1.5, 2.5], [2.5, 1.5], [3.5, 1.5], [4.5, 0.5], [5.5, 1.5], [3.5, 3.5]],
 };
 
 const rossiniArrows = [
     {
         ...arrowDefaults,
-        wayPoints: [[-1, 0.5], [0, 0.5]],
+        wayPoints: [[0.5, -1], [0.5, 0]],
     },
     {
         ...arrowDefaults,
-        wayPoints: [[0, 1.5], [-1, 1.5]],
+        wayPoints: [[1.5, 0], [1.5, -1]],
     },
     {
         ...arrowDefaults,
-        wayPoints: [[-1, 2.5], [0, 2.5]],
+        wayPoints: [[2.5, -1], [2.5, 0]],
     },
 ];
 

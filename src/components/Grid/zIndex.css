@@ -1,4 +1,4 @@
-.underlay {
+.shapetext--underlay {
     z-index: 0;
 }
 
@@ -10,6 +10,14 @@
     z-index: 2;
 }
 
-.cell__cage-value, .cell__border {
+.cell__border {
     z-index: 3;
+}
+
+.shapetext--overlay {
+    z-index: 4;
+}
+
+.cell__cage-value, .cell__value, .cell__candidates, .cell__pm {
+    z-index: 5;
 }

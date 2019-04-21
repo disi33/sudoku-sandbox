@@ -15,7 +15,7 @@ export default function Line({ cellSize, wayPoints, color, thickness }) {
     );
 }
 
-const calculateCoordinates = ([start_x, start_y], [end_x, end_y], thickness, isBoundary) => {
+const calculateCoordinates = ([start_y, start_x], [end_y, end_x], thickness, isBoundary) => {
     
     const length = Math.sqrt((end_x - start_x) * (end_x - start_x) + (end_y - start_y) * (end_y - start_y));
 

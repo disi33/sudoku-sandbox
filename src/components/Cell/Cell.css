@@ -3,13 +3,48 @@
     box-sizing: border-box;
 }
 
+.cell--u {
+    padding-top: 1px;
+}
+
+.cell--r {
+    padding-right: 1px;
+}
+
+.cell--d {
+    padding-bottom: 1px;
+}
+
+.cell--l {
+    padding-left: 1px;
+}
+
+.cell--U {
+    padding-top: 3px;
+}
+
+.cell--R {
+    padding-right: 3px;
+}
+
+.cell--D {
+    padding-bottom: 3px;
+}
+
+.cell--L {
+    padding-left: 3px;
+}
+
 .cell__inner {
     position: relative;
     box-sizing: border-box;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.cell__value, .cell__candidates {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .cell__inner-border {
@@ -36,10 +71,6 @@
     border-left: 1px dashed black;
 }
 
-.cell__value {
-    font-size: 29pt;
-}
-
 .cell__cage-value {
     position: absolute;
     top: 0;
@@ -47,10 +78,6 @@
 
     padding: 0 1px;
     background-color: white;
-}
-
-.cell__candidates, .cell__pm {
-    font-size: 9pt;
 }
 
 .cell__border {

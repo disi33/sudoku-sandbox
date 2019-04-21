@@ -12,7 +12,7 @@ export default function Arrow({ cellSize, wayPoints, color, thickness, headLengt
     );
 }
 
-const headPosition = ([start_x, start_y], [end_x, end_y], thickness, headLength) => {
+const headPosition = (cellSize, [start_y, start_x], [end_y, end_x], thickness, headLength) => {
     const length = Math.sqrt((end_x - start_x) * (end_x - start_x) + (end_y - start_y) * (end_y - start_y));
     const angle = Math.atan2(end_y - start_y, end_x - start_x) * 180 / Math.PI;
 
@@ -20,7 +20,7 @@ const headPosition = ([start_x, start_y], [end_x, end_y], thickness, headLength)
         left: end_x + thickness * (end_x - start_x) / length / 3,
         top: end_y + thickness * (end_y - start_y) / length / 3,
         borderWidth: `${thickness}px 0 0 ${thickness}px`,
-        padding: headLength / 2,
+        padding: cellSize * headLength / 2,
         transform: `rotate(${angle + 135}deg)`,
         WebkitTransform: `rotate(${angle + 135}deg)`,
         transformOrigin: 'top left',
@@ -31,6 +31,6 @@ const headPosition = ([start_x, start_y], [end_x, end_y], thickness, headLength)
 const headStyleAttributes = ({ cellSize, start, end, color, thickness, headLength }) => (
     {
         border: `solid ${color}`,
-        ...headPosition(start.map(x => x * cellSize), end.map(x => x * cellSize), thickness, headLength),
+        ...headPosition(cellSize, start.map(x => x * cellSize), end.map(x => x * cellSize), thickness, headLength),
     }
 );
