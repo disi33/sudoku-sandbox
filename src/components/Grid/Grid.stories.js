@@ -3,6 +3,8 @@ import { storiesOf } from '@storybook/react';
 
 import Grid from './Grid';
 
+const cellSize = 45;
+
 const emptyCell = { value: undefined, candidates: [], pencilMarks: []};
 
 const emptyGrid = { 
@@ -204,8 +206,8 @@ const partialKillerGrid = {
 };
 
 storiesOf('Grid/Grid', module)
-    .add('classic', () => <Grid grid={emptyGrid} cellSize={50}></Grid>)
-    .add('irregular', () => <Grid grid={irregularGrid} cellSize={50}></Grid>)
-    .add('toroidal', () => <Grid grid={toroidalGrid} cellSize={50}></Grid>)
-    .add('killer with all cages', () => <Grid grid={killerGrid} cellSize={50}></Grid>)
-    .add('killer with some cages', () => <Grid grid={partialKillerGrid} cellSize={50}></Grid>);
+    .add('classic', () => <Grid grid={emptyGrid} cellSize={cellSize}></Grid>)
+    .add('irregular', () => <Grid grid={irregularGrid} cellSize={cellSize}></Grid>)
+    .add('toroidal', () => <Grid grid={toroidalGrid} cellSize={cellSize}></Grid>)
+    .add('killer with all cages', () => <Grid grid={killerGrid} cellSize={cellSize}></Grid>)
+    .add('killer with some cages', () => <Grid grid={partialKillerGrid} cellSize={cellSize}></Grid>);

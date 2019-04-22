@@ -5,7 +5,7 @@ import Grid from '../Grid/Grid';
 
 const emptyCell = { value: undefined, candidates: [], pencilMarks: []};
 
-const cellSize = 50;
+const cellSize = 45;
 
 const emptyGrid = { 
     cells: [...Array(9)].map(_ =>

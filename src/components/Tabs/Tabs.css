@@ -1,0 +1,39 @@
+.tabs {
+    display: flex;
+    align-items: stretch;
+}
+
+.tabs__button {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 90px;
+    height: 30px;
+    font-size: 11px;
+
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 1px 1px 0;
+}
+
+.tabs__button:first-child {
+    border-left: 1px solid black;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.tabs__button:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.tabs__button:focus {
+    outline: none;
+}
+
+.tabs__button--selected {
+    background-color: #1EA7FD;
+    color: white;
+}

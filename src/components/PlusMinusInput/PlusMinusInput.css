@@ -1,0 +1,33 @@
+.plus-minus-input {
+    display: inline-flex;
+    align-items: center;
+}
+
+.plus-minus-input__button {
+    width: 20px;
+    height: 20px;
+
+    border: 1px solid #333333;
+    border-radius: 20px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plus-minus-input__button:active {
+    background-color: #EEEEEE;
+}
+
+.plus-minus-input__button:focus {
+    outline: none;
+}
+
+.plus-minus-input__button:disabled, .plus-minus-input__button[disabled] {
+    color: #CFCFCF;
+    border-color: #CFCFCF;
+}
+
+.plus-minus-input__value {
+    padding: 0 8px;
+}

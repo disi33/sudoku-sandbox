@@ -1,0 +1,24 @@
+.color-picker {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    width: 160px;
+}
+
+.color-picker__button {
+    width: 16px;
+    height: 16px;
+    border: 1px solid black;
+    margin: 2px;
+}
+
+.color-picker__button:focus {
+    outline: none;
+}
+
+.color-picker__button--selected, .color-picker__button--selected:focus {
+    outline-color: #009DFF;
+    outline-width: 5px;
+    outline-style: auto;
+}

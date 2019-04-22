@@ -1,0 +1,28 @@
+.list {
+
+}
+
+.list__item {
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 0 2px 6px;
+
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.list__item:focus {
+    outline: none;
+}
+
+.list__item:hover {
+    background-color: #CFCFCF;
+}
+
+.list__item--selected {
+    background-color: #1EA7FD;
+}
+
+.list__item--selected span {
+    color: white;
+}
