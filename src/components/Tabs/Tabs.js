@@ -5,11 +5,11 @@ export default function Tabs({items, selectedKey, onItemSelected}) {
     return (
         <div className="tabs">
             {items.map(({key, name}) => 
-                <button key={key} 
+                <div key={key} 
                         className={"tabs__button " + selectedClassName(key, selectedKey)}
                         onClick={() => onItemSelected(key)}>
                     {name}
-                </button>
+                </div>
             )}
         </div>
     );

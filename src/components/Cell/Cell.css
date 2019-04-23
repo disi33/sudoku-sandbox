@@ -1,6 +1,7 @@
 .cell {
     position: relative;
     box-sizing: border-box;
+    font-family: Tahoma, Verdana, sans-serif;
 }
 
 .cell--u {

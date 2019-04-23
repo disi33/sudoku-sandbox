@@ -4,6 +4,8 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+
+    font-family: Tahoma, Verdana, sans-serif;
 }
 
 .grid__row {
