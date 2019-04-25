@@ -7,6 +7,7 @@ import PositionsInput from '../PositionsInput/PositionsInput';
 export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded, onRegionChanged, onCellRemoved, onCellAdded}) {
 
     const [selectedRegionIdx, setSelectedRegionIdx] = useState(0);
+    const region = regions[selectedRegionIdx];
 
     return (
         <div className="edit-form">
@@ -16,13 +17,13 @@ export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded
                     <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={onRegionAdded} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
                 </div>
             </div>
-            {regions[selectedRegionIdx] !== undefined && 
+            {region !== undefined && 
                 <div>
                     <div className="edit-form__section-title">Edit Selected Region</div>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={regions[selectedRegionIdx]} onItemChanged={(idx, value) => onRegionChanged(selectedRegionIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={value => onCellAdded(selectedRegionIdx, value)}></PositionsInput> 
+                            <PositionsInput items={region} onItemChanged={(idx, value) => onRegionChanged(selectedRegionIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={value => onCellAdded(selectedRegionIdx, value)}></PositionsInput> 
                         </div>
                     </div>
                 </div>

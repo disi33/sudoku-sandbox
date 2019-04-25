@@ -8,6 +8,7 @@ import PositionsInput from '../PositionsInput/PositionsInput';
 export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onCageValueChanged, onCageCellsChanged, onCellRemoved, onCellAdded}) {
 
     const [selectedCageIdx, setSelectedCageIdx] = useState(0);
+    const cage = cages[selectedCageIdx];
 
     return (
         <div className="edit-form">
@@ -19,19 +20,19 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onCage
                     </div>
                 </div>
             </div>
-            {cages[selectedCageIdx] !== undefined &&
+            {cage !== undefined &&
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Cage</div>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Value</span>
                         <div className="edit-form__field-input">
-                            <TextInput label="" value={cages[selectedCageIdx].value} onValueChanged={value => onCageValueChanged(selectedCageIdx, value)}></TextInput>
+                            <TextInput label="" value={cage.value} onValueChanged={value => onCageValueChanged(selectedCageIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={cages[selectedCageIdx].cells} onItemChanged={(idx, value) => onCageCellsChanged(selectedCageIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={value => onCellAdded(selectedCageIdx, value)}></PositionsInput> 
+                            <PositionsInput items={cage.cells} onItemChanged={(idx, value) => onCageCellsChanged(selectedCageIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={value => onCellAdded(selectedCageIdx, value)}></PositionsInput> 
                         </div>
                     </div>
                 </div>

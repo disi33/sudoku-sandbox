@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import './List.css';
 
 export default function List({items, selectedIdx, itemToText, onItemSelected, onItemRemoved, onItemAdded}) {
+
+    const itemRefs = items.map(() => useRef(null));
+
     return (
-        <div className="list" onKeyDown={handleKeyDown(selectedIdx, onItemSelected, items.length)}>
+        <div className="list" onKeyDown={handleKeyDown(selectedIdx, itemRefs, items.length)}>
             <div className="list__items">
                 {items.map((item, idx) => 
                     <div key={idx}
+                        ref={itemRefs[idx]}
                         className={"list__item " + selectedClassName(idx, selectedIdx)}
-                        onClick={() => onItemSelected(idx)}
                         onFocus={() => onItemSelected(idx)}
                         tabIndex="0">
                         <span>{itemToText(item)}</span>
@@ -25,12 +28,12 @@ export default function List({items, selectedIdx, itemToText, onItemSelected, on
 
 const selectedClassName = (idx, selectedIdx) => idx === selectedIdx ? "list__item--selected" : "";
 
-const handleKeyDown = (selectedIdx, onItemSelected, numItems) => e => {
+const handleKeyDown = (selectedIdx, itemRefs, numItems) => e => {
     if (e.key === 'ArrowDown' && selectedIdx < numItems - 1) {
         e.preventDefault();
-        onItemSelected(selectedIdx + 1);
+        itemRefs[selectedIdx + 1].current.focus();
     } else if (e.key === 'ArrowUp' && selectedIdx > 0) {
         e.preventDefault();
-        onItemSelected(selectedIdx - 1);
+        itemRefs[selectedIdx - 1].current.focus();
     }
 };
