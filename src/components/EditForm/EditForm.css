@@ -1,0 +1,42 @@
+.edit-form {
+
+}
+
+.edit-form__section-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+
+    margin-bottom: 24px;
+}
+
+.edit-form__section-title:not(:first-child) {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: underline;
+
+    margin-top: 18px;
+}
+
+.edit-form__field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.edit-form__field-name {
+    font-size: 16px;
+    width: 100px;
+}
+
+.edit-form__field-name::after {
+    content: ':';
+}
+
+.edit-form__field-input {
+    flex-grow: 1;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,13 @@
+.text-input {
+
+}
+
+.text-input__label {
+    font-size: 13px;
+    color: #555555;
+}
+
+.text-input__input {
+    width: 60px;
+    text-align: center;
+}
