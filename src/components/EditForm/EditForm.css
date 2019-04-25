@@ -10,11 +10,11 @@
     margin-bottom: 24px;
 }
 
-.edit-form__section-title:not(:first-child) {
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: underline;
+.edit-form__section {
+    width: 100%;
+}
 
+.edit-form__section:not(:first-child) {
     margin-top: 18px;
 }
 

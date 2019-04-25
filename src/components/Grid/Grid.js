@@ -16,7 +16,7 @@ export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     return (
         <div className="grid" style={{margin: cellSize * 1.5}}>
             {cells.map((row, idx) => 
-                <div key={idx} class="grid__row">
+                <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>
                         <Cell key={jdx} {...cell} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
                     )}
