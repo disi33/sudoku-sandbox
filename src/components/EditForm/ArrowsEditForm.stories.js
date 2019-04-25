@@ -2,54 +2,57 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
-import LinesEditForm from './LinesEditForm';
+import ArrowsEditForm from './ArrowsEditForm';
 import './EditForm.css';
 
-const onLineAdded = action('onLineAdded');
-const onLineRemoved = action('onLineRemoved');
+const onArrowAdded = action('onArrowAdded');
+const onArrowRemoved = action('onArrowRemoved');
 const onThicknessChanged = action('onThicknessChanged');
+const onHeadLengthChanged = action('onHeadLengthChanged');
 const onColorChanged = action('onColorChanged');
 const onWayPointRemoved = action('onWayPointRemoved');
 const onWayPointAdded = action('onWayPointAdded');
 const onWayPointChanged = action('onWayPointChanged');
 
-const lineDefaults = {
-    type: 'LINE',
+const arrowDefaults = {
+    type: 'ARROW',
     color: '#CFCFCF',
     thickness: 5,
+    headLength: 0.3,
 };
 
-const horizontalLine = {
-    ...lineDefaults,
+const horizontalArrow = {
+    ...arrowDefaults,
     wayPoints: [[4.5, 0.5], [4.5, 8.5]],
 };
 
-const verticalLine = {
-    ...lineDefaults,
+const verticalArrow = {
+    ...arrowDefaults,
     wayPoints: [[0.5, 4.5], [8.5, 4.5]],
 };
 
-const diagonalLine = {
-    ...lineDefaults,
+const diagonalArrow = {
+    ...arrowDefaults,
     wayPoints: [[0.5, 0.5], [8.5, 8.5]],
 };
 
-const zigZagLine = {
-    ...lineDefaults,
+const zigZagArrow = {
+    ...arrowDefaults,
     wayPoints: [[2.5, 4.5], [0.5, 2.5], [1.5, 2.5], [2.5, 1.5], [3.5, 1.5], [4.5, 0.5], [5.5, 1.5], [3.5, 3.5]],
 };
 
 const props = {
-    lines: [horizontalLine, verticalLine, diagonalLine, zigZagLine],
-    onLineAdded: onLineAdded,
-    onLineRemoved: onLineRemoved,
+    arrows: [horizontalArrow, verticalArrow, diagonalArrow, zigZagArrow],
+    onArrowAdded: onArrowAdded,
+    onArrowRemoved: onArrowRemoved,
     onColorChanged: onColorChanged,
     onThicknessChanged: onThicknessChanged,
+    onHeadLengthChanged: onHeadLengthChanged,
     onWayPointAdded: onWayPointAdded,
     onWayPointRemoved: onWayPointRemoved,
     onWayPointChanged: onWayPointChanged,
 };
 
-storiesOf('Edit/LinesEditForm', module)
+storiesOf('Edit/ArrowsEditForm', module)
     .addDecorator(story => <div style={{width: '300px', padding: '8px', margin: '48px', backgroundColor: '#EEEEEE'}}>{story()}</div>)
-    .add('default', () => <LinesEditForm {...props}></LinesEditForm>);
+    .add('default', () => <ArrowsEditForm {...props}></ArrowsEditForm>);

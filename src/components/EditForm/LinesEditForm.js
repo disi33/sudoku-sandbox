@@ -6,7 +6,7 @@ import List from '../List/List';
 import PlusMinusInput from '../PlusMinusInput/PlusMinusInput';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function LinesEditForm({lines, onLineRemoved, onLineAdded, onLineThicknessChanged, onLineColorChanged, onWayPointRemoved, onWayPointAdded, onWayPointChanged}) {
+export default function LinesEditForm({lines, onLineRemoved, onLineAdded, onThicknessChanged, onColorChanged, onWayPointRemoved, onWayPointAdded, onWayPointChanged}) {
 
     const [selectedLineIdx, setSelectedLineIdx] = useState(0);
     const line = lines[selectedLineIdx];
@@ -27,13 +27,13 @@ export default function LinesEditForm({lines, onLineRemoved, onLineAdded, onLine
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Thickness</span>
                         <div className="edit-form__field-input">
-                            <PlusMinusInput value={line.thickness} minValue={1} maxValue={99} onValueChanged={value => onLineThicknessChanged(selectedLineIdx, value)}></PlusMinusInput>
+                            <PlusMinusInput value={line.thickness} minValue={1} maxValue={99} onValueChanged={value => onThicknessChanged(selectedLineIdx, value)}></PlusMinusInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Colour</span>
                         <div className="edit-form__field-input">
-                            <ColorPicker selectedColor={line.color} onColorSelected={color => onLineColorChanged(selectedLineIdx, color)}></ColorPicker>
+                            <ColorPicker selectedColor={line.color} onColorSelected={color => onColorChanged(selectedLineIdx, color)}></ColorPicker>
                         </div>
                     </div>
                     <div className="edit-form__field">
