@@ -8,6 +8,8 @@ import ShapeText from '../ShapeText/ShapeText';
 
 import './Grid.css';
 import './zIndex.css';
+import Underlay from '../Underlay/Underlay';
+import Overlay from '../Overlay/Overlay';
 
 export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     const borders = bordersSelector(grid);
@@ -33,7 +35,8 @@ const renderDecoration = cellSize => (decoration, key) => {
     switch (decoration.type) {
         case 'LINE': return <Line key={key} {...decoration} cellSize={cellSize}></Line>;
         case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>;
-        case 'SHAPETEXT': return <ShapeText key={key} {...decoration} cellSize={cellSize}></ShapeText>;
+        case 'UNDERLAY': return <Underlay key={key} {...decoration} cellSize={cellSize}></Underlay>;
+        case 'OVERLAY': return <Overlay key={key} {...decoration} cellSize={cellSize}></Overlay>;
     }
 };
 
