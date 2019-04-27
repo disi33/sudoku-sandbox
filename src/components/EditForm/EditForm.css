@@ -40,3 +40,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.edit-form__field-input--spaced > *:not(:last-child) {
+    margin-right: 6px;
+}

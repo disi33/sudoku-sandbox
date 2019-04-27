@@ -9,10 +9,11 @@
     align-items: center;
     justify-content: center;
 
-    width: 90px;
+    width: 75px;
     height: 30px;
     font-size: 11px;
 
+    background-color: white;
     border-style: solid;
     border-color: black;
     border-width: 1px 1px 1px 0;

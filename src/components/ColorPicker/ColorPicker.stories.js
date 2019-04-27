@@ -9,4 +9,5 @@ const onColorSelected = action('onColorSelected');
 
 storiesOf('Edit/ColorPicker', module)
     .addDecorator(story => <div style={{padding: '48px'}}>{story()}</div>)
-    .add('default', () => <ColorPicker selectedColor={'#2A4BD7'} onColorSelected={onColorSelected}></ColorPicker>);
+    .add('with none selected', () => <ColorPicker selectedColor={undefined} onColorSelected={onColorSelected}></ColorPicker>)
+    .add('with a color selected', () => <ColorPicker selectedColor={'#CFCFCF'} onColorSelected={onColorSelected}></ColorPicker>);

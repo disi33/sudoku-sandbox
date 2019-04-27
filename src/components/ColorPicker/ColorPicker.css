@@ -1,9 +1,14 @@
 .color-picker {
     display: flex;
     align-items: stretch;
-    flex-wrap: wrap;
 
-    width: 160px;
+    width: 140px;
+}
+
+.color-picker__main-buttons {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
 }
 
 .color-picker__button {
@@ -11,6 +16,19 @@
     height: 16px;
     border: 1px solid black;
     margin: 2px;
+
+    cursor: pointer;
+}
+
+.color-picker__button--none {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 36px;
+
+    background: repeating-linear-gradient(45deg, #CFCFCF, #CFCFCF 5px, #EEEEEE 5px, #EEEEEE 10px);
+
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .color-picker__button:focus {
@@ -18,7 +36,5 @@
 }
 
 .color-picker__button--selected, .color-picker__button--selected:focus {
-    outline-color: #009DFF;
-    outline-width: 5px;
-    outline-style: auto;
+    border-color: gold;
 }
