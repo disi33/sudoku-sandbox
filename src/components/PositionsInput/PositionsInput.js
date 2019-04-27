@@ -18,7 +18,7 @@ export default function PositionsInput({items, onItemRemoved, onItemAdded, onIte
                             <TextInput label="Col" value={item[1]} onValueChanged={value => onItemChanged(idx, [item[0], value])}></TextInput>
                         </div>
                         <div className="positions-input__button-container">
-                            <button className="positions-input__button positions-input__button--remove" onClick={() => onItemRemoved(idx)}>X</button>
+                            <div className="positions-input__button positions-input__button--remove" onClick={() => onItemRemoved(idx)}>{'\u2013'}</div>
                         </div>
                     </div>
                 )}
@@ -28,7 +28,7 @@ export default function PositionsInput({items, onItemRemoved, onItemAdded, onIte
                         <TextInput label="New col" value={newItem[1]} onValueChanged={value => setNewItem([newItem[0], value])}></TextInput>
                     </div>
                     <div className="positions-input__button-container">
-                        <button className="positions-input__button positions-input__button--confirm" onClick={() => { setAddingItem(false); onItemAdded(newItem); }}>{'\u2713'}</button>
+                        <div className="positions-input__button positions-input__button--confirm" onClick={() => { setAddingItem(false); onItemAdded(newItem); }}>{'\u2713'}</div>
                     </div>
                 </div>}
                 {!addingItem && <div className="positions-input__item">
@@ -37,7 +37,7 @@ export default function PositionsInput({items, onItemRemoved, onItemAdded, onIte
                         <TextInput label="Col" value={0} onValueChanged={() => {}}></TextInput>
                     </div>
                     <div className="positions-input__button-container">
-                        <button className="positions-input__button positions-input__button--add" onClick={() => setAddingItem(true)}>+</button>
+                        <div className="positions-input__button positions-input__button--add" onClick={() => setAddingItem(true)}>{'\uFF0B'}</div>
                     </div>
                 </div>}
             </div>

@@ -27,53 +27,55 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
                     </div>
                 </div>
             </div>
-            <div className="edit-form__section">
-                <div className="edit-form__section-title">Edit Selected Overlay</div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Centre</div>
-                    <div className="edit-form__field-input edit-form__field-input--spaced">
-                        <TextInput label="Row" value={overlay.center[0]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [value, overlay.center[1]])}></TextInput>
-                        <TextInput label="Col" value={overlay.center[1]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [overlay.center[0], value])}></TextInput>
+            {overlay !== undefined && 
+                <div className="edit-form__section">
+                    <div className="edit-form__section-title">Edit Selected Overlay</div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Centre</div>
+                        <div className="edit-form__field-input edit-form__field-input--spaced">
+                            <TextInput label="Row" value={overlay.center[0]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [value, overlay.center[1]])}></TextInput>
+                            <TextInput label="Col" value={overlay.center[1]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [overlay.center[0], value])}></TextInput>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Size</div>
+                        <div className="edit-form__field-input edit-form__field-input--spaced">
+                            <TextInput label="Width" value={overlay.width} onValueChanged={value => onWidthChanged(selectedOverlayIdx, value)}></TextInput>
+                            <TextInput label="Height" value={overlay.height} onValueChanged={value => onHeightChanged(selectedOverlayIdx, value)}></TextInput>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Shape</div>
+                        <div className="edit-form__field-input">
+                            <Tabs items={shapeTabItems} selectedKey={overlay.rounded ? 'ROUNDED' : 'SQUARE'} onItemSelected={key => onRoundedChanged(selectedOverlayIdx, key === 'ROUNDED')}></Tabs>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Border</div>
+                        <div className="edit-form__field-input">
+                            <ColorPicker selectedColor={overlay.borderColor} onColorSelected={color => onBorderColorChanged(selectedOverlayIdx, color)}></ColorPicker>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Background</div>
+                        <div className="edit-form__field-input">
+                            <ColorPicker selectedColor={overlay.backgroundColor} onColorSelected={color => onBackgroundColorChanged(selectedOverlayIdx, color)}></ColorPicker>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Text</div>
+                        <div className="edit-form__field-input">
+                            <TextInput label="" value={overlay.text} onValueChanged={() => onTextChanged(selectedOverlayIdx, value)}></TextInput>
+                        </div>
+                    </div>
+                    <div className="edit-form__field">
+                        <div className="edit-form__field-name">Font size</div>
+                        <div className="edit-form__field-input">
+                            <PlusMinusInput value={overlay.fontSize} minValue={1} maxValue={99} onValueChanged={() => onFontSizeChanged(selectedOverlayIdx, value)}></PlusMinusInput>
+                        </div>
                     </div>
                 </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Size</div>
-                    <div className="edit-form__field-input edit-form__field-input--spaced">
-                        <TextInput label="Width" value={overlay.width} onValueChanged={value => onWidthChanged(selectedOverlayIdx, value)}></TextInput>
-                        <TextInput label="Height" value={overlay.height} onValueChanged={value => onHeightChanged(selectedOverlayIdx, value)}></TextInput>
-                    </div>
-                </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Shape</div>
-                    <div className="edit-form__field-input">
-                        <Tabs items={shapeTabItems} selectedKey={overlay.rounded ? 'ROUNDED' : 'SQUARE'} onItemSelected={key => onRoundedChanged(selectedOverlayIdx, key === 'ROUNDED')}></Tabs>
-                    </div>
-                </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Border</div>
-                    <div className="edit-form__field-input">
-                        <ColorPicker selectedColor={overlay.borderColor} onColorSelected={color => onBorderColorChanged(selectedOverlayIdx, color)}></ColorPicker>
-                    </div>
-                </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Background</div>
-                    <div className="edit-form__field-input">
-                        <ColorPicker selectedColor={overlay.backgroundColor} onColorSelected={color => onBackgroundColorChanged(selectedOverlayIdx, color)}></ColorPicker>
-                    </div>
-                </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Text</div>
-                    <div className="edit-form__field-input">
-                        <TextInput label="" value={overlay.text} onValueChanged={() => onTextChanged(selectedOverlayIdx, value)}></TextInput>
-                    </div>
-                </div>
-                <div className="edit-form__field">
-                    <div className="edit-form__field-name">Font size</div>
-                    <div className="edit-form__field-input">
-                        <PlusMinusInput value={overlay.fontSize} minValue={1} maxValue={99} onValueChanged={() => onFontSizeChanged(selectedOverlayIdx, value)}></PlusMinusInput>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     );
 }

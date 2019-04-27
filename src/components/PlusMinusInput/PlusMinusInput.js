@@ -7,13 +7,13 @@ export default function PlusMinusInput({value, minValue, maxValue, onValueChange
             <div className="plus-minus-input__button" 
                     disabled={value <= minValue}
                     onClick={() => onValueChanged(value - 1)}>
-                -
+                {'\u2013'}
             </div>
             <span className="plus-minus-input__value">{value}</span>
             <div className="plus-minus-input__button" 
                     disabled={value >= maxValue}
                     onClick={() => onValueChanged(value + 1)}>
-                +
+                {'\uFF0B'}
             </div>
         </div>
     );

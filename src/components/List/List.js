@@ -19,8 +19,8 @@ export default function List({items, selectedIdx, itemToText, onItemSelected, on
                 )}
             </div>
             <div className="list__buttons">
-                <button className="list__button" onClick={onItemAdded}>+</button>
-                <button className="list__button" onClick={() => onItemRemoved(selectedIdx)}>-</button>
+                <div className="list__button" onClick={onItemAdded}>{'\uFF0B'}</div>
+                <div className="list__button" onClick={() => onItemRemoved(selectedIdx)}>{'\u2013'}</div>
             </div>
         </div>
     );
