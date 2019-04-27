@@ -69,4 +69,4 @@ export default function UnderlaysEditForm({underlays, onUnderlayRemoved, onUnder
 
 const underlayToText = underlay => `Underlay: ${underlayShape(underlay)} @ (${underlay.origin[0]}, ${underlay.origin[1]})`;
 
-const underlayShape = underlay => underlay.rounded ? 'Square' : 'Rounded';
+const underlayShape = underlay => underlay.rounded ? 'Rounded' : 'Square';

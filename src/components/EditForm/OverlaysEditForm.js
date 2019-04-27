@@ -82,4 +82,4 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
 
 const overlayToText = overlay => `Overlay: ${overlayShape(overlay)} @ (${overlay.center[0]}, ${overlay.center[1]})`;
 
-const overlayShape = overlay => overlay.rounded ? 'Square' : 'Rounded';
+const overlayShape = overlay => overlay.rounded ? 'Rounded' : 'Square';
