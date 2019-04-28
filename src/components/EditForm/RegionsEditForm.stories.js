@@ -7,7 +7,7 @@ import './EditForm.css';
 
 const onRegionAdded = action('onRegionAdded');
 const onRegionRemoved = action('onRegionRemoved');
-const onRegionChanged = action('onRegionChanged');
+const onCellChanged = action('onCellChanged');
 const onCellRemoved = action('onCellRemoved');
 const onCellAdded = action('onCellAdded');
 
@@ -27,7 +27,7 @@ const props = {
     regions: regions,
     onRegionAdded: onRegionAdded,
     onRegionRemoved: onRegionRemoved,
-    onRegionChanged: onRegionChanged,
+    onCellChanged: onCellChanged,
     onCellRemoved: onCellRemoved,
     onCellAdded: onCellAdded,
 };

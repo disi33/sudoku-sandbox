@@ -4,7 +4,7 @@ import './EditForm.css';
 import List from '../List/List';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded, onRegionChanged, onCellRemoved, onCellAdded}) {
+export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded, onCellChanged, onCellRemoved, onCellAdded}) {
 
     const [selectedRegionIdx, setSelectedRegionIdx] = useState(0);
     const region = regions[selectedRegionIdx];
@@ -14,7 +14,7 @@ export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded
             <div className="edit-form__section-title">Add/Remove Regions</div>
             <div className="edit-form__field">
                 <div className="edit-form__field-input">
-                    <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={onRegionAdded} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
+                    <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={() => {setSelectedRegionIdx(regions.length); onRegionAdded();}} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
                 </div>
             </div>
             {region !== undefined && 
@@ -23,7 +23,7 @@ export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={region} onItemChanged={(idx, value) => onRegionChanged(selectedRegionIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={value => onCellAdded(selectedRegionIdx, value)}></PositionsInput> 
+                            <PositionsInput items={region} onItemChanged={(idx, value) => onCellChanged(selectedRegionIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={value => onCellAdded(selectedRegionIdx, value)}></PositionsInput> 
                         </div>
                     </div>
                 </div>

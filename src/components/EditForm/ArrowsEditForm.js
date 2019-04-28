@@ -18,7 +18,7 @@ export default function ArrowsEditForm({arrows, onArrowRemoved, onArrowAdded, on
                 <div className="edit-form__section-title">Add/Remove Arrows</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={arrows} selectedIdx={selectedArrowIdx} onItemSelected={setSelectedArrowIdx} onItemRemoved={onArrowRemoved} onItemAdded={onArrowAdded} itemToText={arrowToText}></List>
+                        <List items={arrows} selectedIdx={selectedArrowIdx} onItemSelected={setSelectedArrowIdx} onItemRemoved={onArrowRemoved} onItemAdded={() => {setSelectedArrowIdx(arrows.length); onArrowAdded();}} itemToText={arrowToText}></List>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@ export default function ArrowsEditForm({arrows, onArrowRemoved, onArrowAdded, on
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Head Length</span>
                         <div className="edit-form__field-input">
-                            <TextInput label="" value={arrow.headLength} onValueChanged={value => onHeadLengthChanged(selectedArrowIdx, value)}></TextInput>
+                            <TextInput numeric label="" value={arrow.headLength} onValueChanged={value => onHeadLengthChanged(selectedArrowIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">

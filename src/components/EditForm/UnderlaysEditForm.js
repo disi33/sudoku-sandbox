@@ -22,7 +22,7 @@ export default function UnderlaysEditForm({underlays, onUnderlayRemoved, onUnder
                 <div className="edit-form__section-title">Add/Remove Underlays</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={underlays} selectedIdx={selectedUnderlayIdx} onItemSelected={setSelectedUnderlayIdx} onItemRemoved={onUnderlayRemoved} onItemAdded={onUnderlayAdded} itemToText={underlayToText}></List> 
+                        <List items={underlays} selectedIdx={selectedUnderlayIdx} onItemSelected={setSelectedUnderlayIdx} onItemRemoved={onUnderlayRemoved} onItemAdded={() => {setSelectedUnderlayIdx(underlays.length); onUnderlayAdded();}} itemToText={underlayToText}></List> 
                     </div>
                 </div>
             </div>
@@ -32,15 +32,15 @@ export default function UnderlaysEditForm({underlays, onUnderlayRemoved, onUnder
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Top-left</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">
-                            <TextInput label="Row" value={underlay.origin[0]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [value, underlay.origin[1]])}></TextInput>
-                            <TextInput label="Col" value={underlay.origin[1]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [underlay.origin[0], value])}></TextInput>
+                            <TextInput numeric label="Row" value={underlay.origin[0]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [value, underlay.origin[1]])}></TextInput>
+                            <TextInput numeric label="Col" value={underlay.origin[1]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [underlay.origin[0], value])}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Size</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">
-                            <TextInput label="Width" value={underlay.width} onValueChanged={value => onWidthChanged(selectedUnderlayIdx, value)}></TextInput>
-                            <TextInput label="Height" value={underlay.height} onValueChanged={value => onHeightChanged(selectedUnderlayIdx, value)}></TextInput>
+                            <TextInput numeric label="Width" value={underlay.width} onValueChanged={value => onWidthChanged(selectedUnderlayIdx, value)}></TextInput>
+                            <TextInput numeric label="Height" value={underlay.height} onValueChanged={value => onHeightChanged(selectedUnderlayIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">

@@ -1,5 +1,5 @@
 .positions-input {
-    width: 100%;
+    width: calc(100% - 8px);
 }
 
 .positions-input__items {

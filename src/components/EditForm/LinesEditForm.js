@@ -17,7 +17,7 @@ export default function LinesEditForm({lines, onLineRemoved, onLineAdded, onThic
                 <div className="edit-form__section-title">Add/Remove Lines</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={lines} selectedIdx={selectedLineIdx} onItemSelected={setSelectedLineIdx} onItemRemoved={onLineRemoved} onItemAdded={onLineAdded} itemToText={lineToText}></List>
+                        <List items={lines} selectedIdx={selectedLineIdx} onItemSelected={setSelectedLineIdx} onItemRemoved={onLineRemoved} onItemAdded={() => {setSelectedLineIdx(lines.length); onLineAdded();}} itemToText={lineToText}></List>
                     </div>
                 </div>
             </div>

@@ -47,7 +47,7 @@ const positionStyleAttributes = ([start_x, start_y], [end_x, end_y], thickness) 
 
 const styleAttributes = ({ start, end, color, thickness }) => (
     {
-        ... positionStyleAttributes(start, end, thickness),
+        ...positionStyleAttributes(start, end, thickness),
         backgroundColor: color,
         borderRadius: thickness,
     }

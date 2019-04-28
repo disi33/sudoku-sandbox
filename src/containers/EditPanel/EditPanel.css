@@ -1,0 +1,15 @@
+.edit-panel {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.edit-panel__title {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: 12px;
+}
+
+.edit-panel__select {
+    margin-bottom: 16px;
+}

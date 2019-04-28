@@ -4,12 +4,11 @@ import { createSelector } from 'reselect';
 import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
 import Arrow from '../Arrow/Arrow';
-import ShapeText from '../ShapeText/ShapeText';
+import Underlay from '../Underlay/Underlay';
+import Overlay from '../Overlay/Overlay';
 
 import './Grid.css';
 import './zIndex.css';
-import Underlay from '../Underlay/Underlay';
-import Overlay from '../Overlay/Overlay';
 
 export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
     const borders = bordersSelector(grid);
@@ -37,6 +36,7 @@ const renderDecoration = cellSize => (decoration, key) => {
         case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>;
         case 'UNDERLAY': return <Underlay key={key} {...decoration} cellSize={cellSize}></Underlay>;
         case 'OVERLAY': return <Overlay key={key} {...decoration} cellSize={cellSize}></Overlay>;
+        default: return '';
     }
 };
 
@@ -56,17 +56,31 @@ const reverseRegionsSelector = createSelector(
     }
 );
 
-const topBorder = (row, col, reverseRegions) =>
-    row === 0 ? reverseRegions[row][col] !== reverseRegions[reverseRegions.length - 1][col] ? 'U' : 'u' : '';
+const topBorder = (row, col, reverseRegions) => {
+    if (row !== 0) return '';
+    if (reverseRegions[row][col] === undefined) return 'u';
+    else if (reverseRegions[row][col] === reverseRegions[reverseRegions.length - 1][col]) return 'u';
+    else return 'U';
+};
 
-const leftBorder = (row, col, reverseRegions) =>
-    col === 0 ? reverseRegions[row][col] !== reverseRegions[row][reverseRegions[row].length - 1] ? 'L' : 'l' : '';
+const leftBorder = (row, col, reverseRegions) => {
+    if (col !== 0) return '';
+    else if (reverseRegions[row][col] === undefined) return 'l';
+    else if (reverseRegions[row][col] === reverseRegions[row][reverseRegions[row].length - 1]) return 'l';
+    else return 'L';
+};
 
-const bottomBorder = (row, col, reverseRegions) =>
-    reverseRegions[row][col] !== reverseRegions[(row + 1) % reverseRegions.length][col] ? 'D' : 'd';
+const bottomBorder = (row, col, reverseRegions) => {
+    if (row === reverseRegions.length - 1 && reverseRegions[row][col] === undefined) return 'd';
+    else if (reverseRegions[row][col] === reverseRegions[(row + 1) % reverseRegions.length][col]) return 'd';
+    else return 'D';
+};
 
-const rightBorder = (row, col, reverseRegions) =>
-    reverseRegions[row][col] !== reverseRegions[row][(col + 1) % reverseRegions[row].length] ? 'R' : 'r';
+const rightBorder = (row, col, reverseRegions) => {
+    if (col === reverseRegions[row].length - 1 && reverseRegions[row][col] === undefined) return 'r';
+    else if (reverseRegions[row][col] === reverseRegions[row][(col + 1) % reverseRegions[row].length]) return 'r';
+    else return 'R';
+};
 
 const bordersFor = (row, col, reverseRegions) => {
     const borders = [
@@ -99,7 +113,7 @@ const topLeftCell = cage =>
 const cageValuesSelector = createSelector(
     sizeSelector, cagesSelector, (size, cages) => {
         let cageValues = [...Array(size)].map(e => Array(size));
-        cages.forEach(cage => {
+        cages.filter(cage => cage.cells.length > 0).forEach(cage => {
             const [min_x, min_y] = topLeftCell(cage);
             cageValues[min_x][min_y] = cage.value;
         });

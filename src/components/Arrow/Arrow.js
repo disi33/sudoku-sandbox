@@ -4,6 +4,7 @@ import './Arrow.css';
 import Line from '../Line/Line';
 
 export default function Arrow({ cellSize, wayPoints, color, thickness, headLength }) {
+    console.log(headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength }));
     return (
         <div>
             <Line cellSize={cellSize} wayPoints={wayPoints} color={color} thickness={thickness}></Line>
@@ -19,7 +20,6 @@ const headPosition = (cellSize, [start_y, start_x], [end_y, end_x], thickness, h
     return {
         left: end_x + thickness * (end_x - start_x) / length / 3,
         top: end_y + thickness * (end_y - start_y) / length / 3,
-        borderWidth: `${thickness}px 0 0 ${thickness}px`,
         padding: cellSize * headLength / 2,
         transform: `rotate(${angle + 135}deg)`,
         WebkitTransform: `rotate(${angle + 135}deg)`,
@@ -30,7 +30,8 @@ const headPosition = (cellSize, [start_y, start_x], [end_y, end_x], thickness, h
 
 const headStyleAttributes = ({ cellSize, start, end, color, thickness, headLength }) => (
     {
-        border: `solid ${color}`,
+        borderTop: `${thickness}px solid ${color}`,
+        borderLeft: `${thickness}px solid ${color}`,
         ...headPosition(cellSize, start.map(x => x * cellSize), end.map(x => x * cellSize), thickness, headLength),
     }
 );

@@ -1,9 +1,9 @@
-import React, {useRef} from 'react';
+import React, { createRef } from 'react';
 import './List.css';
 
 export default function List({items, selectedIdx, itemToText, onItemSelected, onItemRemoved, onItemAdded}) {
 
-    const itemRefs = items.map(() => useRef(null));
+    const itemRefs = items.map(createRef);
 
     return (
         <div className="list" onKeyDown={handleKeyDown(selectedIdx, itemRefs, items.length)}>

@@ -7,8 +7,8 @@ import './EditForm.css';
 
 const onCageAdded = action('onCageAdded');
 const onCageRemoved = action('onCageRemoved');
-const onCageCellsChanged = action('onCageCellsChanged');
-const onCageValueChanged = action('onCageValueChanged');
+const onValueChanged = action('onValueChanged');
+const onCellChanged = action('onCellChanged');
 const onCellRemoved = action('onCellRemoved');
 const onCellAdded = action('onCellAdded');
 
@@ -87,8 +87,8 @@ const props = {
     cages: cages,
     onCageAdded: onCageAdded,
     onCageRemoved: onCageRemoved,
-    onCageValueChanged: onCageValueChanged,
-    onCageCellsChanged: onCageCellsChanged,
+    onValueChanged: onValueChanged,
+    onCellChanged: onCellChanged,
     onCellRemoved: onCellRemoved,
     onCellAdded: onCellAdded,
 };

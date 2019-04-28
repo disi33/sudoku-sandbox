@@ -1,5 +1,5 @@
 .list {
-    width: 100%;
+    width: calc(100% - 8px);
 }
 
 .list__items {

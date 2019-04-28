@@ -5,7 +5,7 @@ import List from '../List/List';
 import TextInput from '../TextInput/TextInput';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onCageValueChanged, onCageCellsChanged, onCellRemoved, onCellAdded}) {
+export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onValueChanged, onCellChanged, onCellRemoved, onCellAdded}) {
 
     const [selectedCageIdx, setSelectedCageIdx] = useState(0);
     const cage = cages[selectedCageIdx];
@@ -16,7 +16,7 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onCage
                 <div className="edit-form__section-title">Add/Remove Cages</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={cages} selectedIdx={selectedCageIdx} onItemSelected={setSelectedCageIdx} onItemAdded={onCageAdded} onItemRemoved={onCageRemoved} itemToText={cageToText}></List>
+                        <List items={cages} selectedIdx={selectedCageIdx} onItemSelected={setSelectedCageIdx} onItemAdded={() => {setSelectedCageIdx(cages.length); onCageAdded();}} onItemRemoved={onCageRemoved} itemToText={cageToText}></List>
                     </div>
                 </div>
             </div>
@@ -26,13 +26,13 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onCage
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Value</span>
                         <div className="edit-form__field-input">
-                            <TextInput label="" value={cage.value} onValueChanged={value => onCageValueChanged(selectedCageIdx, value)}></TextInput>
+                            <TextInput label="" value={cage.value} onValueChanged={value => onValueChanged(selectedCageIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={cage.cells} onItemChanged={(idx, value) => onCageCellsChanged(selectedCageIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={value => onCellAdded(selectedCageIdx, value)}></PositionsInput> 
+                            <PositionsInput items={cage.cells} onItemChanged={(idx, value) => onCellChanged(selectedCageIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={value => onCellAdded(selectedCageIdx, value)}></PositionsInput> 
                         </div>
                     </div>
                 </div>

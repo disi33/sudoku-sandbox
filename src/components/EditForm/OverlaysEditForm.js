@@ -23,7 +23,7 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
                 <div className="edit-form__section-title">Add/Remove Overlays</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={overlays} selectedIdx={selectedOverlayIdx} onItemSelected={setSelectedOverlayIdx} onItemRemoved={onOverlayRemoved} onItemAdded={onOverlayAdded} itemToText={overlayToText}></List> 
+                        <List items={overlays} selectedIdx={selectedOverlayIdx} onItemSelected={setSelectedOverlayIdx} onItemRemoved={onOverlayRemoved} onItemAdded={() => {setSelectedOverlayIdx(overlays.length); onOverlayAdded()}} itemToText={overlayToText}></List> 
                     </div>
                 </div>
             </div>
@@ -33,15 +33,15 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Centre</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">
-                            <TextInput label="Row" value={overlay.center[0]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [value, overlay.center[1]])}></TextInput>
-                            <TextInput label="Col" value={overlay.center[1]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [overlay.center[0], value])}></TextInput>
+                            <TextInput numeric label="Row" value={overlay.center[0]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [value, overlay.center[1]])}></TextInput>
+                            <TextInput numeric label="Col" value={overlay.center[1]} onValueChanged={value => onCenterChanged(selectedOverlayIdx, [overlay.center[0], value])}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Size</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">
-                            <TextInput label="Width" value={overlay.width} onValueChanged={value => onWidthChanged(selectedOverlayIdx, value)}></TextInput>
-                            <TextInput label="Height" value={overlay.height} onValueChanged={value => onHeightChanged(selectedOverlayIdx, value)}></TextInput>
+                            <TextInput numeric label="Width" value={overlay.width} onValueChanged={value => onWidthChanged(selectedOverlayIdx, value)}></TextInput>
+                            <TextInput numeric label="Height" value={overlay.height} onValueChanged={value => onHeightChanged(selectedOverlayIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
@@ -65,13 +65,13 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Text</div>
                         <div className="edit-form__field-input">
-                            <TextInput label="" value={overlay.text} onValueChanged={() => onTextChanged(selectedOverlayIdx, value)}></TextInput>
+                            <TextInput label="" value={overlay.text} onValueChanged={value => onTextChanged(selectedOverlayIdx, value)}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Font size</div>
                         <div className="edit-form__field-input">
-                            <PlusMinusInput value={overlay.fontSize} minValue={1} maxValue={99} onValueChanged={() => onFontSizeChanged(selectedOverlayIdx, value)}></PlusMinusInput>
+                            <PlusMinusInput value={overlay.fontSize} minValue={1} maxValue={99} onValueChanged={value => onFontSizeChanged(selectedOverlayIdx, value)}></PlusMinusInput>
                         </div>
                     </div>
                 </div>

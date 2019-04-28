@@ -1,25 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class App extends Component {
-  render() {
+import EditPanel from '../EditPanel/EditPanel';
+import Puzzle from '../Puzzle/Puzzle';
+
+import './App.css';
+
+export default function App() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+        <div className="app">
+            <div className="app__puzzle">
+                <Puzzle></Puzzle>
+            </div>
+            <div className="app__edit-panel">
+                <EditPanel></EditPanel>
+            </div>
+        </div>
     );
-  }
 }
-
-export default App;

@@ -39,6 +39,7 @@
     color: #CFCFCF;
     border-color: #CFCFCF;
     cursor: default;
+    pointer-events: none;
 }
 
 .plus-minus-input__value {
