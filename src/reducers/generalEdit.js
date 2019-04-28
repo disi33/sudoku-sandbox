@@ -38,7 +38,7 @@ const defaultRegions = gridSize => {
         for (let jdx = 0; jdx < rowsPerRegion; jdx++) {
             let region = [];
             for (let row = rowsPerRegion * idx; row < rowsPerRegion * (idx + 1); row++) {
-                for (let col = colsPerRegion * jdx; row < colsPerRegion * (jdx + 1); col++) {
+                for (let col = colsPerRegion * jdx; col < colsPerRegion * (jdx + 1); col++) {
                     region.push([row, col]);
                 }
             }
