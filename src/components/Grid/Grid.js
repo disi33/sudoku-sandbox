@@ -10,16 +10,18 @@ import Overlay from '../Overlay/Overlay';
 import './Grid.css';
 import './zIndex.css';
 
-export default function Grid({ grid: { cells, decorations }, cellSize, grid }) {
+export default function Grid({ grid, grid: { cells, decorations, highlights }, cellSize, clickConfig, onCellClicked }) {
+
     const borders = bordersSelector(grid);
     const cageBorders = cageBordersSelector(grid);
     const cageValues = cageValuesSelector(grid);
+    
     return (
-        <div className="grid" style={{margin: cellSize * 1.5}}>
+        <div className="grid">
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>
-                        <Cell key={jdx} {...cell} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
+                        <Cell onClick={() => onCellClicked(idx, jdx, clickConfig)} key={jdx} {...cell} highlight={highlights[idx][jdx]} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
                     )}
                 </div>
             )}
@@ -108,7 +110,7 @@ const cageRegionsSelector = createSelector(
 );
 
 const topLeftCell = cage => 
-    cage.cells.reduce((acc, val) => acc[0] < val[0] ? acc : acc[1] < val[1] ? acc : val, cage.cells[0]);
+    cage.cells.reduce((acc, val) => acc[0] < val[0] ? acc : acc[0] > val[0] ? val : acc[1] < val[1] ? acc : val, cage.cells[0]);
 
 const cageValuesSelector = createSelector(
     sizeSelector, cagesSelector, (size, cages) => {

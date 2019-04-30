@@ -4,10 +4,18 @@ import './EditForm.css';
 import List from '../List/List';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded, onCellChanged, onCellRemoved, onCellAdded}) {
+export default function RegionsEditForm({regions, onRegionSelected, onRegionRemoved, onRegionAdded, onCellChanged, onCellRemoved, onCellAdded}) {
 
-    const [selectedRegionIdx, setSelectedRegionIdx] = useState(0);
+    const [selectedRegionIdx, _setSelectedRegionIdx] = useState(0);
+
+    const setSelectedRegionIdx = idx => {
+        onRegionSelected(idx);
+        _setSelectedRegionIdx(idx);
+    };
+
     const region = regions[selectedRegionIdx];
+    if (region !== undefined) onRegionSelected(selectedRegionIdx);
+    else onRegionSelected(undefined);
 
     return (
         <div className="edit-form">
@@ -20,10 +28,11 @@ export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded
             {region !== undefined && 
                 <div>
                     <div className="edit-form__section-title">Edit Selected Region</div>
+                    <p>Click on cells in the grid to add and remove cells to/from this region, or alternatively, use the form:</p>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={region} onItemChanged={(idx, value) => onCellChanged(selectedRegionIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={value => onCellAdded(selectedRegionIdx, value)}></PositionsInput> 
+                            <PositionsInput items={oneBased(region)} onItemChanged={(idx, [row, col]) => onCellChanged(selectedRegionIdx, idx, [row - 1, col - 1])} onItemRemoved={idx => onCellRemoved(selectedRegionIdx, idx)} onItemAdded={([row, col]) => onCellAdded(selectedRegionIdx, [row - 1, col - 1])}></PositionsInput> 
                         </div>
                     </div>
                 </div>
@@ -31,6 +40,8 @@ export default function RegionsEditForm({regions, onRegionRemoved, onRegionAdded
         </div>
     );
 }
+
+const oneBased = region => region.map(([row, col]) => [row + 1, col + 1]);
 
 const regionToText = region => {
     let sortedCells = [...region];

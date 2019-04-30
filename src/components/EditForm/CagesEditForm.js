@@ -5,10 +5,18 @@ import List from '../List/List';
 import TextInput from '../TextInput/TextInput';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onValueChanged, onCellChanged, onCellRemoved, onCellAdded}) {
+export default function CagesEditForm({cages, onCageSelected, onCageRemoved, onCageAdded, onValueChanged, onCellChanged, onCellRemoved, onCellAdded}) {
 
-    const [selectedCageIdx, setSelectedCageIdx] = useState(0);
+    const [selectedCageIdx, _setSelectedCageIdx] = useState(0);
+
+    const setSelectedCageIdx = idx => {
+        onCageSelected(idx);
+        _setSelectedCageIdx(idx);
+    };
+
     const cage = cages[selectedCageIdx];
+    if (cage !== undefined) onCageSelected(selectedCageIdx);
+    else onCageSelected(undefined);
 
     return (
         <div className="edit-form">
@@ -23,6 +31,7 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onValu
             {cage !== undefined &&
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Cage</div>
+                    <p>Click on cells in the grid to add and remove cells to/from this cage, or alternatively, use the form:</p>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Value</span>
                         <div className="edit-form__field-input">
@@ -32,7 +41,7 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onValu
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Cells</span>
                         <div className="edit-form__field-input">
-                            <PositionsInput items={cage.cells} onItemChanged={(idx, value) => onCellChanged(selectedCageIdx, idx, value)} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={value => onCellAdded(selectedCageIdx, value)}></PositionsInput> 
+                            <PositionsInput items={oneBased(cage.cells)} onItemChanged={(idx, [row, col]) => onCellChanged(selectedCageIdx, idx, [row - 1, col - 1])} onItemRemoved={idx => onCellRemoved(selectedCageIdx, idx)} onItemAdded={([row, col]) => onCellAdded(selectedCageIdx, [row, col])}></PositionsInput> 
                         </div>
                     </div>
                 </div>
@@ -40,6 +49,8 @@ export default function CagesEditForm({cages, onCageRemoved, onCageAdded, onValu
         </div>
     );
 }
+
+const oneBased = cells => cells.map(([row, col]) => [row + 1, col + 1]);
 
 const cageToText = cage => {
     let sortedCells = [...cage.cells];

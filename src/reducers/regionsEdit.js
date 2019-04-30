@@ -1,5 +1,6 @@
 export default function regionsEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_REGION': return selectRegion(state, action);
         case 'REMOVE_REGION': return removeRegion(state, action);
         case 'ADD_REGION': return addRegion(state, action);
         case 'SET_REGION_CELL': return setRegionCell(state, action);
@@ -8,6 +9,14 @@ export default function regionsEdit(state, action) {
         default: return state;
     }
 }
+
+const selectRegion = (state, {idx}) => ({
+    ...state,
+    clicks: {
+        ...state.clicks,
+        regionIdx: idx,
+    }
+});
 
 const removeRegion = (state, {idx}) => ({
     ...state,
@@ -47,7 +56,7 @@ const setRegionCell = (state, {regionIdx, cellIdx, cell}) => ({
     }
 });
 
-const removeRegionCell = (state, {regionIdx, cellIdx}) => ({
+export const removeRegionCell = (state, {regionIdx, cellIdx}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,
@@ -62,7 +71,7 @@ const removeRegionCell = (state, {regionIdx, cellIdx}) => ({
     }
 });
 
-const addRegionCell = (state, {regionIdx, cell}) => ({
+export const addRegionCell = (state, {regionIdx, cell}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,

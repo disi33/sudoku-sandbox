@@ -1,5 +1,6 @@
 export default function cagesEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_CAGE': return selectCage(state, action);
         case 'REMOVE_CAGE': return removeCage(state, action);
         case 'ADD_CAGE': return addCage(state, action);
         case 'SET_CAGE_VALUE': return setCageValue(state, action);
@@ -9,6 +10,14 @@ export default function cagesEdit(state, action) {
         default: return state;
     }
 }
+
+const selectCage = (state, {idx}) => ({
+    ...state,
+    clicks: {
+        ...state.clicks,
+        cageIdx: idx,
+    }
+});
 
 const removeCage = (state, {idx}) => ({
     ...state,
@@ -69,7 +78,7 @@ const setCageCell = (state, {cageIdx, cellIdx, cell}) => ({
     }
 });
 
-const removeCageCell = (state, {cageIdx, cellIdx}) => ({
+export const removeCageCell = (state, {cageIdx, cellIdx}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,
@@ -87,7 +96,7 @@ const removeCageCell = (state, {cageIdx, cellIdx}) => ({
     }
 });
 
-const addCageCell = (state, {cageIdx, cell}) => ({
+export const addCageCell = (state, {cageIdx, cell}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,

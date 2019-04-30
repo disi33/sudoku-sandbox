@@ -1,6 +1,41 @@
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+import { toggleCellInRegion, toggleCellInCage } from '../../actions/puzzleActions';
 
 import Grid from '../../components/Grid/Grid';
+
+const selectedRegionExists = state => state.clicks.regionIdx !== undefined && state.clicks.regionIdx >= 0 && state.clicks.regionIdx < state.puzzle.regions.length;
+const selectedCageExists = state => state.clicks.cageIdx !== undefined && state.clicks.cageIdx >= 0 && state.clicks.cageIdx < state.puzzle.cages.length;
+
+const clicksModeSelector = state => state.clicks.mode;
+const selectedRegionSelector = state => selectedRegionExists(state) ? state.puzzle.regions[state.clicks.regionIdx] : [];
+const selectedCageSelector = state => selectedCageExists(state) ? state.puzzle.cages[state.clicks.cageIdx].cells : [];
+const gridSizeSelector = state => state.puzzle.cells.length;
+
+const regionHighlightsSelector = createSelector(
+    selectedRegionSelector, gridSizeSelector, (region, gridSize) => {
+        let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+        region.forEach(([row, col]) => highlights[row][col] = '#CCFF00');
+        return highlights;
+    }
+);
+
+const cageHighlightsSelector = createSelector(
+    selectedCageSelector, gridSizeSelector, (cage, gridSize) => {
+        let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+        cage.forEach(([row, col]) => highlights[row][col] = '#CCFF00');
+        return highlights;
+    }
+);
+
+const highlightsSelector = createSelector(
+    clicksModeSelector, regionHighlightsSelector, cageHighlightsSelector, gridSizeSelector, (mode, regionHighlights, cageHighlights, gridSize) => {
+        if (mode === 'REGIONS') return regionHighlights;
+        else if (mode === 'CAGES') return cageHighlights;
+        else return [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+    }
+);
 
 const mapStateToProps = state => ({
     cellSize: state.puzzle.cellSize,
@@ -8,6 +43,7 @@ const mapStateToProps = state => ({
         cells: state.puzzle.cells,
         regions: state.puzzle.regions,
         cages: state.puzzle.cages,
+        highlights: highlightsSelector(state),
         decorations: [
             ...state.puzzle.lines.map(line => ({...line, type: 'LINE'})),
             ...state.puzzle.arrows.map(arrow => ({...arrow, type: 'ARROW'})),
@@ -15,6 +51,14 @@ const mapStateToProps = state => ({
             ...state.puzzle.overlays.map(overlay => ({...overlay, type: 'OVERLAY'})),
         ]
     },
+    clickConfig: state.clicks,
 });
 
-export default connect(mapStateToProps)(Grid);
+const mapDispatchToProps = dispatch => ({
+    onCellClicked: (row, col, clickConfig) => {
+        if (clickConfig.mode === 'REGIONS' && clickConfig.regionIdx !== undefined) dispatch(toggleCellInRegion(row, col, clickConfig.regionIdx));
+        else if (clickConfig.mode === 'CAGES' && clickConfig.cageIdx !== undefined) dispatch(toggleCellInCage(row, col, clickConfig.cageIdx));
+    }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Grid);

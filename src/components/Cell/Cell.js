@@ -1,11 +1,12 @@
 import React from 'react';
 import './Cell.css';
 
-export default function Cell({ size, value, borders, cageBorders, cageValue, candidates, pencilMarks }) {
+export default function Cell({ size, value, highlight, borders, cageBorders, cageValue, candidates, pencilMarks, onClick }) {
     return (
-        <div className={"cell " + cellClasses(borders)} style={{width: size, height: size}}>
+        <div onClick={onClick} className={"cell " + cellClasses(borders)} style={{width: size, height: size}}>
+            {highlight && <div className="cell__highlight" style={{backgroundColor: highlight}}></div>}
             <div className={"cell__border " + borderClasses(borders)}>
-                {cageValue && <span className="cell__cage-value" style={{fontSize: size / 4.5}}>{cageValue}</span>}
+                {cageValue !== undefined && <span className="cell__cage-value" style={{fontSize: size / 4.5}}>{cageValue}</span>}
             </div>
             <div className={"cell__inner"} style={innerCellPositioning(cageBorders, borders, size)}>
                 <div className={"cell__inner-border " + cageBorderClasses(cageBorders)}></div>

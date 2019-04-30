@@ -1,3 +1,8 @@
+export const selectCage = idx => ({
+    type: 'SELECT_CAGE',
+    idx: idx,
+});
+
 export const removeCage = idx => ({
     type: 'REMOVE_CAGE',
     idx: idx,

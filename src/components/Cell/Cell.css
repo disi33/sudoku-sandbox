@@ -73,6 +73,15 @@
     border-left: 1px dashed black;
 }
 
+.cell__highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.5;
+}
+
 .cell__cage-value {
     position: absolute;
     top: 0;

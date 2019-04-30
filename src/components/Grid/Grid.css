@@ -6,6 +6,8 @@
     align-items: stretch;
 
     font-family: Tahoma, Verdana, sans-serif;
+
+    cursor: pointer;
 }
 
 .grid__row {

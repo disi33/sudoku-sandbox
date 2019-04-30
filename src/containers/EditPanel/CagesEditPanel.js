@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { removeCage, addCage, setCageValue, setCageCell, removeCageCell, addCageCell } from '../../actions/cagesEditActions';
+import { selectCage, removeCage, addCage, setCageValue, setCageCell, removeCageCell, addCageCell } from '../../actions/cagesEditActions';
 
 import CagesEditForm from '../../components/EditForm/CagesEditForm';
 
@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    onCageSelected: selectCage,
     onCageRemoved: removeCage, 
     onCageAdded: addCage, 
     onValueChanged: setCageValue, 

@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 
+import editPanel from '../reducers/editPanel';
 import arrowsEdit from '../reducers/arrowsEdit';
 import cagesEdit from '../reducers/cagesEdit';
 import generalEdit from '../reducers/generalEdit';
@@ -7,13 +8,14 @@ import linesEdit from '../reducers/linesEdit';
 import overlaysEdit from '../reducers/overlaysEdit';
 import regionsEdit from '../reducers/regionsEdit';
 import underlaysEdit from '../reducers/underlaysEdit';
+import puzzle from '../reducers/puzzle';
 
 const chainReducers = (...reducers) => (state, action) => 
     reducers.reduce((acc, reducer) => reducer(acc, action), state);
 
 const initialState = () => ({
     puzzle: {
-        cellSize: 45,
+        cellSize: 50,
         cells: [...Array(9)].map(_ => [...Array(9)].map(_ => ({
             value: undefined, candidates: [], pencilMarks: []
         }))),
@@ -59,11 +61,14 @@ const initialState = () => ({
             rounded: false,
             fontSize: 12,
         }
+    },
+    clicks: {
+        mode: 'GIVENS',
     }
 });
 
 const configureStore = () => createStore(
-    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, regionsEdit, underlaysEdit),
+    chainReducers(editPanel, arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, regionsEdit, underlaysEdit, puzzle),
     initialState(),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

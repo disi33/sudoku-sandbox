@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import Select from 'react-select';
 
@@ -11,8 +12,9 @@ import UnderlaysEditPanel from '../EditPanel/UnderlaysEditPanel';
 import OverlaysEditPanel from '../EditPanel/OverlaysEditPanel';
 
 import './EditPanel.css';
+import { setClicksMode } from '../../actions/editPanelActions';
 
-export default function EditPanel() {
+const EditPanel = ({onClicksModeChanged}) => {
 
     const options = [
         {value: 'GENERAL', label: 'General'},
@@ -24,7 +26,14 @@ export default function EditPanel() {
         {value: 'OVERLAYS', label: 'Overlays'},
     ];
 
-    const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [selectedOption, _setSelectedOption] = useState(options[0]);
+    const setSelectedOption = (option) => {
+        if (option.value === 'GENERAL') onClicksModeChanged('GIVENS');
+        else if (option.value === 'REGIONS') onClicksModeChanged('REGIONS');
+        else if (option.value === 'CAGES') onClicksModeChanged('CAGES');
+        else onClicksModeChanged('NONE');
+        _setSelectedOption(option);
+    };
 
     return (
         <div className="edit-panel">
@@ -40,3 +49,11 @@ export default function EditPanel() {
         </div>
     );
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = {
+    onClicksModeChanged: setClicksMode
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditPanel);

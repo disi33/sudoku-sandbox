@@ -1,3 +1,8 @@
+export const selectRegion = idx => ({
+    type: 'SELECT_REGION',
+    idx: idx,
+});
+
 export const removeRegion = idx => ({
     type: 'REMOVE_REGION',
     idx: idx,

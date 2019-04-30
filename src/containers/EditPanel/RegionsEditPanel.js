@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { removeRegion, addRegion, setRegionCell, removeRegionCell, addRegionCell } from '../../actions/regionsEditActions';
+import { selectRegion, removeRegion, addRegion, setRegionCell, removeRegionCell, addRegionCell } from '../../actions/regionsEditActions';
 
 import RegionsEditForm from '../../components/EditForm/RegionsEditForm';
 
@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+    onRegionSelected: selectRegion,
     onRegionRemoved: removeRegion,
     onRegionAdded: addRegion,
     onCellChanged: setRegionCell,
