@@ -25,6 +25,11 @@ const setGridSize = (state, {gridSize}) => ({
         arrows: [],
         overlays: [],
         underlays: [],
+    },
+    clicks: {
+        ...state.clicks,
+        cellRow: undefined,
+        cellCol: undefined,
     }
 });
 

@@ -70,6 +70,7 @@ const mapDispatchToProps = dispatch => ({
         else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
         else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % gridSize));
         else if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteGivenMarks(cellRow, cellCol));
+        else if (e.key === 'Escape') dispatch(selectCell(undefined, undefined));
         else if (e.ctrlKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenCandidate(cellRow, cellCol, e.key));
         else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenPencilMark(cellRow, cellCol, e.key));
         else if (isAcceptableCellInput(e.key)) dispatch(setGivenValue(cellRow, cellCol, e.key));
