@@ -23,7 +23,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onEditSelected: () => dispatch(setInteractionsMode('GIVENS')),
+    onEditSelected: () => {
+        dispatch(startPlayOver());
+        dispatch(setInteractionsMode('GIVENS'));
+    },
     onPlaySelected: () => {
         dispatch(startPlayOver());
         dispatch(setInteractionsMode('PLAY'));

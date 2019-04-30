@@ -17,7 +17,7 @@ export default function Cell({ size, givenValue, userValue, selected, highlight,
                     <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--given cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>
                 )}
                 {!givenValue && !userValue && userPencilMarks.map((pm, idx) =>
-                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--given cell__pm--" + pencilMarkModifiers[(givenPencilMarks.length + idx) % pencilMarkModifiers.length]}>{pm}</span>
+                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--user cell__pm--" + pencilMarkModifiers[(givenPencilMarks.length + idx) % pencilMarkModifiers.length]}>{pm}</span>
                 )}
                 {!givenValue && !userValue && userCandidates.length > 0 && <span className="cell__candidates cell__candidates--user" style={{fontSize: size / 4}}>{userCandidates.join('')}</span>}
             </div>
