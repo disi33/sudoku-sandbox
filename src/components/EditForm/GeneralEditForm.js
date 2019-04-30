@@ -17,7 +17,7 @@ export default function GeneralEditForm({cellSize, onCellSizeChanged, gridSize, 
                 <div className="edit-form__field">
                     <span className="edit-form__field-name">Grid size</span>
                     <div className="edit-form__field-input">
-                        <PlusMinusInput value={gridSize} minValue={4} maxValue={9} onValueChanged={onGridSizeChanged}></PlusMinusInput>
+                        <PlusMinusInput value={gridSize} minValue={4} maxValue={16} onValueChanged={onGridSizeChanged}></PlusMinusInput>
                     </div>
                 </div>
             </div>
