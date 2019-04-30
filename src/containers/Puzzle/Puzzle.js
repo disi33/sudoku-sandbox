@@ -1,22 +1,25 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenCandidate, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
+import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
+import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue } from '../../actions/playActions';
 
 import Grid from '../../components/Grid/Grid';
 
-const selectedRegionExists = state => state.clicks.regionIdx !== undefined && state.clicks.regionIdx >= 0 && state.clicks.regionIdx < state.puzzle.regions.length;
-const selectedCageExists = state => state.clicks.cageIdx !== undefined && state.clicks.cageIdx >= 0 && state.clicks.cageIdx < state.puzzle.cages.length;
+const selectedRegionExists = state => state.interactions.regionIdx !== undefined && state.interactions.regionIdx >= 0 && state.interactions.regionIdx < state.puzzle.regions.length;
+const selectedCageExists = state => state.interactions.cageIdx !== undefined && state.interactions.cageIdx >= 0 && state.interactions.cageIdx < state.puzzle.cages.length;
+const playCellsExist = state => state.play !== undefined && state.play.cells !== undefined;
 
-const clicksModeSelector = state => state.clicks.mode;
-const selectedRegionSelector = state => selectedRegionExists(state) ? state.puzzle.regions[state.clicks.regionIdx] : [];
-const selectedCageSelector = state => selectedCageExists(state) ? state.puzzle.cages[state.clicks.cageIdx].cells : [];
+const interactionsModeSelector = state => state.interactions.mode;
+const selectedRegionSelector = state => selectedRegionExists(state) ? state.puzzle.regions[state.interactions.regionIdx] : [];
+const selectedCageSelector = state => selectedCageExists(state) ? state.puzzle.cages[state.interactions.cageIdx].cells : [];
+const playCellsSelector = state => playCellsExist(state) ? state.play.cells : []; 
 const gridSizeSelector = state => state.puzzle.cells.length;
 
 const regionHighlightsSelector = createSelector(
     selectedRegionSelector, gridSizeSelector, (region, gridSize) => {
         let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
-        region.forEach(([row, col]) => highlights[row][col] = '#CCFF00');
+        region.forEach(([row, col]) => highlights[row][col] = 'rgba(255, 215, 0, 0.5)');
         return highlights;
     }
 );
@@ -24,15 +27,20 @@ const regionHighlightsSelector = createSelector(
 const cageHighlightsSelector = createSelector(
     selectedCageSelector, gridSizeSelector, (cage, gridSize) => {
         let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
-        cage.forEach(([row, col]) => highlights[row][col] = '#CCFF00');
+        cage.forEach(([row, col]) => highlights[row][col] = 'rgba(255, 215, 0, 0.5)');
         return highlights;
     }
 );
 
+const playHighlightsSelector = createSelector(
+    playCellsSelector, playCells => playCells.map(row => row.map(cell => cell.highlight))
+);
+
 const highlightsSelector = createSelector(
-    clicksModeSelector, regionHighlightsSelector, cageHighlightsSelector, gridSizeSelector, (mode, regionHighlights, cageHighlights, gridSize) => {
+    interactionsModeSelector, regionHighlightsSelector, cageHighlightsSelector, playHighlightsSelector, gridSizeSelector, (mode, regionHighlights, cageHighlights, playHighlights, gridSize) => {
         if (mode === 'REGIONS') return regionHighlights;
         else if (mode === 'CAGES') return cageHighlights;
+        else if (mode === 'PLAY') return playHighlights;
         else return [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
     }
 );
@@ -51,29 +59,40 @@ const mapStateToProps = state => ({
             ...state.puzzle.overlays.map(overlay => ({...overlay, type: 'OVERLAY'})),
         ]
     },
-    clickConfig: state.clicks,
+    interactionsConfig: state.interactions,
+    user: state.play && state.play.cells,
 });
 
 const mapDispatchToProps = dispatch => ({
-    onCellClicked: (row, col, clickConfig) => {
-        if (clickConfig.mode === 'REGIONS' && clickConfig.regionIdx !== undefined) dispatch(toggleCellInRegion(row, col, clickConfig.regionIdx));
-        else if (clickConfig.mode === 'CAGES' && clickConfig.cageIdx !== undefined) dispatch(toggleCellInCage(row, col, clickConfig.cageIdx));
-        else if (clickConfig.mode === 'GIVENS') dispatch(selectCell(row, col));
+    onCellClicked: (row, col, interactionsConfig) => {
+        if (interactionsConfig.mode === 'REGIONS' && interactionsConfig.regionIdx !== undefined) dispatch(toggleCellInRegion(row, col, interactionsConfig.regionIdx));
+        else if (interactionsConfig.mode === 'CAGES' && interactionsConfig.cageIdx !== undefined) dispatch(toggleCellInCage(row, col, interactionsConfig.cageIdx));
+        else if (interactionsConfig.mode === 'GIVENS' || interactionsConfig.mode === 'PLAY') dispatch(selectCell(row, col));
     },
     onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {
-        if (mode !== 'GIVENS' || cellRow === undefined || cellCol === undefined) return;
+        if (cellRow === undefined || cellCol === undefined) return;
 
-        e.preventDefault();
+        if (mode === 'GIVENS' || mode === 'PLAY') {
+            e.preventDefault();
+            if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
+            else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
+            else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
+            else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % gridSize));
+            else if (e.key === 'Escape') dispatch(selectCell(undefined, undefined));
+        }
 
-        if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
-        else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
-        else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
-        else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % gridSize));
-        else if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteGivenMarks(cellRow, cellCol));
-        else if (e.key === 'Escape') dispatch(selectCell(undefined, undefined));
-        else if (e.ctrlKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenCandidate(cellRow, cellCol, e.key));
-        else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenPencilMark(cellRow, cellCol, e.key));
-        else if (isAcceptableCellInput(e.key)) dispatch(setGivenValue(cellRow, cellCol, e.key));
+        if (mode === 'GIVENS') {
+            if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteGivenMarks(cellRow, cellCol));
+            else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenPencilMark(cellRow, cellCol, e.key));
+            else if (isAcceptableCellInput(e.key)) dispatch(setGivenValue(cellRow, cellCol, e.key));
+        }
+
+        if (mode === 'PLAY') {
+            if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteUserMarks(cellRow, cellCol));
+            else if (e.ctrlKey && isAcceptableCellInput(e.key)) dispatch(toggleUserCandidate(cellRow, cellCol, e.key));
+            else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleUserPencilMark(cellRow, cellCol, e.key));
+            else if (isAcceptableCellInput(e.key)) dispatch(setUserValue(cellRow, cellCol, e.key));
+        }
     }
 });
 

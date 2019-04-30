@@ -1,5 +1,5 @@
-export const setClicksMode = mode => ({
-    type: 'SET_CLICKS_MODE',
+export const setInteractionsMode = mode => ({
+    type: 'SET_INTERACTIONS_MODE',
     mode: mode,
 });
 

@@ -12,6 +12,7 @@ export default function ColorPicker({selectedColor, onColorSelected}) {
                     <button key={idx} 
                             className={"color-picker__button " + selectedClassName(color, selectedColor)}
                             style={{backgroundColor: color}}
+                            onMouseDown={e => { e.preventDefault(); e.stopPropagation(); }}
                             onClick={() => onColorSelected(color)}>
                     </button>
                 )}
@@ -24,6 +25,6 @@ const selectedClassName = (color, selectedColor) =>
     color === selectedColor ? 'color-picker__button--selected' : '';
 
 const COLORS = [
-    '#000000', '#CFCFCF', '#EB7532', '#A3E048', '#4355DB',
-    '#FFFFFF', '#E6261F', '#F7D038', '#34BBE6', '#D23BE7',
+    '#000000', '#CFCFCF', '#EB7532', '#A3E048', '#D23BE7',
+    '#FFFFFF', '#E6261F', '#F7D038', '#34BBE6',
 ];

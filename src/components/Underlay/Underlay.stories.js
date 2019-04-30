@@ -72,7 +72,7 @@ const wonkyRenbanGroup = [
 ];
 
 const defaultProps = {
-    clickConfig: { mode: 'NONE' },
+    interactionsConfig: { mode: 'NONE' },
     onCellClicked: action('onCellClicked'),
     onKeyDown: () => action('onKeyDown'),
 };

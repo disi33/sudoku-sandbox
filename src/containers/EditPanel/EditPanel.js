@@ -12,10 +12,10 @@ import UnderlaysEditPanel from '../EditPanel/UnderlaysEditPanel';
 import OverlaysEditPanel from '../EditPanel/OverlaysEditPanel';
 
 import './EditPanel.css';
-import { setClicksMode } from '../../actions/puzzleActions';
+import { setInteractionsMode } from '../../actions/puzzleActions';
 import SaveLoadEditPanel from './SaveLoadEditPanel';
 
-const EditPanel = ({onClicksModeChanged}) => {
+const EditPanel = ({onInteractionsModeChanged}) => {
 
     const options = [
         {value: 'GENERAL', label: 'General'},
@@ -30,10 +30,9 @@ const EditPanel = ({onClicksModeChanged}) => {
 
     const [selectedOption, _setSelectedOption] = useState(options[0]);
     const setSelectedOption = (option) => {
-        if (option.value === 'GENERAL') onClicksModeChanged('GIVENS');
-        else if (option.value === 'REGIONS') onClicksModeChanged('REGIONS');
-        else if (option.value === 'CAGES') onClicksModeChanged('CAGES');
-        else onClicksModeChanged('NONE');
+        if (option.value === 'REGIONS') onInteractionsModeChanged('REGIONS');
+        else if (option.value === 'CAGES') onInteractionsModeChanged('CAGES');
+        else onInteractionsModeChanged('GIVENS');
         _setSelectedOption(option);
     };
 
@@ -56,7 +55,7 @@ const EditPanel = ({onClicksModeChanged}) => {
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
-    onClicksModeChanged: setClicksMode
+    onInteractionsModeChanged: setInteractionsMode
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPanel);

@@ -13,8 +13,8 @@ export default function cagesEdit(state, action) {
 
 const selectCage = (state, {idx}) => ({
     ...state,
-    clicks: {
-        ...state.clicks,
+    interactions: {
+        ...state.interactions,
         cageIdx: idx,
     }
 });

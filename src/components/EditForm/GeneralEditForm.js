@@ -27,13 +27,11 @@ export default function GeneralEditForm({cellSize, onCellSizeChanged, gridSize, 
                     To place givens in the grid, select a cell by clicking on it and then use the keyboard to enter values.
                     You can move between cells of the grid using the arrow keys.
                 </p>
-                <p>To place small numbers in the center of the cell (candidates), hold Ctrl.</p>
-                <p>To place small numbers in the corners of the cell (pencil marks), hold Alt.</p>
             </div>
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Decorations</div>
                 <p>
-                    Use the other tabs of this edit panel to place decorations (cages, lines, arrows etc.) in the grid.
+                    Use the other tabs of this edit panel to place decorations (cages, lines, arrows, text etc.) in the grid.
                 </p>
                 <p>
                     Some decorations ask for coordinates for where they should appear in the grid. 

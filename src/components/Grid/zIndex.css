@@ -10,15 +10,15 @@
     z-index: 2;
 }
 
-.cell__border {
+.cell__highlight {
     z-index: 3;
 }
 
-.shapetext--overlay {
+.cell__border {
     z-index: 4;
 }
 
-.cell__highlight, .cell__select {
+.shapetext--overlay {
     z-index: 5;
 }
 

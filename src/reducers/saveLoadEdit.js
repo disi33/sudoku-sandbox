@@ -8,7 +8,7 @@ export default function saveLoad(state, action) {
 const loadPuzzle = (state, {puzzle}) => ({
     ...state,
     puzzle: JSON.parse(puzzle),
-    clicks: {
-        mode: 'NONE',
+    interactions: {
+        mode: 'GIVENS',
     },
 });

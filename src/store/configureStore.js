@@ -8,6 +8,8 @@ import overlaysEdit from '../reducers/overlaysEdit';
 import regionsEdit from '../reducers/regionsEdit';
 import saveLoadEdit from '../reducers/saveLoadEdit';
 import underlaysEdit from '../reducers/underlaysEdit';
+
+import play from '../reducers/play';
 import puzzle from '../reducers/puzzle';
 
 const chainReducers = (...reducers) => (state, action) => 
@@ -62,13 +64,13 @@ const initialState = () => ({
             fontSize: 12,
         }
     },
-    clicks: {
+    interactions: {
         mode: 'GIVENS',
-    }
+    },
 });
 
 const configureStore = () => createStore(
-    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, saveLoadEdit, regionsEdit, underlaysEdit, puzzle),
+    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, saveLoadEdit, regionsEdit, underlaysEdit, play, puzzle),
     initialState(),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

@@ -1,20 +1,25 @@
 import React from 'react';
 import './Cell.css';
 
-export default function Cell({ size, value, highlight, borders, cageBorders, cageValue, candidates, pencilMarks, onClick }) {
+export default function Cell({ size, givenValue, userValue, selected, highlight, borders, cageBorders, cageValue, userCandidates, givenPencilMarks, userPencilMarks, onClick }) {
     return (
         <div onClick={onClick} className={"cell " + cellClasses(borders)} style={{width: size, height: size}}>
             {highlight && <div className="cell__highlight" style={{backgroundColor: highlight}}></div>}
+            {selected && <div className="cell__highlight" style={{backgroundColor: 'rgba(255, 215, 0, 0.5)'}}></div>}
             <div className={"cell__border " + borderClasses(borders)}>
                 {cageValue !== undefined && <span className="cell__cage-value" style={{fontSize: size / 4.5}}>{cageValue}</span>}
             </div>
             <div className={"cell__inner"} style={innerCellPositioning(cageBorders, borders, size)}>
                 <div className={"cell__inner-border " + cageBorderClasses(cageBorders)}></div>
-                {value && <span className="cell__value" style={{fontSize: size / 1.5}}>{value}</span>}
-                {!value && pencilMarks.map((pm, idx) =>
-                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>
+                {givenValue && <span className="cell__value cell__value--given" style={{fontSize: size / 1.5}}>{givenValue}</span>}
+                {!givenValue && userValue && <span className="cell__value cell__value--user" style={{fontSize: size / 1.5}}>{userValue}</span>}
+                {!givenValue && !userValue && givenPencilMarks.map((pm, idx) =>
+                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--given cell__pm--" + pencilMarkModifiers[idx % pencilMarkModifiers.length]}>{pm}</span>
                 )}
-                {!value && candidates.length > 0 && <span className="cell__candidates" style={{fontSize: size / 4}}>{candidates.join('')}</span>}
+                {!givenValue && !userValue && userPencilMarks.map((pm, idx) =>
+                    <span key={idx} style={{fontSize: size / 4.2}} className={"cell__pm cell__pm--given cell__pm--" + pencilMarkModifiers[(givenPencilMarks.length + idx) % pencilMarkModifiers.length]}>{pm}</span>
+                )}
+                {!givenValue && !userValue && userCandidates.length > 0 && <span className="cell__candidates cell__candidates--user" style={{fontSize: size / 4}}>{userCandidates.join('')}</span>}
             </div>
         </div>
     );

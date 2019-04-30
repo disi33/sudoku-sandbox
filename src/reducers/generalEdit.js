@@ -26,8 +26,8 @@ const setGridSize = (state, {gridSize}) => ({
         overlays: [],
         underlays: [],
     },
-    clicks: {
-        ...state.clicks,
+    interactions: {
+        ...state.interactions,
         cellRow: undefined,
         cellCol: undefined,
     }

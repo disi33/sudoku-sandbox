@@ -3,7 +3,7 @@ import { addRegionCell, removeRegionCell } from './regionsEdit';
 
 export default function puzzle(state, action) {
     switch (action.type) {
-        case 'SET_CLICKS_MODE': return setClicksMode(state, action);
+        case 'SET_INTERACTIONS_MODE': return setInteractionsMode(state, action);
         case 'TOGGLE_CELL_IN_REGION': return toggleCellInRegion(state, action);
         case 'TOGGLE_CELL_IN_CAGE': return toggleCellInCage(state, action);
         case 'SELECT_CELL': return selectCell(state, action);
@@ -15,9 +15,9 @@ export default function puzzle(state, action) {
     }
 }
 
-const setClicksMode = (state, {mode}) => ({
+const setInteractionsMode = (state, {mode}) => ({
     ...state,
-    clicks: {
+    interactions: {
         mode: mode,
     }
 });
@@ -36,8 +36,8 @@ const toggleCellInCage = (state, {row, col, cageIdx}) => {
 
 const selectCell = (state, {row, col}) => ({
     ...state,
-    clicks: {
-        ...state.clicks,
+    interactions: {
+        ...state.interactions,
         cellRow: row,
         cellCol: col,
     }

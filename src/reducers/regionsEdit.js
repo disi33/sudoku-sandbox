@@ -12,8 +12,8 @@ export default function regionsEdit(state, action) {
 
 const selectRegion = (state, {idx}) => ({
     ...state,
-    clicks: {
-        ...state.clicks,
+    interactions: {
+        ...state.interactions,
         regionIdx: idx,
     }
 });
