@@ -13,6 +13,7 @@ import OverlaysEditPanel from '../EditPanel/OverlaysEditPanel';
 
 import './EditPanel.css';
 import { setClicksMode } from '../../actions/puzzleActions';
+import SaveLoadEditPanel from './SaveLoadEditPanel';
 
 const EditPanel = ({onClicksModeChanged}) => {
 
@@ -24,6 +25,7 @@ const EditPanel = ({onClicksModeChanged}) => {
         {value: 'ARROWS', label: 'Arrows'},
         {value: 'UNDERLAYS', label: 'Underlays'},
         {value: 'OVERLAYS', label: 'Overlays'},
+        {value: 'SAVE_LOAD', label: 'Save/Load'},
     ];
 
     const [selectedOption, _setSelectedOption] = useState(options[0]);
@@ -46,6 +48,7 @@ const EditPanel = ({onClicksModeChanged}) => {
             {selectedOption.value === 'ARROWS' && <ArrowsEditPanel></ArrowsEditPanel>}
             {selectedOption.value === 'UNDERLAYS' && <UnderlaysEditPanel></UnderlaysEditPanel>}
             {selectedOption.value === 'OVERLAYS' && <OverlaysEditPanel></OverlaysEditPanel>}
+            {selectedOption.value === 'SAVE_LOAD' && <SaveLoadEditPanel></SaveLoadEditPanel>}
         </div>
     );
 }

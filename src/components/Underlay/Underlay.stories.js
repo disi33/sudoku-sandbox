@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Grid from '../Grid/Grid';
 
@@ -23,7 +24,8 @@ const emptyGrid = {
         [[6, 6], [6, 7], [6, 8], [7, 6], [7, 7], [7, 8], [8, 6], [8, 7], [8, 8]],
     ],
     cages: [],
-    decorations: []
+    decorations: [],
+    highlights: [...Array(9)].map(_ => [...Array(9)].map(_ => undefined)),
 };
 
 const underlayDefaults = {
@@ -69,13 +71,20 @@ const wonkyRenbanGroup = [
     },
 ];
 
+const defaultProps = {
+    clickConfig: { mode: 'NONE' },
+    onCellClicked: action('onCellClicked'),
+    onKeyDown: () => action('onKeyDown'),
+};
+
 storiesOf('Grid/Underlay', module)
-    .add('single cell underlay', () => <Grid grid={{...emptyGrid, decorations: [singleCell]}} cellSize={cellSize}></Grid>)
-    .add('window underlay', () => <Grid grid={{...emptyGrid, decorations: [window]}} cellSize={cellSize}></Grid>)
-    .add('inset duo underlay', () => <Grid grid={{...emptyGrid, decorations: [insetDuo]}} cellSize={cellSize}></Grid>)
-    .add('bent renban group underlay', () => <Grid grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>)
-    .add('unfilled underlay', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined}]}} cellSize={cellSize}></Grid>)
-    .add('single cell rounded underlay', () => <Grid grid={{...emptyGrid, decorations: [{...singleCell, rounded: true}]}} cellSize={cellSize}></Grid>)
-    .add('inset duo rounded underlay', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, rounded: true}]}} cellSize={cellSize}></Grid>)
-    .add('unfilled rounded underlay', () => <Grid grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined, rounded: true}]}} cellSize={cellSize}></Grid>);
+    .addDecorator(story => <div style={{padding: '100px'}}>{story()}</div>)
+    .add('single cell underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [singleCell]}} cellSize={cellSize}></Grid>)
+    .add('window underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [window]}} cellSize={cellSize}></Grid>)
+    .add('inset duo underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [insetDuo]}} cellSize={cellSize}></Grid>)
+    .add('bent renban group underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...wonkyRenbanGroup]}} cellSize={cellSize}></Grid>)
+    .add('unfilled underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined}]}} cellSize={cellSize}></Grid>)
+    .add('single cell rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...singleCell, rounded: true}]}} cellSize={cellSize}></Grid>)
+    .add('inset duo rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, rounded: true}]}} cellSize={cellSize}></Grid>)
+    .add('unfilled rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined, rounded: true}]}} cellSize={cellSize}></Grid>);
 

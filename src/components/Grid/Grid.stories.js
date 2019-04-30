@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Grid from './Grid';
 
@@ -23,7 +24,8 @@ const emptyGrid = {
         [[6, 6], [6, 7], [6, 8], [7, 6], [7, 7], [7, 8], [8, 6], [8, 7], [8, 8]],
     ],
     cages: [],
-    decorations: []
+    decorations: [],
+    highlights: [...Array(9)].map(_ => [...Array(9)].map(_ => undefined)),
 };
 
 const irregularGrid = {
@@ -205,9 +207,16 @@ const partialKillerGrid = {
     ]
 };
 
+const defaultProps = {
+    clickConfig: { mode: 'NONE' },
+    onCellClicked: action('onCellClicked'),
+    onKeyDown: () => action('onKeyDown'),
+};
+
 storiesOf('Grid/Grid', module)
-    .add('classic', () => <Grid grid={emptyGrid} cellSize={cellSize}></Grid>)
-    .add('irregular', () => <Grid grid={irregularGrid} cellSize={cellSize}></Grid>)
-    .add('toroidal', () => <Grid grid={toroidalGrid} cellSize={cellSize}></Grid>)
-    .add('killer with all cages', () => <Grid grid={killerGrid} cellSize={cellSize}></Grid>)
-    .add('killer with some cages', () => <Grid grid={partialKillerGrid} cellSize={cellSize}></Grid>);
+    .addDecorator(story => <div style={{padding: '100px'}}>{story()}</div>)
+    .add('classic', () => <Grid {...defaultProps} grid={emptyGrid} cellSize={cellSize}></Grid>)
+    .add('irregular', () => <Grid {...defaultProps} grid={irregularGrid} cellSize={cellSize}></Grid>)
+    .add('toroidal', () => <Grid {...defaultProps} grid={toroidalGrid} cellSize={cellSize}></Grid>)
+    .add('killer with all cages', () => <Grid {...defaultProps} grid={killerGrid} cellSize={cellSize}></Grid>)
+    .add('killer with some cages', () => <Grid {...defaultProps} grid={partialKillerGrid} cellSize={cellSize}></Grid>);

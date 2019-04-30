@@ -6,6 +6,7 @@ import generalEdit from '../reducers/generalEdit';
 import linesEdit from '../reducers/linesEdit';
 import overlaysEdit from '../reducers/overlaysEdit';
 import regionsEdit from '../reducers/regionsEdit';
+import saveLoadEdit from '../reducers/saveLoadEdit';
 import underlaysEdit from '../reducers/underlaysEdit';
 import puzzle from '../reducers/puzzle';
 
@@ -67,7 +68,7 @@ const initialState = () => ({
 });
 
 const configureStore = () => createStore(
-    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, regionsEdit, underlaysEdit, puzzle),
+    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, saveLoadEdit, regionsEdit, underlaysEdit, puzzle),
     initialState(),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

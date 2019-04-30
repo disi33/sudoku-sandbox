@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Grid from '../Grid/Grid';
 
@@ -23,7 +24,8 @@ const emptyGrid = {
         [[6, 6], [6, 7], [6, 8], [7, 6], [7, 7], [7, 8], [8, 6], [8, 7], [8, 8]],
     ],
     cages: [],
-    decorations: []
+    decorations: [],
+    highlights: [...Array(9)].map(_ => [...Array(9)].map(_ => undefined)),
 };
 
 const withValue = (idx, jdx, value) => grid => ({
@@ -131,10 +133,17 @@ const arrowWithCircle = [
     }
 ];
 
+const defaultProps = {
+    clickConfig: { mode: 'NONE' },
+    onCellClicked: action('onCellClicked'),
+    onKeyDown: () => action('onKeyDown'),
+};
+
 storiesOf('Grid/Overlay', module)
-    .add('kropki overlays', () => <Grid grid={{...emptyGrid, decorations: [...kropki]}} cellSize={cellSize}></Grid>)
-    .add('consecutive overlay', () => <Grid grid={{...emptyGrid, decorations: [consecutive]}} cellSize={cellSize}></Grid>)
-    .add('mathrax overlay', () => <Grid grid={{...emptyGrid, decorations: [mathrax]}} cellSize={cellSize}></Grid>)
-    .add('outside text', () => <Grid grid={{...emptyGrid, decorations: [...outsideText]}} cellSize={cellSize}></Grid>)
-    .add('arrow with circle', () => <Grid grid={{...withValue(4, 0, 5)(emptyGrid), decorations: [...arrowWithCircle]}} cellSize={cellSize}></Grid>);
+    .addDecorator(story => <div style={{padding: '100px'}}>{story()}</div>)
+    .add('kropki overlays', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...kropki]}} cellSize={cellSize}></Grid>)
+    .add('consecutive overlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [consecutive]}} cellSize={cellSize}></Grid>)
+    .add('mathrax overlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [mathrax]}} cellSize={cellSize}></Grid>)
+    .add('outside text', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...outsideText]}} cellSize={cellSize}></Grid>)
+    .add('arrow with circle', () => <Grid {...defaultProps} grid={{...withValue(4, 0, 5)(emptyGrid), decorations: [...arrowWithCircle]}} cellSize={cellSize}></Grid>);
 

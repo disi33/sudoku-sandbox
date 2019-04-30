@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import CagesEditForm from './CagesEditForm';
 import './EditForm.css';
 
+const onCageSelected = action('onCageSelected');
 const onCageAdded = action('onCageAdded');
 const onCageRemoved = action('onCageRemoved');
 const onValueChanged = action('onValueChanged');
@@ -85,6 +86,7 @@ const cages = [
 
 const props = {
     cages: cages,
+    onCageSelected: onCageSelected,
     onCageAdded: onCageAdded,
     onCageRemoved: onCageRemoved,
     onValueChanged: onValueChanged,

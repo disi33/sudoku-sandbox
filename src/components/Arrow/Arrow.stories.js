@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Grid from '../Grid/Grid';
 
@@ -23,7 +24,8 @@ const emptyGrid = {
         [[6, 6], [6, 7], [6, 8], [7, 6], [7, 7], [7, 8], [8, 6], [8, 7], [8, 8]],
     ],
     cages: [],
-    decorations: []
+    decorations: [],
+    highlights: [...Array(9)].map(_ => [...Array(9)].map(_ => undefined)),
 };
 
 const arrowDefaults = {
@@ -68,9 +70,16 @@ const rossiniArrows = [
     },
 ];
 
+const defaultProps = {
+    clickConfig: { mode: 'NONE' },
+    onCellClicked: action('onCellClicked'),
+    onKeyDown: () => action('onKeyDown'),
+};
+
 storiesOf('Grid/Arrow', module)
-    .add('horizontal', () => <Grid grid={{...emptyGrid, decorations: [horizontalArrow]}} cellSize={cellSize}></Grid>)
-    .add('vertical', () => <Grid grid={{...emptyGrid, decorations: [verticalArrow]}} cellSize={cellSize}></Grid>)
-    .add('diagonal', () => <Grid grid={{...emptyGrid, decorations: [diagonalArrow]}} cellSize={cellSize}></Grid>)
-    .add('zigzag', () => <Grid grid={{...emptyGrid, decorations: [zigZagArrow]}} cellSize={cellSize}></Grid>)
-    .add('rossini', () => <Grid grid={{...emptyGrid, decorations: [...rossiniArrows]}} cellSize={cellSize}></Grid>);
+    .addDecorator(story => <div style={{padding: '100px'}}>{story()}</div>)
+    .add('horizontal', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [horizontalArrow]}} cellSize={cellSize}></Grid>)
+    .add('vertical', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [verticalArrow]}} cellSize={cellSize}></Grid>)
+    .add('diagonal', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [diagonalArrow]}} cellSize={cellSize}></Grid>)
+    .add('zigzag', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [zigZagArrow]}} cellSize={cellSize}></Grid>)
+    .add('rossini', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...rossiniArrows]}} cellSize={cellSize}></Grid>);

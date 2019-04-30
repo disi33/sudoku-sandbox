@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import RegionsEditForm from './RegionsEditForm';
 import './EditForm.css';
 
+const onRegionSelected = action('onRegionSelected');
 const onRegionAdded = action('onRegionAdded');
 const onRegionRemoved = action('onRegionRemoved');
 const onCellChanged = action('onCellChanged');
@@ -25,6 +26,7 @@ const regions = [
 
 const props = {
     regions: regions,
+    onRegionSelected: onRegionSelected,
     onRegionAdded: onRegionAdded,
     onRegionRemoved: onRegionRemoved,
     onCellChanged: onCellChanged,
