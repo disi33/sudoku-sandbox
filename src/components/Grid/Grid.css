@@ -10,6 +10,10 @@
     cursor: pointer;
 }
 
+.grid:focus {
+    outline: none;
+}
+
 .grid__row {
     display: flex;
     align-items: stretch;

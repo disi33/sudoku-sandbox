@@ -12,7 +12,7 @@ import UnderlaysEditPanel from '../EditPanel/UnderlaysEditPanel';
 import OverlaysEditPanel from '../EditPanel/OverlaysEditPanel';
 
 import './EditPanel.css';
-import { setClicksMode } from '../../actions/editPanelActions';
+import { setClicksMode } from '../../actions/puzzleActions';
 
 const EditPanel = ({onClicksModeChanged}) => {
 

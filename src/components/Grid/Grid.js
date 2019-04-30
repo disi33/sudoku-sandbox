@@ -10,18 +10,18 @@ import Overlay from '../Overlay/Overlay';
 import './Grid.css';
 import './zIndex.css';
 
-export default function Grid({ grid, grid: { cells, decorations, highlights }, cellSize, clickConfig, onCellClicked }) {
+export default function Grid({ grid, grid: { cells, decorations, highlights }, cellSize, clickConfig, onCellClicked, onKeyDown }) {
 
     const borders = bordersSelector(grid);
     const cageBorders = cageBordersSelector(grid);
     const cageValues = cageValuesSelector(grid);
     
     return (
-        <div className="grid">
+        <div className="grid" onKeyDown={onKeyDown(clickConfig, cells.length)} tabIndex="-1">
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>
-                        <Cell onClick={() => onCellClicked(idx, jdx, clickConfig)} key={jdx} {...cell} highlight={highlights[idx][jdx]} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
+                        <Cell onClick={() => onCellClicked(idx, jdx, clickConfig)} key={jdx} {...cell} highlight={isSelected(clickConfig, idx, jdx) ? 'gold' : highlights[idx][jdx]} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
                     )}
                 </div>
             )}
@@ -31,6 +31,8 @@ export default function Grid({ grid, grid: { cells, decorations, highlights }, c
         </div>
     );
 }
+
+const isSelected = ({mode, cellRow, cellCol}, row, col) => mode === 'GIVENS' && cellRow === row && cellCol === col;
 
 const renderDecoration = cellSize => (decoration, key) => {
     switch (decoration.type) {

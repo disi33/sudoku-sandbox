@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { toggleCellInRegion, toggleCellInCage } from '../../actions/puzzleActions';
+import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenCandidate, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
 
 import Grid from '../../components/Grid/Grid';
 
@@ -58,7 +58,24 @@ const mapDispatchToProps = dispatch => ({
     onCellClicked: (row, col, clickConfig) => {
         if (clickConfig.mode === 'REGIONS' && clickConfig.regionIdx !== undefined) dispatch(toggleCellInRegion(row, col, clickConfig.regionIdx));
         else if (clickConfig.mode === 'CAGES' && clickConfig.cageIdx !== undefined) dispatch(toggleCellInCage(row, col, clickConfig.cageIdx));
+        else if (clickConfig.mode === 'GIVENS') dispatch(selectCell(row, col));
+    },
+    onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {
+        if (mode !== 'GIVENS' || cellRow === undefined || cellCol === undefined) return;
+
+        e.preventDefault();
+
+        if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
+        else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
+        else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
+        else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % gridSize));
+        else if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteGivenMarks(cellRow, cellCol));
+        else if (e.ctrlKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenCandidate(cellRow, cellCol, e.key));
+        else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenPencilMark(cellRow, cellCol, e.key));
+        else if (isAcceptableCellInput(e.key)) dispatch(setGivenValue(cellRow, cellCol, e.key));
     }
 });
+
+const isAcceptableCellInput = key => key.match(/^[^\W_]$/g) !== null;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);

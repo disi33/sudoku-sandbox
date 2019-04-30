@@ -1,6 +1,5 @@
 import { createStore } from 'redux';
 
-import editPanel from '../reducers/editPanel';
 import arrowsEdit from '../reducers/arrowsEdit';
 import cagesEdit from '../reducers/cagesEdit';
 import generalEdit from '../reducers/generalEdit';
@@ -68,7 +67,7 @@ const initialState = () => ({
 });
 
 const configureStore = () => createStore(
-    chainReducers(editPanel, arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, regionsEdit, underlaysEdit, puzzle),
+    chainReducers(arrowsEdit, cagesEdit, generalEdit, linesEdit, overlaysEdit, regionsEdit, underlaysEdit, puzzle),
     initialState(),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
