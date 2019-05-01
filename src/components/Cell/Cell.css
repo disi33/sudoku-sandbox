@@ -42,7 +42,7 @@
     box-sizing: border-box;
 }
 
-.cell__value--given, .cell__pm--given {
+.cell__pm--given {
     font-weight: bold;
 }
 
