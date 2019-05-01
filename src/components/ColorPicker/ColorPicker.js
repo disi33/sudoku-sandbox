@@ -5,7 +5,9 @@ export default function ColorPicker({selectedColor, onColorSelected}) {
     return (
         <div className="color-picker">
             <button className={"color-picker__button color-picker__button--none " + selectedClassName(undefined, selectedColor)}
-                    onClick={() => onColorSelected(undefined)}>
+                    onMouseDown={e => { e.preventDefault(); e.stopPropagation(); }}
+                    onClick={() => onColorSelected(undefined)}
+                    tabIndex="-1">
             </button>
             <div className="color-picker__main-buttons">
                 {COLORS.map((color, idx) =>
@@ -13,7 +15,8 @@ export default function ColorPicker({selectedColor, onColorSelected}) {
                             className={"color-picker__button " + selectedClassName(color, selectedColor)}
                             style={{backgroundColor: color}}
                             onMouseDown={e => { e.preventDefault(); e.stopPropagation(); }}
-                            onClick={() => onColorSelected(color)}>
+                            onClick={() => onColorSelected(color)}
+                            tabIndex="-1">
                     </button>
                 )}
             </div>
