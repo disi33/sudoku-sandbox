@@ -4,7 +4,6 @@ import './Arrow.css';
 import Line from '../Line/Line';
 
 export default function Arrow({ cellSize, wayPoints, color, thickness, headLength }) {
-    console.log(headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength }));
     return (
         <div>
             <Line cellSize={cellSize} wayPoints={wayPoints} color={color} thickness={thickness}></Line>
