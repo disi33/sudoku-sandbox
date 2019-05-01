@@ -71,5 +71,5 @@ const handleShare = (getContent, setUploading, onUploaded) => () => {
             .catch(() => attemptUpload(retries - 1));
     }
     
-    attemptUpload(5);
+    attemptUpload(5).catch(() => console.error('Upload failed'));
 };
