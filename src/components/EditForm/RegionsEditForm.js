@@ -19,14 +19,16 @@ export default function RegionsEditForm({regions, onRegionSelected, onRegionRemo
 
     return (
         <div className="edit-form">
-            <div className="edit-form__section-title">Add/Remove Regions</div>
-            <div className="edit-form__field">
-                <div className="edit-form__field-input">
-                    <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={() => {setSelectedRegionIdx(regions.length); onRegionAdded();}} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
+            <div className="edit-form__section">
+                <div className="edit-form__section-title">Add/Remove Regions</div>
+                <div className="edit-form__field">
+                    <div className="edit-form__field-input">
+                        <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={() => {setSelectedRegionIdx(regions.length); onRegionAdded();}} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
+                    </div>
                 </div>
             </div>
             {region !== undefined && 
-                <div>
+                <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Region</div>
                     <p>Click on cells in the grid to add and remove cells to/from this region, or alternatively, use the form:</p>
                     <div className="edit-form__field">

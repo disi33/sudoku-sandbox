@@ -29,3 +29,54 @@
 
     flex: 0 0 auto;
 }
+
+.app__loading-spinner {
+    font-size: 10px;
+    margin: auto auto;
+    text-indent: -9999em;
+
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+
+    background: #1EA7FD;
+    background: linear-gradient(to right, #1EA7FD 10%, rgba(42,194,255, 0) 42%);
+
+    position: relative;
+    animation: spin 1.4s infinite linear;
+    transform: translateZ(0);
+}
+
+.app__loading-spinner:before {
+    width: 50%;
+    height: 50%;
+    background: #1EA7FD;
+    border-radius: 100% 0 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+}
+
+.app__loading-spinner:after {
+    background: #FFFFFF;
+    width: 75%;
+    height: 75%;
+    border-radius: 50%;
+    content: '';
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

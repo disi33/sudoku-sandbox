@@ -1,3 +1,5 @@
+import 'react-app-polyfill/ie11';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -5,6 +7,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 import App from './containers/App/App';
+import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
@@ -13,7 +16,9 @@ const store = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <ErrorBoundary>
+            <App />
+        </ErrorBoundary>
     </Provider>,
     document.getElementById('root')
 );

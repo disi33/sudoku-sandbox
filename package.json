@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "entropy-string": "^4.1.0",
+    "firebase": "^5.11.0",
     "react": "^16.8.6",
+    "react-app-polyfill": "^1.0.0",
     "react-dom": "^16.8.6",
     "react-download-link": "^2.2.0",
     "react-redux": "^7.0.2",

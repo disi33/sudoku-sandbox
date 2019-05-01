@@ -1,4 +1,7 @@
 import React, { useState, useRef } from 'react';
+
+import { uploadPuzzle } from '../../firebase/storePuzzle';
+
 import './EditForm.css';
 import './SaveLoadEditForm.css';
 
@@ -9,6 +12,9 @@ export default function SaveLoadEditForm({ getContent, onContentLoaded }) {
 
     const [filename, setFilename] = useState('puzzle');
     const fileInputRef = useRef(null);
+    
+    const [uploading, setUploading] = useState(false);
+    const [uploadedKey, setUploadedKey] = useState(null);
 
     return (
         <div className="edit-form">
@@ -26,9 +32,24 @@ export default function SaveLoadEditForm({ getContent, onContentLoaded }) {
                     <button className="edit-form__download-button" onClick={() => handleUpload(onContentLoaded)(fileInputRef)}>Load Puzzle</button>
                 </div>
             </div>
+            <div className="edit-form__section">
+                <div className="edit-form__section-title">Share</div>
+                <div className="edit-form__field edit-form__field--save-load">
+                    {!uploading && uploadedKey && 
+                        <div className="edit-form__share-url">
+                            <span>Share link:</span>
+                            <input value={shareUrl(uploadedKey)} readOnly></input>
+                        </div>
+                    }
+                    {uploading && <div className="edit-form__loading-spinner"></div>}
+                    <button className="edit-form__download-button" onClick={handleShare(getContent, setUploading, setUploadedKey)}>Share Puzzle</button>
+                </div>
+            </div>
         </div>
     );
 }
+
+const shareUrl = key => `${window.location.origin}/${key}`;
 
 const handleUpload = onContentLoaded => fileInputRef => {
     if (fileInputRef && fileInputRef.current && fileInputRef.current.files && fileInputRef.current.files[0]) {
@@ -36,4 +57,19 @@ const handleUpload = onContentLoaded => fileInputRef => {
         fileReader.onload = e => onContentLoaded(e.target.result);
         fileReader.readAsText(fileInputRef.current.files[0]);
     }
+};
+
+const handleShare = (getContent, setUploading, onUploaded) => () => {
+    
+    const content = getContent();
+    setUploading(true);
+
+    const attemptUpload = retries => {
+        if (retries === 0) return Promise.reject();
+        else return uploadPuzzle(content)
+            .then(snapshot => { onUploaded(snapshot.ref.name); setUploading(false); })
+            .catch(() => attemptUpload(retries - 1));
+    }
+    
+    attemptUpload(5);
 };

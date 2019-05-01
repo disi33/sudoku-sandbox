@@ -3,7 +3,7 @@
 }
 
 .edit-form__section-title {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: bold;
     text-decoration: underline;
 
@@ -12,6 +12,11 @@
 
 .edit-form__section {
     width: 100%;
+}
+
+.edit-form__section:not(:last-child) {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #CFCFCF;
 }
 
 .edit-form__section:not(:first-child) {

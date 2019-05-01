@@ -1,0 +1,19 @@
+.error-boundary {
+    display: inline-block;
+    background: #00AFF9 url(https://cbwconline.com/IMG/Codepen/Unplugged.png) center/cover no-repeat;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+.error-boundary h1 {
+    margin: .8em 3rem;
+    font-size: 4em;
+}
+
+.error-boundary p {
+    display: inline-block;
+    margin: .2em 3rem;
+    font-size: 2em;
+}
