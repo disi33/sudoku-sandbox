@@ -16,7 +16,7 @@ export default function SaveLoadEditForm({ getContent, onContentLoaded }) {
                 <div className="edit-form__section-title">Save</div>
                 <div className="edit-form__field edit-form__field--save-load">
                     <TextInput label="Filename" value={filename} onValueChanged={setFilename}></TextInput>
-                    <DownloadLink className="edit-form__download-button" style={{}} label="Save Puzzle" tagName="button" filename={`${filename}.json`} exportFile={getContent}></DownloadLink>
+                    <DownloadLink className="edit-form__download-button" style={{}} label="Save Puzzle" tagName="button" filename={`${filename}.puz`} exportFile={getContent}></DownloadLink>
                 </div>
             </div>
             <div className="edit-form__section">
