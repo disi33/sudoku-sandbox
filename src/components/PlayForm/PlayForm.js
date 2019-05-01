@@ -16,11 +16,13 @@ export default function PlayForm({onStartOver, canUndo, onUndo, canRedo, onRedo,
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Instructions</div>
                 <p>
-                    To place numbers in the grid, select a cell by clicking on it and then use the keyboard to enter values.
+                    Select a cell by clicking on it and then use the keyboard to enter values.
                     You can move between cells of the grid using the arrow keys.
                 </p>
-                <p>To place small numbers in the center of the cell (candidates), hold Ctrl.</p>
-                <p>To place small numbers in the corners of the cell (pencil marks), hold Shift.</p>
+                <p>
+                    To place small numbers in the center of the cell (candidates), hold Ctrl.
+                    To place small numbers in the corners of the cell (pencil marks), hold Shift.
+                </p>
             </div>
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Additional controls</div>

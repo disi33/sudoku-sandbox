@@ -90,9 +90,9 @@ const mapDispatchToProps = dispatch => ({
 
         if (mode === 'PLAY') {
             if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteUserMarks(cellRow, cellCol));
-            else if (e.ctrlKey && e.key.toUpperCase() === 'Z') dispatch(undoPlay());
-            else if (e.ctrlKey && e.key.toUpperCase() === 'Y') dispatch(redoPlay());
-            else if (e.ctrlKey && isAcceptableCellInput(e)) dispatch(toggleUserCandidate(cellRow, cellCol, getCellInput(e)));
+            else if ((e.ctrlKey || e.metaKey) && e.key.toUpperCase() === 'Z') dispatch(undoPlay());
+            else if ((e.ctrlKey || e.metaKey) && e.key.toUpperCase() === 'Y') dispatch(redoPlay());
+            else if ((e.ctrlKey || e.metaKey) && isAcceptableCellInput(e)) dispatch(toggleUserCandidate(cellRow, cellCol, getCellInput(e)));
             else if (e.shiftKey && isAcceptableCellInput(e)) dispatch(toggleUserPencilMark(cellRow, cellCol, getCellInput(e)));
             else if (isAcceptableCellInput(e)) dispatch(setUserValue(cellRow, cellCol, getCellInput(e)));
         }
