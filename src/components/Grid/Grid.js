@@ -17,7 +17,7 @@ export default function Grid({ grid, grid: { cells, decorations, highlights }, u
     const cageValues = cageValuesSelector(grid);
     
     return (
-        <div className="grid" onKeyDown={onKeyDown(interactionsConfig, cells.length)} tabIndex="-1">
+        <div className="grid" onKeyDown={onKeyDown(interactionsConfig, cells.length)} onBlur={() => onCellClicked(undefined, undefined, interactionsConfig)} tabIndex="-1">
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>

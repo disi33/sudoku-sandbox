@@ -65,8 +65,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onCellClicked: (row, col, interactionsConfig) => {
-        if (interactionsConfig.mode === 'REGIONS' && interactionsConfig.regionIdx !== undefined) dispatch(toggleCellInRegion(row, col, interactionsConfig.regionIdx));
-        else if (interactionsConfig.mode === 'CAGES' && interactionsConfig.cageIdx !== undefined) dispatch(toggleCellInCage(row, col, interactionsConfig.cageIdx));
+        if (interactionsConfig.mode === 'REGIONS' && interactionsConfig.regionIdx !== undefined && row !== undefined && col !== undefined) dispatch(toggleCellInRegion(row, col, interactionsConfig.regionIdx));
+        else if (interactionsConfig.mode === 'CAGES' && interactionsConfig.cageIdx !== undefined && row !== undefined && col !== undefined) dispatch(toggleCellInCage(row, col, interactionsConfig.cageIdx));
         else if (interactionsConfig.mode === 'GIVENS' || interactionsConfig.mode === 'PLAY') dispatch(selectCell(row, col));
     },
     onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {

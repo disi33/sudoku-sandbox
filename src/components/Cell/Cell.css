@@ -42,6 +42,10 @@
     box-sizing: border-box;
 }
 
+.cell__value--given, .cell__pm--given {
+    font-weight: bold;
+}
+
 .cell__value--user, .cell__pm--user, .cell__candidates--user {
     color: #1D6AE5;
 }
