@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
 import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
-import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue } from '../../actions/playActions';
+import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue, undoPlay, redoPlay } from '../../actions/playActions';
 
 import Grid from '../../components/Grid/Grid';
 
@@ -72,8 +72,9 @@ const mapDispatchToProps = dispatch => ({
     onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {
         if (cellRow === undefined || cellCol === undefined) return;
 
+        e.preventDefault();
+
         if (mode === 'GIVENS' || mode === 'PLAY') {
-            e.preventDefault();
             if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
             else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
             else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
@@ -83,19 +84,32 @@ const mapDispatchToProps = dispatch => ({
 
         if (mode === 'GIVENS') {
             if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteGivenMarks(cellRow, cellCol));
-            else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleGivenPencilMark(cellRow, cellCol, e.key));
-            else if (isAcceptableCellInput(e.key)) dispatch(setGivenValue(cellRow, cellCol, e.key));
+            else if (e.shiftKey && isAcceptableCellInput(e)) dispatch(toggleGivenPencilMark(cellRow, cellCol, getCellInput(e)));
+            else if (isAcceptableCellInput(e)) dispatch(setGivenValue(cellRow, cellCol, getCellInput(e)));
         }
 
         if (mode === 'PLAY') {
             if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteUserMarks(cellRow, cellCol));
-            else if (e.ctrlKey && isAcceptableCellInput(e.key)) dispatch(toggleUserCandidate(cellRow, cellCol, e.key));
-            else if (e.altKey && isAcceptableCellInput(e.key)) dispatch(toggleUserPencilMark(cellRow, cellCol, e.key));
-            else if (isAcceptableCellInput(e.key)) dispatch(setUserValue(cellRow, cellCol, e.key));
+            else if (e.ctrlKey && e.key.toUpperCase() === 'Z') dispatch(undoPlay());
+            else if (e.ctrlKey && e.key.toUpperCase() === 'Y') dispatch(redoPlay());
+            else if (e.ctrlKey && isAcceptableCellInput(e)) dispatch(toggleUserCandidate(cellRow, cellCol, getCellInput(e)));
+            else if (e.shiftKey && isAcceptableCellInput(e)) dispatch(toggleUserPencilMark(cellRow, cellCol, getCellInput(e)));
+            else if (isAcceptableCellInput(e)) dispatch(setUserValue(cellRow, cellCol, getCellInput(e)));
         }
     }
 });
 
-const isAcceptableCellInput = key => key.match(/^[^\W_]$/g) !== null;
+const isAcceptableCellInput = e => e.key.match(/^[^\W_]$/) !== null || (e.nativeEvent.code && e.nativeEvent.code.match(/^Digit[0-9]$/) !== null);
+
+const getCellInput = e => {
+    const singleCharMatch = e.key.match(/^[^\W_]$/);
+    const digitCodeMatch = e.nativeEvent.code && e.nativeEvent.code.match(/^Digit([0-9])$/);
+
+    if (!!singleCharMatch) {
+        return e.key.toUpperCase();
+    } else if (!!digitCodeMatch) {
+        return digitCodeMatch[1];
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grid);

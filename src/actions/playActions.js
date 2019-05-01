@@ -35,3 +35,11 @@ export const setUserValue = (row, col, value) => ({
     col: col,
     value: value,
 });
+
+export const undoPlay = () => ({
+    type: 'UNDO_PLAY',
+});
+
+export const redoPlay = () => ({
+    type: 'REDO_PLAY',
+});

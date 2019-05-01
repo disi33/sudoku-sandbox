@@ -5,7 +5,38 @@
 .play-form__start-over {
     width: 100%;
     font-size: 16px;
-    height: 24px;
+    height: 28px;
+
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 28px;
+
+    cursor: pointer;
+}
+
+.play-form__start-over.play-form__start-over--danger, .play-form__start-over.play-form__start-over--danger:hover {
+    background-color: #CC0000;
+    color: white;
+}
+
+.play-form__start-over:focus {
+    outline: none;
+}
+
+.play-form__start-over:hover {
+    background-color: #1EA7FD;
+    color: white;
+}
+
+.play-form__undo-buttons {
+    justify-content: space-between;
+    margin-top: 24px;
+}
+
+.play-form__undo-redo {
+    width: 45%;
+    font-size: 16px;
+    height: 28px;
 
     margin-bottom: 24px;
 
@@ -16,11 +47,18 @@
     cursor: pointer;
 }
 
-.play-form__start-over:focus {
+.play-form__undo-redo:focus {
     outline: none;
 }
 
-.play-form__start-over:hover {
+.play-form__undo-redo:hover {
     background-color: #1EA7FD;
     color: white;
+}
+
+.play-form__undo-redo:disabled, .play-form__undo-redo[disabled] {
+    color: #CFCFCF;
+    border-color: #CFCFCF;
+    cursor: default;
+    pointer-events: none;
 }
