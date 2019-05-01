@@ -2,8 +2,7 @@
 
 }
 
-.play-form__start-over {
-    width: 100%;
+.play-form__button {
     font-size: 16px;
     height: 28px;
 
@@ -14,17 +13,28 @@
     cursor: pointer;
 }
 
-.play-form__start-over.play-form__start-over--danger, .play-form__start-over.play-form__start-over--danger:hover {
-    background-color: #CC0000;
-    color: white;
+.play-form__button:disabled, .play-form__button[disabled] {
+    color: #CFCFCF;
+    border-color: #CFCFCF;
+    cursor: default;
+    pointer-events: none;
 }
 
-.play-form__start-over:focus {
+.play-form__button:focus {
     outline: none;
 }
 
-.play-form__start-over:hover {
+.play-form__button:hover {
     background-color: #1EA7FD;
+    color: white;
+}
+
+.play-form__start-over {
+    width: 100%;
+}
+
+.play-form__start-over.play-form__start-over--danger, .play-form__start-over.play-form__start-over--danger:hover {
+    background-color: #CC0000;
     color: white;
 }
 
@@ -35,30 +45,27 @@
 
 .play-form__undo-redo {
     width: 45%;
-    font-size: 16px;
-    height: 28px;
-
-    margin-bottom: 24px;
-
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 24px;
-
-    cursor: pointer;
 }
 
-.play-form__undo-redo:focus {
-    outline: none;
+.play-form__timer {
+    width: 100%;
+    text-align: center;
+
+    font-family: "Digital", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 72px;
 }
 
-.play-form__undo-redo:hover {
-    background-color: #1EA7FD;
-    color: white;
+.play-form__timer-buttons {
+    margin-top: 16px;
+    justify-content: space-between;
+    padding: 0 36px;
 }
 
-.play-form__undo-redo:disabled, .play-form__undo-redo[disabled] {
-    color: #CFCFCF;
-    border-color: #CFCFCF;
-    cursor: default;
-    pointer-events: none;
+.play-form__timer-buttons .play-form__button {
+    width: 80px;
+}
+
+@font-face {
+    font-family: "Digital";
+    src: url('../../static/fonts/digital-7.ttf') format('truetype');
 }
