@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import ArrowsEditForm from './ArrowsEditForm';
 import './EditForm.css';
 
+const onArrowSelected = action('onArrowSelected');
 const onArrowAdded = action('onArrowAdded');
 const onArrowRemoved = action('onArrowRemoved');
 const onThicknessChanged = action('onThicknessChanged');
@@ -44,6 +45,7 @@ const zigZagArrow = {
 const props = {
     arrows: [horizontalArrow, verticalArrow, diagonalArrow, zigZagArrow],
     selectedArrowIdx: 0,
+    onArrowSelected: onArrowSelected,
     onArrowAdded: onArrowAdded,
     onArrowRemoved: onArrowRemoved,
     onColorChanged: onColorChanged,

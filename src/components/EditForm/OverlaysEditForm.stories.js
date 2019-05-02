@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import OverlaysEditForm from './OverlaysEditForm';
 import './EditForm.css';
 
+const onOverlaySelected = action('onOverlaySelected');
 const onOverlayRemoved = action('onOverlayRemoved');
 const onOverlayAdded = action('onOverlayAdded');
 const onCenterChanged = action('onCentreChanged');
@@ -102,6 +103,7 @@ const outsideText = [
 const props = {
     overlays: [...kropki, consecutive, mathrax, ...outsideText],
     selectedOverlayIdx: 0,
+    onOverlaySelected: onOverlaySelected,
     onOverlayRemoved: onOverlayRemoved,
     onOverlayAdded: onOverlayAdded,
     onCenterChanged: onCenterChanged,

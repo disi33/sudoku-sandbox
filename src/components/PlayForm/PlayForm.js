@@ -60,8 +60,8 @@ export default function PlayForm({onStartOver, canUndo, onUndo, canRedo, onRedo,
 
 
 const timerString = (hours, minutes, seconds) => {
-    const paddedSeconds = seconds.toString().padStart(2, '0');
-    const paddedMinutes = minutes.toString().padStart(2, '0');
+    const paddedSeconds = seconds.toString().length < 2 ? '0' + seconds.toString() : seconds.toString();
+    const paddedMinutes = minutes.toString().length < 2 ? '0' + minutes.toString() : minutes.toString();
     const paddedHours = hours === 0 ? '' : hours.toString().padStart(2, '0');
 
     return [paddedHours, paddedMinutes, paddedSeconds].filter(x => x !== '').join(':');

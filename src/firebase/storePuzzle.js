@@ -1,9 +1,9 @@
-import { Entropy } from 'entropy-string';
 import firebase from './firebase';
 
-const entropy = new Entropy({total: 1e6, risk: 1e6, prng: true});
-
-const generateKey = () => entropy.string();
+const generateKey = () => {
+    const chars = '2346789bdfghjmnpqrtBDFGHJLMNPQRT';
+    return [...Array(16)].map(_ => chars[Math.floor(Math.random() * chars.length)]).join('');
+}
 
 export const uploadPuzzle = content => firebase.storage().ref(generateKey()).putString(content);
 

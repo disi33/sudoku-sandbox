@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import LinesEditForm from './LinesEditForm';
 import './EditForm.css';
 
+const onLineSelected = action('onLineSelected');
 const onLineAdded = action('onLineAdded');
 const onLineRemoved = action('onLineRemoved');
 const onThicknessChanged = action('onThicknessChanged');
@@ -42,6 +43,7 @@ const zigZagLine = {
 const props = {
     lines: [horizontalLine, verticalLine, diagonalLine, zigZagLine],
     selectedLineIdx: 0,
+    onLineSelected: onLineSelected,
     onLineAdded: onLineAdded,
     onLineRemoved: onLineRemoved,
     onColorChanged: onColorChanged,

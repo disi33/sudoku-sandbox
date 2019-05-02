@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import UnderlaysEditForm from './UnderlaysEditForm';
 import './EditForm.css';
 
+const onUnderlaySelected = action('onUnderlaySelected');
 const onUnderlayRemoved = action('onUnderlayRemoved');
 const onUnderlayAdded = action('onUnderlayAdded');
 const onOriginChanged = action('onOriginChanged');
@@ -45,6 +46,7 @@ const insetDuo = {
 const props = {
     underlays: [singleCell, window, insetDuo, {...insetDuo, backgroundColor: undefined}, {...singleCell, rounded: true}, {...insetDuo, rounded: true}, {...insetDuo, backgroundColor: undefined, rounded: true}],
     selectedUnderlayIdx: 0,
+    onUnderlaySelected: onUnderlaySelected,
     onUnderlayRemoved: onUnderlayRemoved,
     onUnderlayAdded: onUnderlayAdded,
     onOriginChanged: onOriginChanged,
