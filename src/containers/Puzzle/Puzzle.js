@@ -34,19 +34,19 @@ const interactionsModeSelector = state => state.interactions.mode;
 const selectedRegionSelector = state => selectedRegionExists(state) ? state.puzzle.regions[state.interactions.regionIdx] : [];
 const selectedCageSelector = state => selectedCageExists(state) ? state.puzzle.cages[state.interactions.cageIdx].cells : [];
 const playCellsSelector = state => playCellsExist(state) ? state.play.cells : []; 
-const gridSizeSelector = state => state.puzzle.cells.length;
+const gridSizeSelector = state => [state.puzzle.cells[0].length, state.puzzle.cells.length];
 
 const regionHighlightsSelector = createSelector(
-    selectedRegionSelector, gridSizeSelector, (region, gridSize) => {
-        let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+    selectedRegionSelector, gridSizeSelector, (region, [width, height]) => {
+        let highlights = [...Array(height)].map(_ => [...Array(width)].map(_ => undefined));
         region.forEach(([row, col]) => highlights[row][col] = 'rgba(255, 215, 0, 0.5)');
         return highlights;
     }
 );
 
 const cageHighlightsSelector = createSelector(
-    selectedCageSelector, gridSizeSelector, (cage, gridSize) => {
-        let highlights = [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+    selectedCageSelector, gridSizeSelector, (cage, [width, height]) => {
+        let highlights = [...Array(height)].map(_ => [...Array(width)].map(_ => undefined));
         cage.forEach(([row, col]) => highlights[row][col] = 'rgba(255, 215, 0, 0.5)');
         return highlights;
     }
@@ -57,11 +57,11 @@ const playHighlightsSelector = createSelector(
 );
 
 const highlightsSelector = createSelector(
-    interactionsModeSelector, regionHighlightsSelector, cageHighlightsSelector, playHighlightsSelector, gridSizeSelector, (mode, regionHighlights, cageHighlights, playHighlights, gridSize) => {
+    interactionsModeSelector, regionHighlightsSelector, cageHighlightsSelector, playHighlightsSelector, gridSizeSelector, (mode, regionHighlights, cageHighlights, playHighlights, [width, height]) => {
         if (mode === 'REGIONS') return regionHighlights;
         else if (mode === 'CAGES') return cageHighlights;
         else if (mode === 'PLAY') return playHighlights;
-        else return [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => undefined));
+        else return [...Array(height)].map(_ => [...Array(width)].map(_ => undefined));
     }
 );
 
@@ -117,16 +117,16 @@ const mapDispatchToProps = dispatch => ({
         else if (interactionsConfig.mode === 'GIVENS' || interactionsConfig.mode === 'PLAY') dispatch(selectCell(row, col));
     },
 
-    onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {
+    onKeyDown: ({mode, cellRow, cellCol}, [width, height]) => e => {
         if (cellRow === undefined || cellCol === undefined) return;
 
         e.preventDefault();
         
         if (mode === 'GIVENS' || mode === 'PLAY') {
-            if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
-            else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
-            else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? gridSize - 1 : cellCol - 1));
-            else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % gridSize));
+            if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? height - 1 : cellRow - 1, cellCol));
+            else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % height, cellCol));
+            else if (e.key === 'ArrowLeft') dispatch(selectCell(cellRow, cellCol === 0 ? width - 1 : cellCol - 1));
+            else if (e.key === 'ArrowRight') dispatch(selectCell(cellRow, (cellCol + 1) % width));
             else if (e.key === 'Escape') dispatch(selectCell(undefined, undefined));
         }
 

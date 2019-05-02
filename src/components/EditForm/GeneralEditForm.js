@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './EditForm.css';
 
 import PlusMinusInput from '../PlusMinusInput/PlusMinusInput';
 
-export default function GeneralEditForm({cellSize, onCellSizeChanged, gridSize, onGridSizeChanged}) {
+export default function GeneralEditForm({cellSize, onCellSizeChanged, gridSize: [width, height], onGridSizeChanged}) {
+    
+    const [allowRectangles, setAllowRectangles] = useState(width !== height);
+    
     return (
         <div className="edit-form">
             <div className="edit-form__section">
@@ -14,12 +17,38 @@ export default function GeneralEditForm({cellSize, onCellSizeChanged, gridSize, 
                         <PlusMinusInput value={cellSize} minValue={1} maxValue={100} onValueChanged={onCellSizeChanged}></PlusMinusInput>
                     </div>
                 </div>
-                <div className="edit-form__field">
-                    <span className="edit-form__field-name">Grid size</span>
-                    <div className="edit-form__field-input">
-                        <PlusMinusInput value={gridSize} minValue={4} maxValue={16} onValueChanged={onGridSizeChanged}></PlusMinusInput>
+                {!allowRectangles &&
+                    <div className="edit-form__field">
+                        <span className="edit-form__field-name">Grid size</span>
+                        <div className="edit-form__field-input">
+                            <PlusMinusInput value={width} minValue={1} maxValue={99} onValueChanged={value => onGridSizeChanged([value, value])}></PlusMinusInput>
+                        </div>
                     </div>
-                </div>
+                }
+                {!allowRectangles &&
+                    <div className="edit-form__field">
+                        <span className="edit-form__field-name">Rectangular grid</span>
+                        <div className="edit-form__field-input">
+                            <input type="checkbox" checked={allowRectangles} onChange={value => {console.log(value); setAllowRectangles(value);}}></input>
+                        </div>
+                    </div>
+                }
+                {allowRectangles &&
+                    <div className="edit-form__field">
+                        <span className="edit-form__field-name">Grid width</span>
+                        <div className="edit-form__field-input">
+                            <PlusMinusInput value={width} minValue={1} maxValue={99} onValueChanged={value => onGridSizeChanged([value, height])}></PlusMinusInput>
+                        </div>
+                    </div>
+                }
+                {allowRectangles &&
+                    <div className="edit-form__field">
+                        <span className="edit-form__field-name">Grid height</span>
+                        <div className="edit-form__field-input">
+                            <PlusMinusInput value={height} minValue={1} maxValue={99} onValueChanged={value => onGridSizeChanged([width, value])}></PlusMinusInput>
+                        </div>
+                    </div>
+                }
             </div>
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Givens</div>

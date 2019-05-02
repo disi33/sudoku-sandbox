@@ -14,11 +14,11 @@ const setCellSize = (state, {cellSize}) => ({
     }
 });
 
-const setGridSize = (state, {gridSize}) => ({
+const setGridSize = (state, {gridSize, gridSize: [width, height]}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,
-        cells: [...Array(gridSize)].map(_ => [...Array(gridSize)].map(_ => ({ value: undefined, candidates: [], pencilMarks: []}))),
+        cells: [...Array(height)].map(_ => [...Array(width)].map(_ => ({ value: undefined, candidates: [], pencilMarks: []}))),
         regions: defaultRegions(gridSize),
         cages: [],
         lines: [],
@@ -34,10 +34,15 @@ const setGridSize = (state, {gridSize}) => ({
     play: undefined,
 });
 
-const defaultRegions = gridSize => {
-    let rows = Math.floor(Math.sqrt(gridSize));
-    while (gridSize % rows !== 0) rows -= 1;
-    const [rowsPerRegion, colsPerRegion] = [rows, gridSize / rows];
+const defaultRegions = ([width, height]) => {
+
+    if (width !== height) {
+        return [];
+    }
+
+    let rows = Math.floor(Math.sqrt(width));
+    while (width % rows !== 0) rows -= 1;
+    const [rowsPerRegion, colsPerRegion] = [rows, width / rows];
 
     let regions = [];
     for (let idx = 0; idx < colsPerRegion; idx++) {

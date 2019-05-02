@@ -6,7 +6,7 @@ import GeneralEditForm from '../../components/EditForm/GeneralEditForm';
 
 const mapStateToProps = state => ({
     cellSize: state.puzzle.cellSize,
-    gridSize: state.puzzle.cells.length,
+    gridSize: [state.puzzle.cells[0].length, state.puzzle.cells.length],
 });
 
 const mapDispatchToProps = {

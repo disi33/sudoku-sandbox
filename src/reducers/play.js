@@ -16,7 +16,7 @@ const startPlayOver = (state) => ({
     ...state,
     play: {
         ...state.play,
-        cells: [...Array(state.puzzle.cells.length)].map(_ => [...Array(state.puzzle.cells.length)].map(_ => ({
+        cells: [...Array(state.puzzle.cells.length)].map(_ => [...Array(state.puzzle.cells[0].length)].map(_ => ({
             value: undefined, candidates: [], pencilMarks: [], highlight: undefined,
         })))
     }

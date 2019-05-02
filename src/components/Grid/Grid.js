@@ -17,7 +17,7 @@ export default function Grid({ grid, grid: { cells, decorations, highlights }, u
     const cageValues = cageValuesSelector(grid);
     
     return (
-        <div className="grid" ref={forwardedRef} onKeyDown={onKeyDown(interactionsConfig, cells.length)} onBlur={() => onCellClicked(undefined, undefined, interactionsConfig)} tabIndex="-1">
+        <div className="grid" ref={forwardedRef} onKeyDown={onKeyDown(interactionsConfig, [cells[0].length, cells.length])} onBlur={() => onCellClicked(undefined, undefined, interactionsConfig)} tabIndex="-1">
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>
@@ -53,15 +53,15 @@ const renderDecoration = cellSize => (decoration, key) => {
     }
 };
 
-const sizeSelector = grid => grid.cells.length;
+const sizeSelector = grid => [grid.cells[0].length, grid.cells.length];
 const regionsSelector = grid => grid.regions;
 const cagesSelector = grid => grid.cages;
 
 // Region border selectors
 
 const reverseRegionsSelector = createSelector(
-    sizeSelector, regionsSelector, (size, regions) => {
-        let reverseRegions = [...Array(size)].map(e => Array(size));
+    sizeSelector, regionsSelector, ([width, height], regions) => {
+        let reverseRegions = [...Array(height)].map(e => Array(width));
         regions.forEach((region, idx) =>
             region.forEach(([row, col]) => reverseRegions[row][col] = idx)
         );
@@ -106,9 +106,9 @@ const bordersFor = (row, col, reverseRegions) => {
 };
 
 const bordersSelector = createSelector(
-    sizeSelector, reverseRegionsSelector, (size, reverseRegions) =>
-        [...Array(size).keys()].map(row =>
-            [...Array(size).keys()].map(col =>
+    sizeSelector, reverseRegionsSelector, ([width, height], reverseRegions) =>
+        [...Array(height).keys()].map(row =>
+            [...Array(width).keys()].map(col =>
                 bordersFor(row, col, reverseRegions)
         )
     )
@@ -124,8 +124,8 @@ const topLeftCell = cage =>
     cage.cells.reduce((acc, val) => acc[0] < val[0] ? acc : acc[0] > val[0] ? val : acc[1] < val[1] ? acc : val, cage.cells[0]);
 
 const cageValuesSelector = createSelector(
-    sizeSelector, cagesSelector, (size, cages) => {
-        let cageValues = [...Array(size)].map(e => Array(size));
+    sizeSelector, cagesSelector, ([width, height], cages) => {
+        let cageValues = [...Array(height)].map(e => Array(width));
         cages.filter(cage => cage.cells.length > 0).forEach(cage => {
             const [min_x, min_y] = topLeftCell(cage);
             cageValues[min_x][min_y] = cage.value;
@@ -135,8 +135,8 @@ const cageValuesSelector = createSelector(
 );
 
 const reverseCagesSelector = createSelector(
-    sizeSelector, cageRegionsSelector, (size, cages) => {
-        let reverseCages = [...Array(size)].map(e => Array(size));
+    sizeSelector, cageRegionsSelector, ([width, height], cages) => {
+        let reverseCages = [...Array(height)].map(e => Array(width));
         cages.forEach((cage, idx) =>
             cage.forEach(([row, col]) => reverseCages[row][col] = idx)
         );
@@ -167,9 +167,9 @@ const cageBordersFor = (row, col, reverseCages) => {
 };
 
 const cageBordersSelector = createSelector(
-    sizeSelector, reverseCagesSelector, (size, reverseCages) =>
-        [...Array(size).keys()].map(row =>
-            [...Array(size).keys()].map(col =>
+    sizeSelector, reverseCagesSelector, ([width, height], reverseCages) =>
+        [...Array(height).keys()].map(row =>
+            [...Array(width).keys()].map(col =>
                 cageBordersFor(row, col, reverseCages)
         )
     )
