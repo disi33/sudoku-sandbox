@@ -1,3 +1,8 @@
+export const selectUnderlay = idx => ({
+    type: 'SELECT_UNDERLAY',
+    idx: idx,
+});
+
 export const removeUnderlay = idx => ({
     type: 'REMOVE_UNDERLAY',
     idx: idx,
@@ -41,4 +46,9 @@ export const setUnderlayRounded = (idx, rounded) => ({
     type: 'SET_UNDERLAY_ROUNDED',
     idx: idx,
     rounded: rounded,
+});
+
+export const addAndSelectUnderlay = origin => ({
+    type: 'ADD_AND_SELECT_UNDERLAY',
+    origin: origin,
 });

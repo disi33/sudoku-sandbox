@@ -86,6 +86,7 @@ const cages = [
 
 const props = {
     cages: cages,
+    selectedCageIdx: 0,
     onCageSelected: onCageSelected,
     onCageAdded: onCageAdded,
     onCageRemoved: onCageRemoved,

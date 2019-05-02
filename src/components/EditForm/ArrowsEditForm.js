@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './EditForm.css';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
@@ -7,9 +7,8 @@ import PlusMinusInput from '../PlusMinusInput/PlusMinusInput';
 import PositionsInput from '../PositionsInput/PositionsInput';
 import TextInput from '../TextInput/TextInput';
 
-export default function ArrowsEditForm({arrows, onArrowRemoved, onArrowAdded, onThicknessChanged, onColorChanged, onHeadLengthChanged, onWayPointRemoved, onWayPointAdded, onWayPointChanged}) {
+export default function ArrowsEditForm({arrows, selectedArrowIdx, onArrowSelected, onArrowRemoved, onArrowAdded, onThicknessChanged, onColorChanged, onHeadLengthChanged, onWayPointRemoved, onWayPointAdded, onWayPointChanged}) {
 
-    const [selectedArrowIdx, setSelectedArrowIdx] = useState(0);
     const arrow = arrows[selectedArrowIdx];
 
     return (
@@ -18,13 +17,17 @@ export default function ArrowsEditForm({arrows, onArrowRemoved, onArrowAdded, on
                 <div className="edit-form__section-title">Add/Remove Arrows</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={arrows} selectedIdx={selectedArrowIdx} onItemSelected={setSelectedArrowIdx} onItemRemoved={onArrowRemoved} onItemAdded={() => {setSelectedArrowIdx(arrows.length); onArrowAdded();}} itemToText={arrowToText}></List>
+                        <List items={arrows} selectedIdx={selectedArrowIdx} onItemSelected={onArrowSelected} onItemRemoved={onArrowRemoved} onItemAdded={() => {onArrowSelected(arrows.length); onArrowAdded();}} itemToText={arrowToText}></List>
                     </div>
                 </div>
             </div>
             {arrow !== undefined &&
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Arrow</div>
+                    <p>
+                        Click on positions in the puzzle area to add waypoints for the arrow to pass through. 
+                        Use the form below for tweaking and more fine-grained control.
+                    </p>
                     <div className="edit-form__field">
                         <span className="edit-form__field-name">Thickness</span>
                         <div className="edit-form__field-input">

@@ -1,3 +1,8 @@
+export const selectOverlay = idx => ({
+    type: 'SELECT_OVERLAY',
+    idx: idx,
+});
+
 export const removeOverlay = idx => ({
     type: 'REMOVE_OVERLAY',
     idx: idx,
@@ -53,4 +58,9 @@ export const setOverlayText = (idx, text) => ({
     type: 'SET_OVERLAY_TEXT',
     idx: idx,
     text: text,
+});
+
+export const addAndSelectOverlay = center => ({
+    type: 'ADD_AND_SELECT_OVERLAY',
+    center: center,
 });

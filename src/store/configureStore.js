@@ -62,6 +62,7 @@ const initialState = () => ({
             backgroundColor: '#FFFFFF',
             rounded: false,
             fontSize: 12,
+            text: '',
         }
     },
     interactions: {

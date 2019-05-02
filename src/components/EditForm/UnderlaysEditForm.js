@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './EditForm.css';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
@@ -6,9 +6,8 @@ import List from '../List/List';
 import Tabs from '../Tabs/Tabs';
 import TextInput from '../TextInput/TextInput';
 
-export default function UnderlaysEditForm({underlays, onUnderlayRemoved, onUnderlayAdded, onOriginChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged}) {
+export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnderlaySelected, onUnderlayRemoved, onUnderlayAdded, onOriginChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged}) {
 
-    const [selectedUnderlayIdx, setSelectedUnderlayIdx] = useState(0);
     const underlay = underlays[selectedUnderlayIdx];
 
     const shapeTabItems = [
@@ -20,15 +19,22 @@ export default function UnderlaysEditForm({underlays, onUnderlayRemoved, onUnder
         <div className="edit-form">
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Add/Remove Underlays</div>
+                <p>
+                    Hold "Shift" and click in the puzzle area to add a new underlay at that position.
+                </p>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={underlays} selectedIdx={selectedUnderlayIdx} onItemSelected={setSelectedUnderlayIdx} onItemRemoved={onUnderlayRemoved} onItemAdded={() => {setSelectedUnderlayIdx(underlays.length); onUnderlayAdded();}} itemToText={underlayToText}></List> 
+                        <List items={underlays} selectedIdx={selectedUnderlayIdx} onItemSelected={onUnderlaySelected} onItemRemoved={onUnderlayRemoved} onItemAdded={() => {onUnderlaySelected(underlays.length); onUnderlayAdded();}} itemToText={underlayToText}></List> 
                     </div>
                 </div>
             </div>
             {underlay !== undefined && 
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Underlay</div>
+                    <p>
+                        Click on the puzzle area to reposition this underlay with its top-left corner at the clicked point.
+                        Use the form below for tweaking and more fine-grained control.
+                    </p>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Top-left</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">

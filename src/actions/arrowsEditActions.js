@@ -1,3 +1,8 @@
+export const selectArrow = idx => ({
+    type: 'SELECT_ARROW',
+    idx: idx,
+});
+
 export const removeArrow = idx => ({
     type: 'REMOVE_ARROW',
     idx: idx,

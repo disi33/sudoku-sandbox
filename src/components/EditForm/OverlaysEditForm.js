@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './EditForm.css';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
@@ -7,9 +7,8 @@ import PlusMinusInput from '../PlusMinusInput/PlusMinusInput';
 import Tabs from '../Tabs/Tabs';
 import TextInput from '../TextInput/TextInput';
 
-export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayAdded, onCenterChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged, onTextChanged, onFontSizeChanged}) {
+export default function OverlaysEditForm({overlays, selectedOverlayIdx, onOverlaySelected, onOverlayRemoved, onOverlayAdded, onCenterChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged, onTextChanged, onFontSizeChanged}) {
 
-    const [selectedOverlayIdx, setSelectedOverlayIdx] = useState(0);
     const overlay = overlays[selectedOverlayIdx];
 
     const shapeTabItems = [
@@ -21,15 +20,22 @@ export default function OverlaysEditForm({overlays, onOverlayRemoved, onOverlayA
         <div className="edit-form">
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Add/Remove Overlays</div>
+                <p>
+                    Hold "Shift" and click in the puzzle area to add a new overlay at that position.
+                </p>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={overlays} selectedIdx={selectedOverlayIdx} onItemSelected={setSelectedOverlayIdx} onItemRemoved={onOverlayRemoved} onItemAdded={() => {setSelectedOverlayIdx(overlays.length); onOverlayAdded()}} itemToText={overlayToText}></List> 
+                        <List items={overlays} selectedIdx={selectedOverlayIdx} onItemSelected={onOverlaySelected} onItemRemoved={onOverlayRemoved} onItemAdded={() => {onOverlaySelected(overlays.length); onOverlayAdded()}} itemToText={overlayToText}></List> 
                     </div>
                 </div>
             </div>
             {overlay !== undefined && 
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Overlay</div>
+                    <p>
+                        Click on the puzzle area to reposition this overlay with its centre at the clicked point.
+                        Use the form below for tweaking and more fine-grained control.
+                    </p>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Centre</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">

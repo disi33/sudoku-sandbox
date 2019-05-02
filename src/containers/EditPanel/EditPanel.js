@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
+import { setInteractionsMode } from '../../actions/puzzleActions';
+
 import Select from 'react-select';
 
 import GeneralEditPanel from '../EditPanel/GeneralEditPanel';
@@ -10,10 +12,9 @@ import LinesEditPanel from '../EditPanel/LinesEditPanel';
 import ArrowsEditPanel from '../EditPanel/ArrowsEditPanel';
 import UnderlaysEditPanel from '../EditPanel/UnderlaysEditPanel';
 import OverlaysEditPanel from '../EditPanel/OverlaysEditPanel';
+import SaveLoadEditPanel from './SaveLoadEditPanel';
 
 import './EditPanel.css';
-import { setInteractionsMode } from '../../actions/puzzleActions';
-import SaveLoadEditPanel from './SaveLoadEditPanel';
 
 const EditPanel = ({onInteractionsModeChanged}) => {
 
@@ -32,6 +33,10 @@ const EditPanel = ({onInteractionsModeChanged}) => {
     const setSelectedOption = (option) => {
         if (option.value === 'REGIONS') onInteractionsModeChanged('REGIONS');
         else if (option.value === 'CAGES') onInteractionsModeChanged('CAGES');
+        else if (option.value === 'LINES') onInteractionsModeChanged('LINES');
+        else if (option.value === 'ARROWS') onInteractionsModeChanged('ARROWS');
+        else if (option.value === 'UNDERLAYS') onInteractionsModeChanged('UNDERLAYS');
+        else if (option.value === 'OVERLAYS') onInteractionsModeChanged('OVERLAYS');
         else onInteractionsModeChanged('GIVENS');
         _setSelectedOption(option);
     };

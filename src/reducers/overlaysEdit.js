@@ -1,5 +1,6 @@
 export default function overlaysEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_OVERLAY': return selectOverlay(state, action);
         case 'REMOVE_OVERLAY': return removeOverlay(state, action);
         case 'ADD_OVERLAY': return addOverlay(state, action);
         case 'SET_OVERLAY_CENTER': return setOverlayCenter(state, action);
@@ -10,9 +11,18 @@ export default function overlaysEdit(state, action) {
         case 'SET_OVERLAY_ROUNDED': return setOverlayRounded(state, action);
         case 'SET_OVERLAY_FONT_SIZE': return setOverlayFontSize(state, action);
         case 'SET_OVERLAY_TEXT': return setOverlayText(state, action);
+        case 'ADD_AND_SELECT_OVERLAY': return addAndSelectOverlay(state, action);
         default: return state;
     }
 }
+
+const selectOverlay = (state, {idx}) => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        overlayIdx: idx,
+    }
+});
 
 const removeOverlay = (state, {idx}) => ({
     ...state,
@@ -39,7 +49,7 @@ const addOverlay = (state) => ({
                 backgroundColor: state.edit.overlays.backgroundColor,
                 rounded: state.edit.overlays.rounded,
                 fontSize: state.edit.overlays.fontSize,
-                text: undefined,
+                text: state.edit.overlays.text,
             }
         ]
     }
@@ -212,5 +222,19 @@ const setOverlayText = (state, {idx, text}) => ({
             ...state.puzzle.overlays.slice(idx + 1),
 
         ]
+    },
+    edit: {
+        ...state.edit,
+        overlays: {
+            ...state.edit.overlays,
+            text: text,
+        }
     }
 });
+
+const addAndSelectOverlay = (state, {center}) => {
+    const addedState = addOverlay(state);
+    const idx = addedState.puzzle.overlays.length - 1;
+    const withCenter = setOverlayCenter(addedState, {idx, center});
+    return selectOverlay(withCenter, {idx});
+};

@@ -1,10 +1,30 @@
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
+import { addLineWayPoint } from '../../actions/linesEditActions';
+import { addArrowWayPoint } from '../../actions/arrowsEditActions';
+import { setUnderlayOrigin, addAndSelectUnderlay } from '../../actions/underlaysEditActions';
+import { setOverlayCenter, addAndSelectOverlay } from '../../actions/overlaysEditActions';
 import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
 import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue, undoPlay, redoPlay } from '../../actions/playActions';
 
 import Grid from '../../components/Grid/Grid';
+
+import './Puzzle.css';
+
+const Puzzle = props => {
+
+    const gridRef = useRef(null);
+
+    return (
+        <div className="puzzle" onClick={props.onAreaClicked(props.interactionsConfig, gridRef, props.cellSize)}>
+            <Grid {...props} forwardedRef={gridRef}></Grid>
+        </div>
+    );
+};
+
+// Cell highlighting selectors
 
 const selectedRegionExists = state => state.interactions.regionIdx !== undefined && state.interactions.regionIdx >= 0 && state.interactions.regionIdx < state.puzzle.regions.length;
 const selectedCageExists = state => state.interactions.cageIdx !== undefined && state.interactions.cageIdx >= 0 && state.interactions.cageIdx < state.puzzle.cages.length;
@@ -45,6 +65,8 @@ const highlightsSelector = createSelector(
     }
 );
 
+// React-redux connectors
+
 const mapStateToProps = state => ({
     cellSize: state.puzzle.cellSize,
     grid: {
@@ -64,16 +86,44 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+
+    onAreaClicked: (interactionsConfig, gridRef, cellSize) => e => {
+        const gridBoundingRect = gridRef.current.getBoundingClientRect();
+        const [gridX, gridY] = [gridBoundingRect.left, gridBoundingRect.top];
+        const [col, row] = [(e.clientX - gridX) / cellSize, (e.clientY - gridY) / cellSize].map(snappedOffset);
+
+        console.log(row, col, interactionsConfig);
+        
+        if (interactionsConfig.mode === 'LINES' && interactionsConfig.lineIdx !== undefined) {
+            dispatch(addLineWayPoint(interactionsConfig.lineIdx, [row, col]));
+        }
+
+        if (interactionsConfig.mode === 'ARROWS' && interactionsConfig.arrowIdx !== undefined) {
+            dispatch(addArrowWayPoint(interactionsConfig.arrowIdx, [row, col]));
+        }
+
+        if (interactionsConfig.mode === 'UNDERLAYS' && interactionsConfig.underlayIdx !== undefined) {
+            if (e.shiftKey) dispatch(addAndSelectUnderlay([row, col]));
+            else dispatch(setUnderlayOrigin(interactionsConfig.underlayIdx, [row, col]));
+        }
+
+        if (interactionsConfig.mode === 'OVERLAYS' && interactionsConfig.overlayIdx !== undefined) {
+            if (e.shiftKey) dispatch(addAndSelectOverlay([row, col]));
+            else dispatch(setOverlayCenter(interactionsConfig.overlayIdx, [row, col]));
+        }
+    },
+
     onCellClicked: (row, col, interactionsConfig) => {
         if (interactionsConfig.mode === 'REGIONS' && interactionsConfig.regionIdx !== undefined && row !== undefined && col !== undefined) dispatch(toggleCellInRegion(row, col, interactionsConfig.regionIdx));
         else if (interactionsConfig.mode === 'CAGES' && interactionsConfig.cageIdx !== undefined && row !== undefined && col !== undefined) dispatch(toggleCellInCage(row, col, interactionsConfig.cageIdx));
         else if (interactionsConfig.mode === 'GIVENS' || interactionsConfig.mode === 'PLAY') dispatch(selectCell(row, col));
     },
+
     onKeyDown: ({mode, cellRow, cellCol}, gridSize) => e => {
         if (cellRow === undefined || cellCol === undefined) return;
 
         e.preventDefault();
-
+        
         if (mode === 'GIVENS' || mode === 'PLAY') {
             if (e.key === 'ArrowUp') dispatch(selectCell(cellRow === 0 ? gridSize - 1 : cellRow - 1, cellCol));
             else if (e.key === 'ArrowDown') dispatch(selectCell((cellRow + 1) % gridSize, cellCol));
@@ -99,6 +149,19 @@ const mapDispatchToProps = dispatch => ({
     }
 });
 
+// Helper functions
+
+const snappedOffset = offset => {
+    const fractional = offset - Math.floor(offset);
+    if (fractional <= 0.15) {
+        return Math.floor(offset);
+    } else if (fractional >= 0.85) {
+        return Math.ceil(offset);
+    } else {
+        return Math.floor(offset) + 0.5;
+    }
+}
+
 const isAcceptableCellInput = e => e.key.match(/^[^\W_]$/) !== null || (e.nativeEvent.code && e.nativeEvent.code.match(/^Digit[0-9]$/) !== null);
 
 const getCellInput = e => {
@@ -112,4 +175,4 @@ const getCellInput = e => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+export default connect(mapStateToProps, mapDispatchToProps)(Puzzle);

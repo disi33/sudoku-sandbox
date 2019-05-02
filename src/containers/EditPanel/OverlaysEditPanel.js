@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
 
-import { removeOverlay, addOverlay, setOverlayCenter, setOverlayWidth, setOverlayHeight, setOverlayBorderColor, setOverlayBackgroundColor, setOverlayRounded, setOverlayFontSize, setOverlayText } from '../../actions/overlaysEditActions';
+import { selectOverlay, removeOverlay, addOverlay, setOverlayCenter, setOverlayWidth, setOverlayHeight, setOverlayBorderColor, setOverlayBackgroundColor, setOverlayRounded, setOverlayFontSize, setOverlayText } from '../../actions/overlaysEditActions';
 
 import OverlaysEditForm from '../../components/EditForm/OverlaysEditForm';
 
 const mapStateToProps = state => ({
     overlays: state.puzzle.overlays,
+    selectedOverlayIdx: state.interactions.overlayIdx,
 });
 
 const mapDispatchToProps = {
+    onOverlaySelected: selectOverlay,
     onOverlayRemoved: removeOverlay, 
     onOverlayAdded: addOverlay, 
     onCenterChanged: setOverlayCenter, 

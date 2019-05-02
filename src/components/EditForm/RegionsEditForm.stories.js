@@ -26,6 +26,7 @@ const regions = [
 
 const props = {
     regions: regions,
+    selectedRegionIdx: 0,
     onRegionSelected: onRegionSelected,
     onRegionAdded: onRegionAdded,
     onRegionRemoved: onRegionRemoved,

@@ -1,3 +1,8 @@
+export const selectLine = idx => ({
+    type: 'SELECT_LINE',
+    idx: idx,
+});
+
 export const removeLine = idx => ({
     type: 'REMOVE_LINE',
     idx: idx,

@@ -1,22 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './EditForm.css';
 
 import List from '../List/List';
 import TextInput from '../TextInput/TextInput';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function CagesEditForm({cages, onCageSelected, onCageRemoved, onCageAdded, onValueChanged, onCellChanged, onCellRemoved, onCellAdded}) {
-
-    const [selectedCageIdx, _setSelectedCageIdx] = useState(0);
-
-    const setSelectedCageIdx = idx => {
-        onCageSelected(idx);
-        _setSelectedCageIdx(idx);
-    };
+export default function CagesEditForm({cages, selectedCageIdx, onCageSelected, onCageRemoved, onCageAdded, onValueChanged, onCellChanged, onCellRemoved, onCellAdded}) {
 
     const cage = cages[selectedCageIdx];
-    if (cage !== undefined) onCageSelected(selectedCageIdx);
-    else onCageSelected(undefined);
 
     return (
         <div className="edit-form">
@@ -24,7 +15,7 @@ export default function CagesEditForm({cages, onCageSelected, onCageRemoved, onC
                 <div className="edit-form__section-title">Add/Remove Cages</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={cages} selectedIdx={selectedCageIdx} onItemSelected={setSelectedCageIdx} onItemAdded={() => {setSelectedCageIdx(cages.length); onCageAdded();}} onItemRemoved={onCageRemoved} itemToText={cageToText}></List>
+                        <List items={cages} selectedIdx={selectedCageIdx} onItemSelected={onCageSelected} onItemAdded={() => {onCageSelected(cages.length); onCageAdded();}} onItemRemoved={onCageRemoved} itemToText={cageToText}></List>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 export default function underlaysEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_UNDERLAY': return selectUnderlay(state, action);
         case 'REMOVE_UNDERLAY': return removeUnderlay(state, action);
         case 'ADD_UNDERLAY': return addUnderlay(state, action);
         case 'SET_UNDERLAY_ORIGIN': return setUnderlayOrigin(state, action);
@@ -8,9 +9,18 @@ export default function underlaysEdit(state, action) {
         case 'SET_UNDERLAY_BORDER_COLOR': return setUnderlayBorderColor(state, action);
         case 'SET_UNDERLAY_BACKGROUND_COLOR': return setUnderlayBackgroundColor(state, action);
         case 'SET_UNDERLAY_ROUNDED': return setUnderlayRounded(state, action);
+        case 'ADD_AND_SELECT_UNDERLAY': return addAndSelectUnderlay(state, action);
         default: return state;
     }
 }
+
+const selectUnderlay = (state, {idx}) => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        underlayIdx: idx,
+    }
+});
 
 const removeUnderlay = (state, {idx}) => ({
     ...state,
@@ -171,3 +181,10 @@ const setUnderlayRounded = (state, {idx, rounded}) => ({
         }
     }
 });
+
+const addAndSelectUnderlay = (state, {origin}) => {
+    const addedState = addUnderlay(state);
+    const idx = addedState.puzzle.underlays.length - 1;
+    const withOrigin = setUnderlayOrigin(addedState, {idx, origin});
+    return selectUnderlay(withOrigin, {idx});
+};

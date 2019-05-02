@@ -101,6 +101,7 @@ const outsideText = [
 
 const props = {
     overlays: [...kropki, consecutive, mathrax, ...outsideText],
+    selectedOverlayIdx: 0,
     onOverlayRemoved: onOverlayRemoved,
     onOverlayAdded: onOverlayAdded,
     onCenterChanged: onCenterChanged,

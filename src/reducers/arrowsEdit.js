@@ -1,5 +1,6 @@
 export default function arrowsEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_ARROW': return selectArrow(state, action);
         case 'REMOVE_ARROW': return removeArrow(state, action);
         case 'ADD_ARROW': return addArrow(state, action);
         case 'SET_ARROW_THICKNESS': return setArrowThickness(state, action);
@@ -11,6 +12,14 @@ export default function arrowsEdit(state, action) {
         default: return state;
     }
 }
+
+const selectArrow = (state, {idx}) => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        arrowIdx: idx,
+    }
+});
 
 const removeArrow = (state, {idx}) => ({
     ...state,
@@ -30,7 +39,7 @@ const addArrow = (state) => ({
         arrows: [
             ...state.puzzle.arrows,
             {
-                wayPoints: [[0.5, 0.5], [1.5, 1.5]],
+                wayPoints: [],
                 color: state.edit.arrows.color,
                 thickness: state.edit.arrows.thickness,
                 headLength: state.edit.arrows.headLength,

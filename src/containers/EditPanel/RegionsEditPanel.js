@@ -5,7 +5,8 @@ import { selectRegion, removeRegion, addRegion, setRegionCell, removeRegionCell,
 import RegionsEditForm from '../../components/EditForm/RegionsEditForm';
 
 const mapStateToProps = state => ({
-    regions: state.puzzle.regions
+    regions: state.puzzle.regions,
+    selectedRegionIdx: state.interactions.regionIdx,
 });
 
 const mapDispatchToProps = {

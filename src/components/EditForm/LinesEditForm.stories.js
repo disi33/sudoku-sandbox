@@ -41,6 +41,7 @@ const zigZagLine = {
 
 const props = {
     lines: [horizontalLine, verticalLine, diagonalLine, zigZagLine],
+    selectedLineIdx: 0,
     onLineAdded: onLineAdded,
     onLineRemoved: onLineRemoved,
     onColorChanged: onColorChanged,

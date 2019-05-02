@@ -43,6 +43,7 @@ const zigZagArrow = {
 
 const props = {
     arrows: [horizontalArrow, verticalArrow, diagonalArrow, zigZagArrow],
+    selectedArrowIdx: 0,
     onArrowAdded: onArrowAdded,
     onArrowRemoved: onArrowRemoved,
     onColorChanged: onColorChanged,

@@ -10,14 +10,14 @@ import Overlay from '../Overlay/Overlay';
 import './Grid.css';
 import './zIndex.css';
 
-export default function Grid({ grid, grid: { cells, decorations, highlights }, user, cellSize, interactionsConfig, onCellClicked, onKeyDown }) {
+export default function Grid({ grid, grid: { cells, decorations, highlights }, user, cellSize, interactionsConfig, onCellClicked, onKeyDown, forwardedRef }) {
 
     const borders = bordersSelector(grid);
     const cageBorders = cageBordersSelector(grid);
     const cageValues = cageValuesSelector(grid);
     
     return (
-        <div className="grid" onKeyDown={onKeyDown(interactionsConfig, cells.length)} onBlur={() => onCellClicked(undefined, undefined, interactionsConfig)} tabIndex="-1">
+        <div className="grid" ref={forwardedRef} onKeyDown={onKeyDown(interactionsConfig, cells.length)} onBlur={() => onCellClicked(undefined, undefined, interactionsConfig)} tabIndex="-1">
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>

@@ -44,6 +44,7 @@ const insetDuo = {
 
 const props = {
     underlays: [singleCell, window, insetDuo, {...insetDuo, backgroundColor: undefined}, {...singleCell, rounded: true}, {...insetDuo, rounded: true}, {...insetDuo, backgroundColor: undefined, rounded: true}],
+    selectedUnderlayIdx: 0,
     onUnderlayRemoved: onUnderlayRemoved,
     onUnderlayAdded: onUnderlayAdded,
     onOriginChanged: onOriginChanged,

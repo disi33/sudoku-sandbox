@@ -1,5 +1,6 @@
 export default function linesEdit(state, action) {
     switch (action.type) {
+        case 'SELECT_LINE': return selectLine(state, action);
         case 'REMOVE_LINE': return removeLine(state, action);
         case 'ADD_LINE': return addLine(state, action);
         case 'SET_LINE_THICKNESS': return setLineThickness(state, action);
@@ -10,6 +11,14 @@ export default function linesEdit(state, action) {
         default: return state;
     }
 }
+
+const selectLine = (state, {idx}) => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        lineIdx: idx,
+    }
+});
 
 const removeLine = (state, {idx}) => ({
     ...state,
@@ -29,7 +38,7 @@ const addLine = (state) => ({
         lines: [
             ...state.puzzle.lines,
             {
-                wayPoints: [[0.5, 0.5], [1.5, 1.5]],
+                wayPoints: [],
                 color: state.edit.lines.color,
                 thickness: state.edit.lines.thickness,
             }

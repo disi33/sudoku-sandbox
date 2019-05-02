@@ -1,21 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './EditForm.css';
 
 import List from '../List/List';
 import PositionsInput from '../PositionsInput/PositionsInput';
 
-export default function RegionsEditForm({regions, onRegionSelected, onRegionRemoved, onRegionAdded, onCellChanged, onCellRemoved, onCellAdded}) {
-
-    const [selectedRegionIdx, _setSelectedRegionIdx] = useState(0);
-
-    const setSelectedRegionIdx = idx => {
-        onRegionSelected(idx);
-        _setSelectedRegionIdx(idx);
-    };
+export default function RegionsEditForm({regions, selectedRegionIdx, onRegionSelected, onRegionRemoved, onRegionAdded, onCellChanged, onCellRemoved, onCellAdded}) {
 
     const region = regions[selectedRegionIdx];
-    if (region !== undefined) onRegionSelected(selectedRegionIdx);
-    else onRegionSelected(undefined);
 
     return (
         <div className="edit-form">
@@ -23,7 +14,7 @@ export default function RegionsEditForm({regions, onRegionSelected, onRegionRemo
                 <div className="edit-form__section-title">Add/Remove Regions</div>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
-                        <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={setSelectedRegionIdx} onItemAdded={() => {setSelectedRegionIdx(regions.length); onRegionAdded();}} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
+                        <List items={regions} selectedIdx={selectedRegionIdx} onItemSelected={onRegionSelected} onItemAdded={() => {onRegionSelected(regions.length); onRegionAdded();}} onItemRemoved={onRegionRemoved} itemToText={regionToText}></List>
                     </div>
                 </div>
             </div>

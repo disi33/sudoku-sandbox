@@ -6,6 +6,7 @@ import CagesEditForm from '../../components/EditForm/CagesEditForm';
 
 const mapStateToProps = state => ({
     cages: state.puzzle.cages,
+    selectedCageIdx: state.interactions.cageIdx,
 });
 
 const mapDispatchToProps = {
