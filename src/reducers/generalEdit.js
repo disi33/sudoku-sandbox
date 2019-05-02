@@ -30,7 +30,8 @@ const setGridSize = (state, {gridSize}) => ({
         ...state.interactions,
         cellRow: undefined,
         cellCol: undefined,
-    }
+    },
+    play: undefined,
 });
 
 const defaultRegions = gridSize => {

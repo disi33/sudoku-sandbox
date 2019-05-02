@@ -21,7 +21,7 @@ export default function Grid({ grid, grid: { cells, decorations, highlights }, u
             {cells.map((row, idx) => 
                 <div key={idx} className="grid__row">
                     {row.map((cell, jdx) =>
-                        <Cell onClick={() => onCellClicked(idx, jdx, interactionsConfig)} key={jdx} {...mergePuzzleWithPlay(cell, user && user[idx][jdx])} selected={isSelected(interactionsConfig, idx, jdx)} highlight={highlights[idx][jdx]} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
+                        <Cell onClick={() => onCellClicked(idx, jdx, interactionsConfig)} key={jdx} {...mergePuzzleWithPlay(cell, user && user[idx] && user[idx][jdx])} selected={isSelected(interactionsConfig, idx, jdx)} highlight={highlights[idx][jdx]} size={cellSize} borders={borders[idx][jdx]} cageBorders={cageBorders[idx][jdx]} cageValue={cageValues[idx][jdx]}></Cell>
                     )}
                 </div>
             )}
