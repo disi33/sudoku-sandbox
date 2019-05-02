@@ -91,8 +91,6 @@ const mapDispatchToProps = dispatch => ({
         const gridBoundingRect = gridRef.current.getBoundingClientRect();
         const [gridX, gridY] = [gridBoundingRect.left, gridBoundingRect.top];
         const [col, row] = [(e.clientX - gridX) / cellSize, (e.clientY - gridY) / cellSize].map(snappedOffset);
-
-        console.log(row, col, interactionsConfig);
         
         if (interactionsConfig.mode === 'LINES' && interactionsConfig.lineIdx !== undefined) {
             dispatch(addLineWayPoint(interactionsConfig.lineIdx, [row, col]));
@@ -102,14 +100,14 @@ const mapDispatchToProps = dispatch => ({
             dispatch(addArrowWayPoint(interactionsConfig.arrowIdx, [row, col]));
         }
 
-        if (interactionsConfig.mode === 'UNDERLAYS' && interactionsConfig.underlayIdx !== undefined) {
+        if (interactionsConfig.mode === 'UNDERLAYS') {
             if (e.shiftKey) dispatch(addAndSelectUnderlay([row, col]));
-            else dispatch(setUnderlayOrigin(interactionsConfig.underlayIdx, [row, col]));
+            else if (interactionsConfig.underlayIdx !== undefined) dispatch(setUnderlayOrigin(interactionsConfig.underlayIdx, [row, col]));
         }
 
-        if (interactionsConfig.mode === 'OVERLAYS' && interactionsConfig.overlayIdx !== undefined) {
+        if (interactionsConfig.mode === 'OVERLAYS') {
             if (e.shiftKey) dispatch(addAndSelectOverlay([row, col]));
-            else dispatch(setOverlayCenter(interactionsConfig.overlayIdx, [row, col]));
+            else if (interactionsConfig.overlayIdx !== undefined) dispatch(setOverlayCenter(interactionsConfig.overlayIdx, [row, col]));
         }
     },
 
