@@ -48,6 +48,8 @@ export default function LinesEditForm({lines, onLineRemoved, onLineAdded, onThic
     );
 }
 
-const lineToText = line => `Line from ${wayPointToText(line.wayPoints[0])} to ${wayPointToText(line.wayPoints[line.wayPoints.length - 1])}`;
+const lineToText = line => line.wayPoints.length > 0 
+    ? `Line from ${wayPointToText(line.wayPoints[0])} to ${wayPointToText(line.wayPoints[line.wayPoints.length - 1])}`
+    : 'Line';
 
 const wayPointToText = wayPoint => `(${wayPoint[0]}, ${wayPoint[1]})`;

@@ -55,6 +55,8 @@ export default function ArrowsEditForm({arrows, onArrowRemoved, onArrowAdded, on
     );
 }
 
-const arrowToText = arrow => `Arrow from ${wayPointToText(arrow.wayPoints[0])} to ${wayPointToText(arrow.wayPoints[arrow.wayPoints.length - 1])}`;
+const arrowToText = arrow => arrow.wayPoints.length > 0
+    ? `Arrow from ${wayPointToText(arrow.wayPoints[0])} to ${wayPointToText(arrow.wayPoints[arrow.wayPoints.length - 1])}`
+    : 'Arrow';
 
 const wayPointToText = wayPoint => `(${wayPoint[0]}, ${wayPoint[1]})`;
