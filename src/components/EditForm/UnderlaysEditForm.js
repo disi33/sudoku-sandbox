@@ -6,7 +6,7 @@ import List from '../List/List';
 import Tabs from '../Tabs/Tabs';
 import TextInput from '../TextInput/TextInput';
 
-export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnderlaySelected, onUnderlayRemoved, onUnderlayAdded, onOriginChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged}) {
+export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnderlaySelected, onUnderlayRemoved, onUnderlayAdded, onCenterChanged, onWidthChanged, onHeightChanged, onBorderColorChanged, onBackgroundColorChanged, onRoundedChanged}) {
 
     const underlay = underlays[selectedUnderlayIdx];
 
@@ -20,7 +20,8 @@ export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnd
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Add/Remove Underlays</div>
                 <p>
-                    Hold "Shift" and click in the puzzle area to add a new underlay at that position.
+                    Click in the puzzle area to add a new underlay at that position.
+                    Hold Shift when clicking to instead move the currently-selected underlay.
                 </p>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
@@ -36,10 +37,10 @@ export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnd
                         Use the form below for tweaking and more fine-grained control.
                     </p>
                     <div className="edit-form__field">
-                        <div className="edit-form__field-name">Top-left</div>
+                        <div className="edit-form__field-name">Centre</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">
-                            <TextInput numeric label="Row" value={underlay.origin[0]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [value, underlay.origin[1]])}></TextInput>
-                            <TextInput numeric label="Col" value={underlay.origin[1]} onValueChanged={value => onOriginChanged(selectedUnderlayIdx, [underlay.origin[0], value])}></TextInput>
+                            <TextInput numeric label="Row" value={underlay.center[0]} onValueChanged={value => onCenterChanged(selectedUnderlayIdx, [value, underlay.center[1]])}></TextInput>
+                            <TextInput numeric label="Col" value={underlay.center[1]} onValueChanged={value => onCenterChanged(selectedUnderlayIdx, [underlay.center[0], value])}></TextInput>
                         </div>
                     </div>
                     <div className="edit-form__field">
@@ -73,6 +74,6 @@ export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnd
     );
 }
 
-const underlayToText = underlay => `Underlay: ${underlayShape(underlay)} @ (${underlay.origin[0]}, ${underlay.origin[1]})`;
+const underlayToText = underlay => `Underlay: ${underlayShape(underlay)} @ (${underlay.center[0]}, ${underlay.center[1]})`;
 
 const underlayShape = underlay => underlay.rounded ? 'Rounded' : 'Square';

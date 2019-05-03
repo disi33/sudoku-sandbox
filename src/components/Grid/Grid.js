@@ -1,6 +1,8 @@
 import React from 'react';
 import { createSelector } from 'reselect';
 
+import { convertOriginToCenter } from '../../compatibility/underlay';
+
 import Cell from '../Cell/Cell';
 import Line from '../Line/Line';
 import Arrow from '../Arrow/Arrow';
@@ -32,6 +34,8 @@ export default function Grid({ grid, grid: { cells, decorations, highlights }, u
     );
 }
 
+// Grid/decoration helper functions
+
 const isSelected = ({mode, cellRow, cellCol}, row, col) => (mode === 'GIVENS' || mode === 'PLAY') && cellRow === row && cellCol === col;
 
 const mergePuzzleWithPlay = (puzzleCell, playCell) => ({
@@ -47,7 +51,7 @@ const renderDecoration = cellSize => (decoration, key) => {
     switch (decoration.type) {
         case 'LINE': return <Line key={key} {...decoration} cellSize={cellSize}></Line>;
         case 'ARROW': return <Arrow key={key} {...decoration} cellSize={cellSize}></Arrow>;
-        case 'UNDERLAY': return <Underlay key={key} {...decoration} cellSize={cellSize}></Underlay>;
+        case 'UNDERLAY': return <Underlay key={key} {...convertOriginToCenter(decoration)} cellSize={cellSize}></Underlay>;
         case 'OVERLAY': return <Overlay key={key} {...decoration} cellSize={cellSize}></Overlay>;
         default: return '';
     }

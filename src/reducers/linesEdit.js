@@ -8,6 +8,7 @@ export default function linesEdit(state, action) {
         case 'REMOVE_LINE_WAY_POINT': return removeLineWayPoint(state, action);
         case 'ADD_LINE_WAY_POINT': return addLineWayPoint(state, action);
         case 'SET_LINE_WAY_POINT': return setLineWayPoint(state, action);
+        case 'MOVE_LINE_WAY_POINT': return moveLineWayPoint(state, action);
         default: return state;
     }
 }
@@ -138,6 +139,24 @@ const setLineWayPoint = (state, {lineIdx, wayPointIdx, wayPoint}) => ({
                     ...state.puzzle.lines[lineIdx].wayPoints.slice(0, wayPointIdx),
                     wayPoint,
                     ...state.puzzle.lines[lineIdx].wayPoints.slice(wayPointIdx + 1),
+                ]
+            },
+            ...state.puzzle.lines.slice(lineIdx + 1),
+        ]
+    }
+});
+
+const moveLineWayPoint = (state, {lineIdx, wayPoint}) => ({
+    ...state,
+    puzzle: {
+        ...state.puzzle,
+        lines: [
+            ...state.puzzle.lines.slice(0, lineIdx),
+            {
+                ...state.puzzle.lines[lineIdx],
+                wayPoints: [
+                    ...state.puzzle.lines[lineIdx].wayPoints.slice(0, -1),
+                    wayPoint,
                 ]
             },
             ...state.puzzle.lines.slice(lineIdx + 1),

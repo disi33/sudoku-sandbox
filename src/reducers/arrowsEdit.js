@@ -9,6 +9,7 @@ export default function arrowsEdit(state, action) {
         case 'REMOVE_ARROW_WAY_POINT': return removeArrowWayPoint(state, action);
         case 'ADD_ARROW_WAY_POINT': return addArrowWayPoint(state, action);
         case 'SET_ARROW_WAY_POINT': return setArrowWayPoint(state, action);
+        case 'MOVE_ARROW_WAY_POINT': return moveArrowWayPoint(state, action);
         default: return state;
     }
 }
@@ -162,6 +163,24 @@ const setArrowWayPoint = (state, {arrowIdx, wayPointIdx, wayPoint}) => ({
                     ...state.puzzle.arrows[arrowIdx].wayPoints.slice(0, wayPointIdx),
                     wayPoint,
                     ...state.puzzle.arrows[arrowIdx].wayPoints.slice(wayPointIdx + 1),
+                ]
+            },
+            ...state.puzzle.arrows.slice(arrowIdx + 1),
+        ]
+    }
+});
+
+const moveArrowWayPoint = (state, {arrowIdx, wayPoint}) => ({
+    ...state,
+    puzzle: {
+        ...state.puzzle,
+        arrows: [
+            ...state.puzzle.arrows.slice(0, arrowIdx),
+            {
+                ...state.puzzle.arrows[arrowIdx],
+                wayPoints: [
+                    ...state.puzzle.arrows[arrowIdx].wayPoints.slice(0, -1),
+                    wayPoint,
                 ]
             },
             ...state.puzzle.arrows.slice(arrowIdx + 1),

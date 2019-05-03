@@ -12,10 +12,10 @@ export const addUnderlay = () => ({
     type: 'ADD_UNDERLAY',
 });
 
-export const setUnderlayOrigin = (idx, origin) => ({
-    type: 'SET_UNDERLAY_ORIGIN',
+export const setUnderlayCenter = (idx, center) => ({
+    type: 'SET_UNDERLAY_CENTER',
     idx: idx,
-    origin: origin,
+    center: center,
 });
 
 export const setUnderlayWidth = (idx, width) => ({
@@ -48,7 +48,7 @@ export const setUnderlayRounded = (idx, rounded) => ({
     rounded: rounded,
 });
 
-export const addAndSelectUnderlay = origin => ({
+export const addAndSelectUnderlay = center => ({
     type: 'ADD_AND_SELECT_UNDERLAY',
-    origin: origin,
+    center: center,
 });

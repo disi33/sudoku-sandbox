@@ -7,11 +7,11 @@ export default function Overlay({cellSize, center: [y, x], width, height, border
     const origin = [y - height / 2, x - width / 2];
     return (
         <ShapeText cellSize={cellSize} 
-                      origin={origin} 
-                      width={width} height={height} 
-                      borderColor={borderColor} backgroundColor={backgroundColor} 
-                      rounded={rounded} overlaid={true}
-                      fontSize={fontSize} text={text}>
+                   origin={origin} 
+                   width={width} height={height} 
+                   borderColor={borderColor} backgroundColor={backgroundColor} 
+                   rounded={rounded} overlaid={true}
+                   fontSize={fontSize} text={text}>
         </ShapeText>
     );
 }

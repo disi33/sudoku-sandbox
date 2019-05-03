@@ -2,9 +2,9 @@ import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
-import { addLineWayPoint } from '../../actions/linesEditActions';
-import { addArrowWayPoint } from '../../actions/arrowsEditActions';
-import { setUnderlayOrigin, addAndSelectUnderlay } from '../../actions/underlaysEditActions';
+import { addLineWayPoint, moveLineWayPoint } from '../../actions/linesEditActions';
+import { addArrowWayPoint, moveArrowWayPoint } from '../../actions/arrowsEditActions';
+import { setUnderlayCenter, addAndSelectUnderlay } from '../../actions/underlaysEditActions';
 import { setOverlayCenter, addAndSelectOverlay } from '../../actions/overlaysEditActions';
 import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
 import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue, undoPlay, redoPlay } from '../../actions/playActions';
@@ -93,21 +93,23 @@ const mapDispatchToProps = dispatch => ({
         const [col, row] = [(e.clientX - gridX) / cellSize, (e.clientY - gridY) / cellSize].map(snappedOffset);
         
         if (interactionsConfig.mode === 'LINES' && interactionsConfig.lineIdx !== undefined) {
-            dispatch(addLineWayPoint(interactionsConfig.lineIdx, [row, col]));
+            if (e.shiftKey && interactionsConfig.lineIdx !== undefined) dispatch(moveLineWayPoint(interactionsConfig.lineIdx, [row, col]));
+            else dispatch(addLineWayPoint(interactionsConfig.lineIdx, [row, col]));
         }
 
         if (interactionsConfig.mode === 'ARROWS' && interactionsConfig.arrowIdx !== undefined) {
-            dispatch(addArrowWayPoint(interactionsConfig.arrowIdx, [row, col]));
+            if (e.shiftKey && interactionsConfig.arrowIdx !== undefined) dispatch(moveArrowWayPoint(interactionsConfig.arrowIdx, [row, col]));
+            else dispatch(addArrowWayPoint(interactionsConfig.arrowIdx, [row, col]));
         }
 
         if (interactionsConfig.mode === 'UNDERLAYS') {
-            if (e.shiftKey) dispatch(addAndSelectUnderlay([row, col]));
-            else if (interactionsConfig.underlayIdx !== undefined) dispatch(setUnderlayOrigin(interactionsConfig.underlayIdx, [row, col]));
+            if (e.shiftKey && interactionsConfig.underlayIdx !== undefined) dispatch(setUnderlayCenter(interactionsConfig.underlayIdx, [row, col]));
+            else dispatch(addAndSelectUnderlay([row, col]));
         }
 
         if (interactionsConfig.mode === 'OVERLAYS') {
-            if (e.shiftKey) dispatch(addAndSelectOverlay([row, col]));
-            else if (interactionsConfig.overlayIdx !== undefined) dispatch(setOverlayCenter(interactionsConfig.overlayIdx, [row, col]));
+            if (e.shiftKey && interactionsConfig.overlayIdx !== undefined) dispatch(setOverlayCenter(interactionsConfig.overlayIdx, [row, col]));
+            else dispatch(addAndSelectOverlay([row, col]));
         }
     },
 

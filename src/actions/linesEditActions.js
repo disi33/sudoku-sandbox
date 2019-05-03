@@ -42,3 +42,9 @@ export const setLineWayPoint = (lineIdx, wayPointIdx, wayPoint) => ({
     wayPointIdx: wayPointIdx,
     wayPoint: wayPoint,
 });
+
+export const moveLineWayPoint = (lineIdx, wayPoint) => ({
+    type: 'MOVE_LINE_WAY_POINT',
+    lineIdx: lineIdx,
+    wayPoint: wayPoint,
+});

@@ -48,3 +48,9 @@ export const setArrowWayPoint = (arrowIdx, wayPointIdx, wayPoint) => ({
     wayPointIdx: wayPointIdx,
     wayPoint: wayPoint,
 });
+
+export const moveArrowWayPoint = (arrowIdx, wayPoint) => ({
+    type: 'MOVE_ARROW_WAY_POINT',
+    arrowIdx: arrowIdx,
+    wayPoint: wayPoint,
+});

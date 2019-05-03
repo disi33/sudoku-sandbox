@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 
-import { selectUnderlay, removeUnderlay, addUnderlay, setUnderlayOrigin, setUnderlayWidth, setUnderlayHeight, setUnderlayBorderColor, setUnderlayBackgroundColor, setUnderlayRounded } from '../../actions/underlaysEditActions';
+import { convertOriginToCenter } from '../../compatibility/underlay';
+import { selectUnderlay, removeUnderlay, addUnderlay, setUnderlayCenter, setUnderlayWidth, setUnderlayHeight, setUnderlayBorderColor, setUnderlayBackgroundColor, setUnderlayRounded } from '../../actions/underlaysEditActions';
 
 import UnderlaysEditForm from '../../components/EditForm/UnderlaysEditForm';
 
 const mapStateToProps = state => ({
-    underlays: state.puzzle.underlays,
+    underlays: state.puzzle.underlays.map(convertOriginToCenter),
     selectedUnderlayIdx: state.interactions.underlayIdx,
 });
 
@@ -13,7 +14,7 @@ const mapDispatchToProps = {
     onUnderlaySelected: selectUnderlay,
     onUnderlayRemoved: removeUnderlay, 
     onUnderlayAdded: addUnderlay, 
-    onOriginChanged: setUnderlayOrigin, 
+    onCenterChanged: setUnderlayCenter, 
     onWidthChanged: setUnderlayWidth, 
     onHeightChanged: setUnderlayHeight, 
     onBorderColorChanged: setUnderlayBorderColor, 

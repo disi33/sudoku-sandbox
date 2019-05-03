@@ -24,7 +24,8 @@ export default function LinesEditForm({lines, selectedLineIdx, onLineSelected, o
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Line</div>
                     <p>
-                        Click on positions in the puzzle area to add waypoints for the line to pass through. 
+                        Click on positions in the puzzle area to add waypoints for the line to pass through.
+                        Hold Shift when clicking to change the position of the last waypoint.
                         Use the form below for tweaking and more fine-grained control.
                     </p>
                     <div className="edit-form__field">

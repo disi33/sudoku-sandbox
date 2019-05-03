@@ -3,7 +3,7 @@ export default function underlaysEdit(state, action) {
         case 'SELECT_UNDERLAY': return selectUnderlay(state, action);
         case 'REMOVE_UNDERLAY': return removeUnderlay(state, action);
         case 'ADD_UNDERLAY': return addUnderlay(state, action);
-        case 'SET_UNDERLAY_ORIGIN': return setUnderlayOrigin(state, action);
+        case 'SET_UNDERLAY_CENTER': return setUnderlayCenter(state, action);
         case 'SET_UNDERLAY_WIDTH': return setUnderlayWidth(state, action);
         case 'SET_UNDERLAY_HEIGHT': return setUnderlayHeight(state, action);
         case 'SET_UNDERLAY_BORDER_COLOR': return setUnderlayBorderColor(state, action);
@@ -40,7 +40,7 @@ const addUnderlay = (state) => ({
         underlays: [
             ...state.puzzle.underlays,
             {
-                origin: [0, 0],
+                center: [0.5, 0.5],
                 width: state.edit.underlays.width,
                 height: state.edit.underlays.height,
                 borderColor: state.edit.underlays.borderColor,
@@ -51,7 +51,7 @@ const addUnderlay = (state) => ({
     }
 });
 
-const setUnderlayOrigin = (state, {idx, origin}) => ({
+const setUnderlayCenter = (state, {idx, center}) => ({
     ...state,
     puzzle: {
         ...state.puzzle,
@@ -59,7 +59,7 @@ const setUnderlayOrigin = (state, {idx, origin}) => ({
             ...state.puzzle.underlays.slice(0, idx),
             {
                 ...state.puzzle.underlays[idx],
-                origin: origin,
+                center: center,
             },
             ...state.puzzle.underlays.slice(idx + 1),
 
@@ -182,9 +182,9 @@ const setUnderlayRounded = (state, {idx, rounded}) => ({
     }
 });
 
-const addAndSelectUnderlay = (state, {origin}) => {
+const addAndSelectUnderlay = (state, {center}) => {
     const addedState = addUnderlay(state);
     const idx = addedState.puzzle.underlays.length - 1;
-    const withOrigin = setUnderlayOrigin(addedState, {idx, origin});
-    return selectUnderlay(withOrigin, {idx});
+    const withCenter = setUnderlayCenter(addedState, {idx, center});
+    return selectUnderlay(withCenter, {idx});
 };

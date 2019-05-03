@@ -21,7 +21,8 @@ export default function OverlaysEditForm({overlays, selectedOverlayIdx, onOverla
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Add/Remove Overlays</div>
                 <p>
-                    Hold "Shift" and click in the puzzle area to add a new overlay at that position.
+                    Click in the puzzle area to add a new overlay at that position.
+                    Hold Shift when clicking to instead move the currently-selected underlay.
                 </p>
                 <div className="edit-form__field">
                     <div className="edit-form__field-input">
