@@ -27,6 +27,10 @@ const removeCage = (state, {idx}) => ({
             ...state.puzzle.cages.slice(0, idx),
             ...state.puzzle.cages.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'CAGES' || state.interactions.cageIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        cageIdx: state.interactions.cageIdx === state.puzzle.cages.length - 1 ? undefined : state.interactions.cageIdx,
     }
 });
 

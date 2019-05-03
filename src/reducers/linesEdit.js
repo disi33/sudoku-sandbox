@@ -29,6 +29,10 @@ const removeLine = (state, {idx}) => ({
             ...state.puzzle.lines.slice(0, idx),
             ...state.puzzle.lines.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'LINES' || state.interactions.lineIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        lineIdx: state.interactions.lineIdx === state.puzzle.lines.length - 1 ? undefined : state.interactions.lineIdx,
     }
 });
 

@@ -32,6 +32,10 @@ const removeOverlay = (state, {idx}) => ({
             ...state.puzzle.overlays.slice(0, idx),
             ...state.puzzle.overlays.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'OVERLAYS' || state.interactions.overlayIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        overlayIdx: state.interactions.overlayIdx === state.puzzle.overlays.length - 1 ? undefined : state.interactions.overlayIdx,
     }
 });
 

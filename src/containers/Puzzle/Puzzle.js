@@ -71,8 +71,11 @@ const highlightsSelector = createSelector(
 
 // Mouse move behaviour
 
-const handleMouseMove = ({mode}, gridRef, cellSize) => (snappedCoords, setSnappedCoords) => e => {
-    if (mode === 'LINES' || mode === 'ARROWS' || mode === 'UNDERLAYS' || mode === 'OVERLAYS') {
+const handleMouseMove = (interactionsConfig, gridRef, cellSize) => (snappedCoords, setSnappedCoords) => e => {
+
+    const {mode} = interactionsConfig;
+
+    if ((mode === 'LINES' && interactionsConfig.lineIdx !== undefined) || (mode === 'ARROWS' && interactionsConfig.arrowIdx !== undefined) || mode === 'UNDERLAYS' || mode === 'OVERLAYS') {
         const gridBoundingRect = gridRef.current.getBoundingClientRect();
         const [gridX, gridY] = [gridBoundingRect.left, gridBoundingRect.top];
         const [col, row] = [(e.clientX - gridX) / cellSize, (e.clientY - gridY) / cellSize].map(snappedOffset);

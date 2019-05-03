@@ -30,6 +30,10 @@ const removeArrow = (state, {idx}) => ({
             ...state.puzzle.arrows.slice(0, idx),
             ...state.puzzle.arrows.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'ARROWS' || state.interactions.arrowIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        arrowIdx: state.interactions.arrowIdx === state.puzzle.arrows.length - 1 ? undefined : state.interactions.arrowIdx,
     }
 });
 

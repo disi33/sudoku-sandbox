@@ -30,6 +30,10 @@ const removeUnderlay = (state, {idx}) => ({
             ...state.puzzle.underlays.slice(0, idx),
             ...state.puzzle.underlays.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'UNDERLAYS' || state.interactions.underlayIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        underlayIdx: state.interactions.underlayIdx === state.puzzle.underlays.length - 1 ? undefined : state.interactions.underlayIdx,
     }
 });
 

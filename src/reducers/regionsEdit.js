@@ -26,6 +26,10 @@ const removeRegion = (state, {idx}) => ({
             ...state.puzzle.regions.slice(0, idx),
             ...state.puzzle.regions.slice(idx + 1),
         ]
+    },
+    interactions: (state.interactions.mode !== 'REGIONS' || state.interactions.regionIdx === undefined) ? state.interactions : {
+        ...state.interactions,
+        regionIdx: state.interactions.regionIdx === state.puzzle.regions.length - 1 ? undefined : state.interactions.regionIdx,
     }
 });
 
