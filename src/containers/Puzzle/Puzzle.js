@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 
@@ -15,11 +15,15 @@ import './Puzzle.css';
 
 const Puzzle = props => {
 
+    const [snappedCoords, setSnappedCoords] = useState(undefined);
     const gridRef = useRef(null);
 
     return (
-        <div className="puzzle" onClick={props.onAreaClicked(props.interactionsConfig, gridRef, props.cellSize)}>
-            <Grid {...props} forwardedRef={gridRef}></Grid>
+        <div className="puzzle" onMouseMove={handleMouseMove(props.interactionsConfig, gridRef, props.cellSize)(snappedCoords, setSnappedCoords)} onMouseLeave={() => setSnappedCoords(undefined)} onClick={props.onAreaClicked(props.interactionsConfig, gridRef, props.cellSize)}>
+            <div className="puzzle__grid-area">
+                {snappedCoords && <div className="puzzle__indicator" style={indicatorPosition(props.cellSize, snappedCoords)}></div>}
+                <Grid {...props} forwardedRef={gridRef}></Grid>
+            </div>
         </div>
     );
 };
@@ -64,6 +68,27 @@ const highlightsSelector = createSelector(
         else return [...Array(height)].map(_ => [...Array(width)].map(_ => undefined));
     }
 );
+
+// Mouse move behaviour
+
+const handleMouseMove = ({mode}, gridRef, cellSize) => (snappedCoords, setSnappedCoords) => e => {
+    if (mode === 'LINES' || mode === 'ARROWS' || mode === 'UNDERLAYS' || mode === 'OVERLAYS') {
+        const gridBoundingRect = gridRef.current.getBoundingClientRect();
+        const [gridX, gridY] = [gridBoundingRect.left, gridBoundingRect.top];
+        const [col, row] = [(e.clientX - gridX) / cellSize, (e.clientY - gridY) / cellSize].map(snappedOffset);
+
+        if (snappedCoords === undefined || snappedCoords[0] !== row || snappedCoords[1] !== col) {
+            setSnappedCoords([row, col]);
+        }
+    }
+};
+
+const indicatorPosition = (cellSize, [row, col]) => ({
+    width: 12,
+    height: 12,
+    top: row * cellSize - 6,
+    left: col * cellSize - 6,
+});
 
 // React-redux connectors
 
@@ -155,8 +180,12 @@ const snappedOffset = offset => {
     const fractional = offset - Math.floor(offset);
     if (fractional <= 0.15) {
         return Math.floor(offset);
+    } else if (fractional <= 0.3) {
+        return Math.floor(offset) + 0.2;
     } else if (fractional >= 0.85) {
         return Math.ceil(offset);
+    } else if (fractional >= 0.7) {
+        return Math.ceil(offset) - 0.2;
     } else {
         return Math.floor(offset) + 0.5;
     }

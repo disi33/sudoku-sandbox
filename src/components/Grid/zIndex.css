@@ -26,3 +26,6 @@
     z-index: 6;
 }
 
+.puzzle__indicator {
+    z-index: 7;
+}

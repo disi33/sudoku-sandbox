@@ -32,10 +32,6 @@ export default function UnderlaysEditForm({underlays, selectedUnderlayIdx, onUnd
             {underlay !== undefined && 
                 <div className="edit-form__section">
                     <div className="edit-form__section-title">Edit Selected Underlay</div>
-                    <p>
-                        Click on the puzzle area to reposition this underlay with its top-left corner at the clicked point.
-                        Use the form below for tweaking and more fine-grained control.
-                    </p>
                     <div className="edit-form__field">
                         <div className="edit-form__field-name">Centre</div>
                         <div className="edit-form__field-input edit-form__field-input--spaced">

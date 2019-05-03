@@ -8,3 +8,15 @@
 
     cursor: pointer;
 }
+
+.puzzle__grid-area {
+    position: relative;
+}
+
+.puzzle__indicator {
+    position: absolute;
+
+    box-sizing: border-box;
+    border: 3px solid gold;
+    border-radius: 8px;
+}
