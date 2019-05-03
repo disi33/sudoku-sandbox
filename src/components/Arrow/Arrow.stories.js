@@ -33,6 +33,7 @@ const arrowDefaults = {
     color: '#CFCFCF',
     thickness: 5,
     headLength: 0.3,
+    selected: false,
 };
 
 const horizontalArrow = {
@@ -82,4 +83,5 @@ storiesOf('Grid/Arrow', module)
     .add('vertical', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [verticalArrow]}} cellSize={cellSize}></Grid>)
     .add('diagonal', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [diagonalArrow]}} cellSize={cellSize}></Grid>)
     .add('zigzag', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [zigZagArrow]}} cellSize={cellSize}></Grid>)
-    .add('rossini', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...rossiniArrows]}} cellSize={cellSize}></Grid>);
+    .add('rossini', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...rossiniArrows]}} cellSize={cellSize}></Grid>)
+    .add('selected', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...horizontalArrow, selected: true}]}} cellSize={cellSize}></Grid>);

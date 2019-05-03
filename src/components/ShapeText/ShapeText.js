@@ -3,7 +3,7 @@ import './ShapeText.css';
 
 export default function ShapeText(props) {
     return (
-        <div className={`shapetext shapetext--${overUnder(props)}`} style={shapetextStyling(props)}>{props.text}</div>
+        <div className={`shapetext shapetext--${overUnder(props)} ` + (props.selected ? 'shapetext--selected' : '')} style={shapetextStyling(props)}>{props.text}</div>
     );
 }
 

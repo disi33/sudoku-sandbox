@@ -103,10 +103,10 @@ const mapStateToProps = state => ({
         cages: state.puzzle.cages,
         highlights: highlightsSelector(state),
         decorations: [
-            ...state.puzzle.lines.map(line => ({...line, type: 'LINE'})),
-            ...state.puzzle.arrows.map(arrow => ({...arrow, type: 'ARROW'})),
-            ...state.puzzle.underlays.map(underlay => ({...underlay, type: 'UNDERLAY'})),
-            ...state.puzzle.overlays.map(overlay => ({...overlay, type: 'OVERLAY'})),
+            ...state.puzzle.lines.map((line, idx) => ({...line, type: 'LINE', selected: state.interactions.mode === 'LINES' && state.interactions.lineIdx === idx})),
+            ...state.puzzle.arrows.map((arrow, idx) => ({...arrow, type: 'ARROW', selected: state.interactions.mode === 'ARROWS' && state.interactions.arrowIdx === idx})),
+            ...state.puzzle.underlays.map((underlay, idx) => ({...underlay, type: 'UNDERLAY', selected: state.interactions.mode === 'UNDERLAYS' && state.interactions.underlayIdx === idx})),
+            ...state.puzzle.overlays.map((overlay, idx) => ({...overlay, type: 'OVERLAY', selected: state.interactions.mode === 'OVERLAYS' && state.interactions.overlayIdx === idx})),
         ]
     },
     interactionsConfig: state.interactions,

@@ -39,6 +39,7 @@ const overlayDefaults = {
     backgroundColor: '#CFCFCF',
     text: undefined,
     rounded: false,
+    selected: false,
 };
 
 const kropki = [
@@ -145,5 +146,6 @@ storiesOf('Grid/Overlay', module)
     .add('consecutive overlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [consecutive]}} cellSize={cellSize}></Grid>)
     .add('mathrax overlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [mathrax]}} cellSize={cellSize}></Grid>)
     .add('outside text', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [...outsideText]}} cellSize={cellSize}></Grid>)
-    .add('arrow with circle', () => <Grid {...defaultProps} grid={{...withValue(4, 0, 5)(emptyGrid), decorations: [...arrowWithCircle]}} cellSize={cellSize}></Grid>);
+    .add('arrow with circle', () => <Grid {...defaultProps} grid={{...withValue(4, 0, 5)(emptyGrid), decorations: [...arrowWithCircle]}} cellSize={cellSize}></Grid>)
+    .add('selected', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...consecutive, selected: true}]}} cellSize={cellSize}></Grid>);
 

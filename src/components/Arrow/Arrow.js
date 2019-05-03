@@ -3,12 +3,12 @@ import './Arrow.css';
 
 import Line from '../Line/Line';
 
-export default function Arrow({ cellSize, wayPoints, color, thickness, headLength }) {
+export default function Arrow({ cellSize, wayPoints, color, thickness, headLength, selected }) {
     return (
         <div>
-            <Line cellSize={cellSize} wayPoints={wayPoints} color={color} thickness={thickness}></Line>
+            <Line selected={selected} cellSize={cellSize} wayPoints={wayPoints} color={color} thickness={thickness}></Line>
             {wayPoints.length >= 2 && 
-                <div className="arrow-head" style={headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength })}></div>
+                <div className={'arrow-head ' + (selected ? 'arrow-head--selected' : '')} style={headStyleAttributes({ cellSize, start: wayPoints[wayPoints.length - 2], end: wayPoints[wayPoints.length - 1], color, thickness, headLength })}></div>
             }
         </div>
     );

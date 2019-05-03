@@ -32,6 +32,7 @@ const lineDefaults = {
     type: 'LINE',
     color: '#CFCFCF',
     thickness: 5,
+    selected: false,
 };
 
 const horizontalLine = {
@@ -65,4 +66,5 @@ storiesOf('Grid/Line', module)
     .add('horizontal', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [horizontalLine]}} cellSize={cellSize}></Grid>)
     .add('vertical', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [verticalLine]}} cellSize={cellSize}></Grid>)
     .add('diagonal', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [diagonalLine]}} cellSize={cellSize}></Grid>)
-    .add('zigzag', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [zigZagLine]}} cellSize={cellSize}></Grid>);
+    .add('zigzag', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [zigZagLine]}} cellSize={cellSize}></Grid>)
+    .add('selected', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...horizontalLine, selected: true}]}} cellSize={cellSize}></Grid>);

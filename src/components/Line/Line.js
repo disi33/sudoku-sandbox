@@ -1,7 +1,7 @@
 import React from 'react';
 import './Line.css';
 
-export default function Line({ cellSize, wayPoints, color, thickness }) {
+export default function Line({ cellSize, wayPoints, color, thickness, selected }) {
     const scaledUpWayPoints = wayPoints.map(([x, y]) => [x * cellSize, y * cellSize]);
     return (
         <div>
@@ -9,7 +9,7 @@ export default function Line({ cellSize, wayPoints, color, thickness }) {
                 const isStart = idx === 0;
                 const isEnd = idx === wayPoints.length - 2;
                 const [start, end] = calculateCoordinates(scaledUpWayPoints[idx], wayPoint, thickness, isStart || isEnd);
-                return <div className="line" key={idx} style={styleAttributes({ start, end, color, thickness})}></div>;
+                return <div className={'line ' + (selected ? 'line--selected' : '')} key={idx} style={styleAttributes({ start, end, color, thickness})}></div>;
             })}
         </div>
     );

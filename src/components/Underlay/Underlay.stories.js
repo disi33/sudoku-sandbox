@@ -33,6 +33,7 @@ const underlayDefaults = {
     borderColor: '#CFCFCF',
     backgroundColor: '#CFCFCF',
     rounded: false,
+    selected: false,
 };
 
 const singleCell = {
@@ -86,5 +87,6 @@ storiesOf('Grid/Underlay', module)
     .add('unfilled underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined}]}} cellSize={cellSize}></Grid>)
     .add('single cell rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...singleCell, rounded: true}]}} cellSize={cellSize}></Grid>)
     .add('inset duo rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, rounded: true}]}} cellSize={cellSize}></Grid>)
-    .add('unfilled rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined, rounded: true}]}} cellSize={cellSize}></Grid>);
+    .add('unfilled rounded underlay', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...insetDuo, backgroundColor: undefined, rounded: true}]}} cellSize={cellSize}></Grid>)
+    .add('selected', () => <Grid {...defaultProps} grid={{...emptyGrid, decorations: [{...singleCell, selected: true}]}} cellSize={cellSize}></Grid>);
 
