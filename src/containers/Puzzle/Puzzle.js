@@ -19,7 +19,7 @@ const Puzzle = props => {
     const gridRef = useRef(null);
 
     return (
-        <div className="puzzle" onMouseMove={handleMouseMove(props.interactionsConfig, gridRef, props.cellSize)(snappedCoords, setSnappedCoords)} onMouseLeave={() => setSnappedCoords(undefined)} onClick={props.onAreaClicked(props.interactionsConfig, gridRef, props.cellSize)}>
+        <div className="puzzle" tabIndex="-1" onMouseMove={handleMouseMove(props.interactionsConfig, gridRef, props.cellSize)(snappedCoords, setSnappedCoords)} onMouseLeave={() => setSnappedCoords(undefined)} onClick={props.onAreaClicked(props.interactionsConfig, gridRef, props.cellSize)}>
             <div className="puzzle__grid-area">
                 {snappedCoords && <div className="puzzle__indicator" style={indicatorPosition(props.cellSize, snappedCoords)}></div>}
                 <Grid {...props} forwardedRef={gridRef}></Grid>
