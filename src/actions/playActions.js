@@ -43,3 +43,7 @@ export const undoPlay = () => ({
 export const redoPlay = () => ({
     type: 'REDO_PLAY',
 });
+
+export const markRepeats = () => ({
+    type: 'MARK_REPEATS',
+});

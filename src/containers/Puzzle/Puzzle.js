@@ -57,7 +57,9 @@ const cageHighlightsSelector = createSelector(
 );
 
 const playHighlightsSelector = createSelector(
-    playCellsSelector, playCells => playCells.map(row => row.map(cell => cell.highlight))
+    playCellsSelector, playCells => playCells.map(row => row.map(cell => 
+        cell.repeated ? '#B33A3A' : cell.highlight
+    ))
 );
 
 const highlightsSelector = createSelector(

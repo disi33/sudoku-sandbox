@@ -29,6 +29,10 @@
     color: white;
 }
 
+.play-form__repeats-button {
+    width: 100%;
+}
+
 .play-form__start-over {
     width: 100%;
 }

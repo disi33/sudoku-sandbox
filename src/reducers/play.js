@@ -8,6 +8,7 @@ export default function play(state, action) {
         case 'SET_USER_VALUE': return pushHistory(setUserValue)(state, action);
         case 'UNDO_PLAY': return undoPlay(state, action);
         case 'REDO_PLAY': return redoPlay(state, action);
+        case 'MARK_REPEATS': return markRepeats(state, action);
         default: return state;
     }
 }
@@ -137,6 +138,50 @@ const redoPlay = state => ({
         }
     }
 });
+
+const markRepeats = state => {
+    const [rows, cols] = [state.puzzle.cells.length, state.puzzle.cells[0].length];
+    const cellValues = [...Array(rows).keys()].map(row => [...Array(cols).keys()].map(col => state.puzzle.cells[row][col].value || state.play.cells[row][col].value));
+    let cellsToMark = [...Array(rows)].map(_ => [...Array(cols)].map(_ => false));
+    
+    // Rows
+    for (let row = 0; row < rows; row++) {
+        repeatedCoords([...Array(cols).keys()].map(col => [row, col]), cellValues).forEach(([row, col]) => cellsToMark[row][col] = true);
+    }
+
+    // Columns
+    for (let col = 0; col < cols; col++) {
+        repeatedCoords([...Array(rows).keys()].map(row => [row, col]), cellValues).forEach(([row, col]) => cellsToMark[row][col] = true);
+    }
+
+    // Regions
+    for (let regionIdx = 0; regionIdx < state.puzzle.regions.length; regionIdx++) {
+        repeatedCoords(state.puzzle.regions[regionIdx], cellValues).forEach(([row, col]) => cellsToMark[row][col] = true);
+    }
+    
+    return {
+        ...state,
+        play: {
+            ...state.play,
+            cells: state.play.cells.map((_, row) =>
+                state.play.cells[row].map((_, col) => ({
+                    ...state.play.cells[row][col],
+                    repeated: cellsToMark[row][col],
+                }))
+            )
+        }
+    };
+};
+
+const repeatedCoords = (coords, values) => {
+    let seenValues = {};
+    coords.forEach(([row, col]) => {
+        const value = values[row][col];
+        if (!!value && !!seenValues[value]) seenValues[value].push([row, col]);
+        else if (!!value) seenValues[value] = [[row, col]];
+    });
+    return Object.values(seenValues).filter(x => x.length > 1).reduce((a, b) => a.concat(b), []);
+};
 
 const deleteMarks = cell => {
     if (cell.value !== undefined) {
