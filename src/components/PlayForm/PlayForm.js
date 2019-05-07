@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useStopwatch } from 'react-timer-hook';
+import useTimer from '../../hooks/useTimer';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
 
@@ -9,7 +9,7 @@ import '../EditForm/EditForm.css';
 export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, canRedo, onRedo, onColorSelected}) {
 
     const [startOverActive, setStartOverActive] = useState(false);
-    const { hours, minutes, seconds, start, pause, reset } = useStopwatch();
+    const { elapsedTime, isTimerStarted, toggleTimer, resetTimer } = useTimer();
 
     return (
         <div className="edit-form play-form">
@@ -48,12 +48,12 @@ export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, c
             </div>
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Timer</div>
-                <div className="play-form__timer">{timerString(hours, minutes, seconds)}</div>
+                <div className="play-form__timer">{timerString(elapsedTime)}</div>
                 <div className="edit-form__field">
-                    <div className="edit-form__field-input play-form__timer-buttons">
-                        <button className="play-form__button" onClick={() => start()}>Start</button>
-                        <button className="play-form__button" onClick={() => pause()}>Stop</button>
-                        <button className="play-form__button" onClick={() => reset()}>Clear</button>
+                    <div className="play-form__timer-buttons">
+                        {!isTimerStarted && <button className="play-form__button play-form__start-button" onClick={toggleTimer}>Start</button>}
+                        {isTimerStarted && <button className="play-form__button play-form__stop-button" onClick={toggleTimer}>Stop</button>}
+                        <button className="play-form__button" onClick={resetTimer}>Reset</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@ export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, c
 }
 
 
-const timerString = (hours, minutes, seconds) => {
+const timerString = ({hours, minutes, seconds}) => {
     const paddedSeconds = seconds.toString().length < 2 ? '0' + seconds.toString() : seconds.toString();
     const paddedMinutes = minutes.toString().length < 2 ? '0' + minutes.toString() : minutes.toString();
     const paddedHours = hours === 0 ? '' : hours.toString().padStart(2, '0');

@@ -29,6 +29,16 @@
     color: white;
 }
 
+.play-form__start-button:hover {
+    background-color: #008000;
+    color: white;
+}
+
+.play-form__stop-button:hover {
+    background-color: #CC0000;
+    color: white;
+}
+
 .play-form__repeats-button {
     width: 100%;
 }
@@ -60,13 +70,17 @@
 }
 
 .play-form__timer-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
     margin-top: 16px;
-    justify-content: space-between;
     padding: 0 36px;
 }
 
 .play-form__timer-buttons .play-form__button {
-    width: 80px;
+    width: 100px;
+    margin: 0 16px;
 }
 
 @font-face {
