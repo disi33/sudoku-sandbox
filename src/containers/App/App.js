@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { getPuzzleDownloadUrl } from '../../firebase/storePuzzle';
 import { loadPuzzle } from '../../actions/saveLoadEditActions';
+import { setInteractionsMode } from '../../actions/puzzleActions';
+import { startPlayOver } from '../../actions/playActions';
 
 import EditPanel from '../EditPanel/EditPanel';
 import EditPlay from '../EditPlay/EditPlay';
@@ -28,26 +30,28 @@ const App = ({isPlay, onPuzzleLoaded}) => {
                     onPuzzleLoaded(content);
                     setLoadingPuzzle(false);
                 })
-                .catch(setLoadingPuzzle(false))
+                .catch(() => setLoadingPuzzle(false))
             )
             .catch(() => setLoadingPuzzle(false))
     }
 
-    return (
+    if (loadingPuzzle) return (
+        <div className="loading">
+            <span className="loading__text">Preparing your puzzle...</span>
+            <div className="loading__spinner"></div>
+        </div>
+    );
+
+    else return (
         <div className="app">
-            {loadingPuzzle && <div className="app__loading-spinner"></div>}
-            {!loadingPuzzle &&
-                <div className="app__puzzle">
-                    <EditPlay></EditPlay>
-                    <Puzzle></Puzzle>
-                </div>
-            }
-            {!loadingPuzzle && 
-                <div className="app__edit-panel">
-                    {!isPlay && <EditPanel></EditPanel>}
-                    {isPlay && <PlayPanel></PlayPanel>}
-                </div>
-            }
+            <div className="app__puzzle">
+                <EditPlay></EditPlay>
+                <Puzzle></Puzzle>
+            </div>
+            <div className="app__edit-panel">
+                {!isPlay && <EditPanel></EditPanel>}
+                {isPlay && <PlayPanel></PlayPanel>}
+            </div>
         </div>
     );
 }
@@ -61,8 +65,12 @@ const mapStateToProps = state => ({
     isPlay: state.interactions.mode === 'PLAY'
 });
 
-const mapDispatchToProps = {
-    onPuzzleLoaded: loadPuzzle
-};
+const mapDispatchToProps = dispatch => ({
+    onPuzzleLoaded: content => {
+        dispatch(loadPuzzle(content));
+        dispatch(startPlayOver());
+        dispatch(setInteractionsMode('PLAY'));
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
