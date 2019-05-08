@@ -1,3 +1,27 @@
+.too-small {
+    background-color: #1EA7FD;
+    color: white;
+
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.too-small__heading {
+    font-size: 28px;
+    margin-top: 16px;
+}
+
+.too-small__body {
+    font-size: 24px;
+    margin-top: 48px;
+}
+
 .app {
     height: 100vh;
 
