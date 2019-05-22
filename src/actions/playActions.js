@@ -47,3 +47,12 @@ export const redoPlay = () => ({
 export const markRepeats = () => ({
     type: 'MARK_REPEATS',
 });
+
+export const setEntryMode = mode => ({
+    type: 'SET_ENTRY_MODE',
+    mode: mode,
+});
+
+export const cycleEntryMode = () => ({
+    type: 'CYCLE_ENTRY_MODE',
+});

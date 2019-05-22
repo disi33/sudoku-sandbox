@@ -42,6 +42,10 @@ export default function SaveLoadEditForm({ getContent, onContentLoaded }) {
                         </div>
                     }
                     {uploading && <div className="edit-form__loading-spinner"></div>}
+                    <p>
+                        Before sharing this puzzle, check that it only uses symbols 1-9, and does 
+                        not contain any decorations more than 1.5 cell-widths outside the grid.
+                    </p>
                     <button className="edit-form__download-button" onClick={handleShare(getContent, setUploading, setUploadedKey)}>Share Puzzle</button>
                 </div>
             </div>
@@ -49,7 +53,7 @@ export default function SaveLoadEditForm({ getContent, onContentLoaded }) {
     );
 }
 
-const shareUrl = key => `${window.location.origin}/${key}`;
+const shareUrl = key => `${process.env.REACT_APP_SHARE_BASE_URL}/${key}`;
 
 const handleUpload = onContentLoaded => fileInputRef => {
     if (fileInputRef && fileInputRef.current && fileInputRef.current.files && fileInputRef.current.files[0]) {

@@ -7,7 +7,7 @@ import { addArrowWayPoint, moveArrowWayPoint } from '../../actions/arrowsEditAct
 import { setUnderlayCenter, addAndSelectUnderlay } from '../../actions/underlaysEditActions';
 import { setOverlayCenter, addAndSelectOverlay } from '../../actions/overlaysEditActions';
 import { toggleCellInRegion, toggleCellInCage, selectCell, deleteGivenMarks, toggleGivenPencilMark, setGivenValue } from '../../actions/puzzleActions';
-import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue, undoPlay, redoPlay } from '../../actions/playActions';
+import { deleteUserMarks, toggleUserCandidate, toggleUserPencilMark, setUserValue, undoPlay, redoPlay, cycleEntryMode } from '../../actions/playActions';
 
 import Grid from '../../components/Grid/Grid';
 
@@ -149,7 +149,7 @@ const mapDispatchToProps = dispatch => ({
         else if (interactionsConfig.mode === 'GIVENS' || interactionsConfig.mode === 'PLAY') dispatch(selectCell(row, col));
     },
 
-    onKeyDown: ({mode, cellRow, cellCol}, [width, height]) => e => {
+    onKeyDown: ({mode, entry, cellRow, cellCol}, [width, height]) => e => {
         if (cellRow === undefined || cellCol === undefined) return;
 
         e.preventDefault();
@@ -170,11 +170,16 @@ const mapDispatchToProps = dispatch => ({
 
         if (mode === 'PLAY') {
             if (e.key === 'Backspace' || e.key === 'Delete') dispatch(deleteUserMarks(cellRow, cellCol));
+            else if (e.key === ' ') dispatch(cycleEntryMode());
             else if ((e.ctrlKey || e.metaKey) && e.key.toUpperCase() === 'Z') dispatch(undoPlay());
             else if ((e.ctrlKey || e.metaKey) && e.key.toUpperCase() === 'Y') dispatch(redoPlay());
             else if ((e.ctrlKey || e.metaKey) && isAcceptableCellInput(e)) dispatch(toggleUserCandidate(cellRow, cellCol, getCellInput(e)));
             else if (e.shiftKey && isAcceptableCellInput(e)) dispatch(toggleUserPencilMark(cellRow, cellCol, getCellInput(e)));
-            else if (isAcceptableCellInput(e)) dispatch(setUserValue(cellRow, cellCol, getCellInput(e)));
+            else if (isAcceptableCellInput(e)) {
+                if (entry === 'CORNERS') dispatch(toggleUserPencilMark(cellRow, cellCol, getCellInput(e)));
+                else if (entry === 'CENTERS') dispatch(toggleUserCandidate(cellRow, cellCol, getCellInput(e)));
+                else dispatch(setUserValue(cellRow, cellCol, getCellInput(e)));
+            }
         }
     }
 });

@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import useTimer from '../../hooks/useTimer';
 
 import ColorPicker from '../ColorPicker/ColorPicker';
+import Tabs from '../Tabs/Tabs';
 
 import './PlayForm.css';
 import '../EditForm/EditForm.css';
 
-export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, canRedo, onRedo, onColorSelected}) {
+export default function PlayForm({entryMode, onSetEntryMode, onStartOver, onMarkRepeats, canUndo, onUndo, canRedo, onRedo, onColorSelected}) {
 
     const [startOverActive, setStartOverActive] = useState(false);
     const { elapsedTime, isTimerStarted, toggleTimer, resetTimer } = useTimer();
+
+    const entryModes = [
+        { key: 'NORMAL', name: 'Normal' },
+        { key: 'CORNERS', name: 'Corners' },
+        { key: 'CENTERS', name: 'Centres' },
+    ];
 
     return (
         <div className="edit-form play-form">
@@ -26,6 +33,12 @@ export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, c
             </div>
             <div className="edit-form__section">
                 <div className="edit-form__section-title">Additional controls</div>
+                <div className="edit-form__field play-form__entry-mode">
+                    <span className="edit-form__field-name">Entry mode</span>
+                    <div className="edit-form__field-input">
+                        <Tabs items={entryModes} selectedKey={entryMode} onItemSelected={onSetEntryMode}></Tabs>
+                    </div>
+                </div>
                 <div className="edit-form__field">
                     <span className="edit-form__field-name">Highlight Cell</span>
                     <div className="edit-form__field-input">
@@ -60,7 +73,6 @@ export default function PlayForm({onStartOver, onMarkRepeats, canUndo, onUndo, c
         </div>
     );
 }
-
 
 const timerString = ({hours, minutes, seconds}) => {
     const paddedSeconds = seconds.toString().length < 2 ? '0' + seconds.toString() : seconds.toString();

@@ -29,6 +29,10 @@
     color: white;
 }
 
+.play-form__entry-mode {
+    margin-bottom: 24px;
+}
+
 .play-form__start-button:hover {
     background-color: #008000;
     color: white;

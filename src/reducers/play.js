@@ -9,6 +9,8 @@ export default function play(state, action) {
         case 'UNDO_PLAY': return undoPlay(state, action);
         case 'REDO_PLAY': return redoPlay(state, action);
         case 'MARK_REPEATS': return markRepeats(state, action);
+        case 'SET_ENTRY_MODE': return setEntryMode(state, action);
+        case 'CYCLE_ENTRY_MODE': return cycleEntryMode(state, action);
         default: return state;
     }
 }
@@ -173,6 +175,31 @@ const markRepeats = state => {
     };
 };
 
+const setEntryMode = (state, {mode}) => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        entry: mode,
+    }
+});
+
+const cycleEntryMode = state => ({
+    ...state,
+    interactions: {
+        ...state.interactions,
+        entry: nextEntryMode(state.interactions.entry),
+    }
+});
+
+const nextEntryMode = mode => {
+    switch (mode) {
+        case 'NORMAL': return 'CORNERS';
+        case 'CORNERS': return 'CENTERS';
+        case 'CENTERS': return 'NORMAL';
+        default: return 'NORMAL';
+    }
+};
+
 const repeatedCoords = (coords, values) => {
     let seenValues = {};
     coords.forEach(([row, col]) => {
@@ -205,7 +232,7 @@ const deleteMarks = cell => {
 
 const toggleInList = (list, value) => {
     const index = list.indexOf(value);
-    if (index === -1) return [...list, value];
+    if (index === -1) return [...list, value].sort();
     else return [...list.slice(0, index), ...list.slice(index + 1)];
 };
 

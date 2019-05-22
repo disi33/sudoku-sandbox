@@ -19,6 +19,7 @@ const setInteractionsMode = (state, {mode}) => ({
     ...state,
     interactions: {
         mode: mode,
+        entry: 'NORMAL',
     }
 });
 
